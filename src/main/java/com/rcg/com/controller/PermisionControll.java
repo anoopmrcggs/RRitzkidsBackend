@@ -23,6 +23,7 @@ public class PermisionControll
 	@Autowired
 	private Permission_ServiceImpl ps;
 	
+	//Save Permission
 	@RequestMapping(method=RequestMethod.POST,value="/permission")
 	public ResponseEntity<?> save(@RequestBody PermissionDto p) throws RitzkidsException
 	{		
@@ -30,6 +31,7 @@ public class PermisionControll
 		return ResponseEntity.ok(new ResponseStatus<Permission>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 	}
 	
+	//get All Permission
 	@RequestMapping("/permission")
 	public ResponseEntity<?> getAll() throws RitzkidsException
 	{

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ public class PassengerListController
 	private PassengerList_Service ps;
 	
 	
+	   // Saving All Passengers  
 	  @RequestMapping(method = RequestMethod.POST,value = "/passengerlist") 
 	  public  ResponseEntity<?> savePassenger(@RequestBody PassengerListWrapper pl) throws RitzkidsException 
 	  {
@@ -33,10 +35,18 @@ public class PassengerListController
 		  return ResponseEntity.ok(new ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS)); 
 	  }
 	  
+	  //getting All Guardians
 	  @RequestMapping("/guardianlist") 
 	  public  ResponseEntity<?> getAllGuardian() throws RitzkidsException 
 	  {
 		  return ResponseEntity.ok(new ResponseStatus<List<Guardian>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getAllGuardian())); 
+	  }
+	  
+	  //getting Single Guardian
+	  @RequestMapping("/guardianlist/{gid}") 
+	  public  ResponseEntity<?> getGuardian(@PathVariable int gid) throws RitzkidsException 
+	  {
+		  return ResponseEntity.ok(new ResponseStatus<Guardian>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getGuardian(gid))); 
 	  }
 	 
 	/*

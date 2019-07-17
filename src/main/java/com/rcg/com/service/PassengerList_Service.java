@@ -19,6 +19,8 @@ public interface PassengerList_Service
 	public String savePassenger(PassengerListWrapper p)throws RitzkidsException;
 	
 	public List<Guardian> getAllGuardian()throws RitzkidsException;
+	
+	public Guardian getGuardian(int gid)throws RitzkidsException;
 
 
 }

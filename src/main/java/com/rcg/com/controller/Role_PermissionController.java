@@ -19,6 +19,7 @@ public class Role_PermissionController
 	@Autowired
 	private RoleMapping_ServiceImpl rms;
 	
+	//Role Permission Assigning 
 	@RequestMapping(method = RequestMethod.PUT,value="/rolepermission/rid/{rid}/pid/{pid}")
 	public ResponseEntity<?> saveRelationShip(@PathVariable int rid,@PathVariable int pid) throws RitzkidsException
 	{

@@ -25,12 +25,15 @@ public class EmployeeController
 	@Autowired
 	private Employee_ServiceImpl es;
 	
+	//Save Employee
 	@RequestMapping(method = RequestMethod.POST,value = "/employee")
 	public ResponseEntity<?> saveEmployee(@RequestBody EmployeeDto edto) throws RitzkidsException
 	{
 		es.SaveEmployee(edto);
 		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
 	}
+	
+	//get All Employee
 	@RequestMapping("/employee")
 	public ResponseEntity<?> getAllEmployee() throws RitzkidsException
 	{
@@ -44,17 +47,7 @@ public class EmployeeController
 		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE, RitzConstants.OK, RitzConstants.SUCCESS, es.getEmployee(eid)));
 	}
 	
-	/*
-	 * public ResponseEntity<?> updateEmployee() throws RitzkidsException { return
-	 * ResponseEntity.ok(new
-	 * ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,
-	 * RitzConstants.SUCCESS)); }
-	 * 
-	 * public ResponseEntity<?> deleteEmployee() throws RitzkidsException { return
-	 * ResponseEntity.ok(new
-	 * ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,
-	 * RitzConstants.SUCCESS)); }
-	 */
+	//Employee Role Assigning
 	@RequestMapping(method = RequestMethod.PUT,value = "/employee/{eid}/role/{rid}")
 	public ResponseEntity<?> assignrole(@PathVariable int eid,@PathVariable int rid) throws RitzkidsException
 	{

@@ -67,12 +67,14 @@ public class Employee_ServiceImpl implements Employee_Service
 	
 	}
 
+	@Deprecated
 	@Override
 	public int updateEmployee(int eid, EmployeeDto employee) throws RitzkidsException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	@Deprecated
 	@Override
 	public String deleteEmployee(int eid) throws RitzkidsException {
 		// TODO Auto-generated method stub

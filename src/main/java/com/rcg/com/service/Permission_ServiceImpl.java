@@ -46,6 +46,7 @@ public class Permission_ServiceImpl implements Permission_Service
 		return p;
 	}
 
+	@Deprecated
 	@Override
 	public Role getpermission(int pid) throws RitzkidsException 
 	{
@@ -53,6 +54,7 @@ public class Permission_ServiceImpl implements Permission_Service
 		return null;
 	}
 
+	@Deprecated
 	@Override
 	public int updatePermission(int pid, PermissionDto p) throws RitzkidsException 
 	{
@@ -60,6 +62,7 @@ public class Permission_ServiceImpl implements Permission_Service
 		return 0;
 	}
 
+	@Deprecated
 	@Override
 	public String deletePermission(int pid) throws RitzkidsException
 	{
