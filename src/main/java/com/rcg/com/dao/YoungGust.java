@@ -24,6 +24,7 @@ public class YoungGust
 	private int createdby;
 	private int updatedby;
 	
+	private String nicname;
 	private String firstname;
 	private String lastname;
 	private String language;
@@ -253,5 +254,15 @@ public class YoungGust
 	}
 
 
+	public String getNicname() {
+		return nicname;
+	}
+
+
+	public void setNicname(String nicname) {
+		this.nicname = nicname;
+	}
+
+	
 	
 }

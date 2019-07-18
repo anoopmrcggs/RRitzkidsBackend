@@ -6,12 +6,20 @@ import javax.validation.constraints.NotNull;
 public class LanguageDto 
 {
 
+	private int lid;
 	@NotNull
 	@NotBlank(message = "Name of language should not be blank")
 	private String name;
 	private String rep;
 	
 	
+	
+	public int getLid() {
+		return lid;
+	}
+	public void setLid(int lid) {
+		this.lid = lid;
+	}
 	public String getName() 
 	{
 		return name;
