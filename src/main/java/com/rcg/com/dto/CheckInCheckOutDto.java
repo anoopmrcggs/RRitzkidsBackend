@@ -2,13 +2,6 @@ package com.rcg.com.dto;
 
 import java.util.Date;
 import java.util.Set;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import com.rcg.com.dao.AuthorizedRelation;
 import com.rcg.com.dao.Language;
 import com.rcg.com.dao.MedicalDetails;
@@ -17,173 +10,115 @@ import com.rcg.com.dao.YoungGustNotes;
 
 public class CheckInCheckOutDto 
 {
-	private int checkin_checkout_id;
-	private String nicname;
-	private int tagid;
+	private int checkinCheckoutId;
+	private int tagId;
 	private String event;
+	private Date entryTime;
+	private Date exitTime;
+	private YoungGustDto youngGust;
+	private LanguageDto language;
 	
-	
-	@ManyToOne
-	private YoungGustDto younggustdto;
-	
-	@ManyToOne
-	private LanguageDto languagedto;
-	
-	@OneToMany(mappedBy = "checkedincheckoutdto")
-	private Set<YoungGustNotesDto> younggustnotesDto;
-	
-	@OneToMany(mappedBy ="checkedincheckoutdto")
-	private Set<MedicalDetailsDto> medicaldetailsDto;
-	
-	@OneToMany(mappedBy = "checkedincheckoutdto")
-	private Set<AuthorizedRelationDto> autorized_relationDto;
-	
-	
-	private Date entrytime;
-	private Date exittime;
+	private Set<YoungGustNotesDto> youngGustNotes;
+	private Set<MedicalDetailsDto> medicalDetails;
+	private Set<AuthorizedRelationDto> autorizedRelation;
 	
 	private Date created;
 	private Date updated;
-	private int createdby;
-	private int updatedby;
-	private boolean isactive;
+	private int createdBy;
+	private int updatedBy;
+	private boolean isActive;
 	
-	public int getCheckin_checkout_id() 
-	{
-		return checkin_checkout_id;
+	
+	public int getCheckinCheckoutId() {
+		return checkinCheckoutId;
 	}
-	
-	public void setCheckin_checkout_id(int checkin_checkout_id) 
-	{
-		this.checkin_checkout_id = checkin_checkout_id;
+	public void setCheckinCheckoutId(int checkinCheckoutId) {
+		this.checkinCheckoutId = checkinCheckoutId;
 	}
-	
-	public String getNicname() 
-	{
-		return nicname;
+	public int getTagId() {
+		return tagId;
 	}
-	
-	public void setNicname(String nicname) 
-	{
-		this.nicname = nicname;
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
 	}
-	
-	public int getTagid() 
-	{
-		return tagid;
-	}
-	
-	public void setTagid(int tagid) 
-	{
-		this.tagid = tagid;
-	}
-	
-	public String getEvent() 
-	{
+	public String getEvent() {
 		return event;
 	}
-	public void setEvent(String event)
-	{
+	public void setEvent(String event) {
 		this.event = event;
 	}
-	public YoungGustDto getYounggustdto() 
-	{
-		return younggustdto;
+	public Date getEntryTime() {
+		return entryTime;
 	}
-	public void setYounggustdto(YoungGustDto younggustdto) 
-	{
-		this.younggustdto = younggustdto;
+	public void setEntryTime(Date entryTime) {
+		this.entryTime = entryTime;
 	}
-	public LanguageDto getLanguagedto() 
-	{
-		return languagedto;
+	public Date getExitTime() {
+		return exitTime;
 	}
-	public void setLanguagedto(LanguageDto languagedto) 
-	{
-		this.languagedto = languagedto;
+	public void setExitTime(Date exitTime) {
+		this.exitTime = exitTime;
 	}
-	public Set<YoungGustNotesDto> getYounggustnotesDto() 
-	{
-		return younggustnotesDto;
+	public YoungGustDto getYoungGust() {
+		return youngGust;
 	}
-	public void setYounggustnotesDto(Set<YoungGustNotesDto> younggustnotesDto) 
-	{
-		this.younggustnotesDto = younggustnotesDto;
+	public void setYoungGust(YoungGustDto youngGust) {
+		this.youngGust = youngGust;
 	}
-	public Set<MedicalDetailsDto> getMedicaldetailsDto() 
-	{
-		return medicaldetailsDto;
+	public LanguageDto getLanguage() {
+		return language;
 	}
-	public void setMedicaldetailsDto(Set<MedicalDetailsDto> medicaldetailsDto) 
-	{
-		this.medicaldetailsDto = medicaldetailsDto;
+	public void setLanguage(LanguageDto language) {
+		this.language = language;
 	}
-	public Set<AuthorizedRelationDto> getAutorized_relationDto() 
-	{
-		return autorized_relationDto;
+	public Set<YoungGustNotesDto> getYoungGustNotes() {
+		return youngGustNotes;
 	}
-	public void setAutorized_relationDto(Set<AuthorizedRelationDto> autorized_relationDto) 
-	{
-		this.autorized_relationDto = autorized_relationDto;
+	public void setYoungGustNotes(Set<YoungGustNotesDto> youngGustNotes) {
+		this.youngGustNotes = youngGustNotes;
 	}
-	public Date getCreated() 
-	{
+	public Set<MedicalDetailsDto> getMedicalDetails() {
+		return medicalDetails;
+	}
+	public void setMedicalDetails(Set<MedicalDetailsDto> medicalDetails) {
+		this.medicalDetails = medicalDetails;
+	}
+	public Set<AuthorizedRelationDto> getAutorizedRelation() {
+		return autorizedRelation;
+	}
+	public void setAutorizedRelation(Set<AuthorizedRelationDto> autorizedRelation) {
+		this.autorizedRelation = autorizedRelation;
+	}
+	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(Date created) 
-	{
+	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public Date getUpdated() 
-	{
+	public Date getUpdated() {
 		return updated;
 	}
-	public void setUpdated(Date updated) 
-	{
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public int getCreatedby() 
-	{
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreatedby(int createdby) 
-	{
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
-	public int getUpdatedby() 
-	{
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
-	public void setUpdatedby(int updatedby) 
-	{
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
-	public boolean isIsactive() 
-	{
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
-	public void setIsactive(boolean isactive) 
-	{
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
-
-	public Date getEntrytime() {
-		return entrytime;
-	}
-
-	public void setEntrytime(Date entrytime) {
-		this.entrytime = entrytime;
-	}
-
-	public Date getExittime() {
-		return exittime;
-	}
-
-	public void setExittime(Date exittime) {
-		this.exittime = exittime;
-	}
-
-
 	
 	
 }

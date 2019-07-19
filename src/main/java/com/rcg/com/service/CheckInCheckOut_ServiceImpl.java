@@ -17,8 +17,6 @@ import com.rcg.com.dao.YoungGustNotes;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
 import com.rcg.com.dto.MedicalDetailsDto;
-import com.rcg.com.dto.PassengerListDto;
-import com.rcg.com.dto.YoungGustDto;
 import com.rcg.com.dto.YoungGustNotesDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.repository.AuthorizedRelationRepository;
@@ -67,7 +65,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		{
 			checkform.setLanguage(new Language(checkincheckoutdto.getLanguagedto().getLid(), "", ""));
 		}
-		Optional<YoungGust> ygo=ygr.findById(checkincheckoutdto.getYounggustdto().getYounggust_id());
+		Optional<YoungGust> ygo=ygr.findById(checkincheckoutdto.getYounggustdto().getYoungGustId());
 		if(!ygo.isPresent())
 		{
 			throw new RitzkidsException("no Young gust were found in given ID",RitzConstants.ERROR_CODE);
@@ -75,7 +73,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		else
 		{
 			YoungGust yg=ygo.get();
-			yg.setNicname(checkincheckoutdto.getNicname());
+			yg.setNickName(checkincheckoutdto.getNicname());
 			ygr.save(yg);
 			checkform.setYounggust(yg);
 		}
@@ -87,7 +85,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		checkincheckoutdto.getMedicaldetailsDto().forEach(
 					(a)->{
 							MedicalDetails m=medicalDetailsMapper(a);
-							m.setCheckedincheckout(checkform);
+							m.setCheckinCheckout(checkform);
 							mr.save(m);
 
 						}
@@ -98,7 +96,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				(a)->{
 
 						YoungGustNotes yn=youngGustNotesMapper(a);
-						yn.setCheckincheckout(checkform);
+						yn.setCheckinCheckout(checkform);
 						yr.save(yn);						
 					}
 				);
@@ -107,7 +105,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		checkincheckoutdto.getAutorized_relationDto().forEach(
 				(a)->{
 						AuthorizedRelation mappedRelation=authorizedRelationMapper(a);
-						mappedRelation.setCheckincheckout(checkform);
+						mappedRelation.setCheckinCheckout(checkform);
 						ar.save(mappedRelation);
 					}
 				);

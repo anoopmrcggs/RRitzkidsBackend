@@ -46,10 +46,10 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 				  {
 					  Guardian g=guardianMapper(a);
 					  //Check Whether Guardian Existing or not
-					  if(!gr.getGuardianByfolioid(g.getFolioid()).isPresent())
+					  if(!gr.getGuardianByfolioId(g.getFolioId()).isPresent())
 					  {
 						  //getting all kid already registered on the given booking number
-						  List<YoungGust> ygl=yr.getYoungGustBybookingid(g.getBookingid());
+						  List<YoungGust> ygl=yr.getYoungGustBybookingId(g.getBookingId());
 						  //if Kid found in same booking number
 						  if(ygl.size()>0)
 						  {
@@ -57,7 +57,7 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 							  {
 								Set<YoungGust> youngGustSet=new HashSet<YoungGust>();
 								youngGustSet.add(young); 
-								g.setYoung_gust(youngGustSet);
+								g.setYoungGust(youngGustSet);
 							  }
 						  }
 						  
@@ -69,30 +69,28 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 				  {
 					    YoungGust y=youngGustMapper(a);
 					    //check kid already existing or not
-					    if(!yr.getYoungGustByfolioid(y.getFolioid()).isPresent())
+					    if(!yr.getYoungGustByfolioId(y.getFolioId()).isPresent())
 					    {
-					    	 yr.save(y);
-					    	 System.out.println("Yooungster Registerd");
-					    	 
+					    	 yr.save(y);					    	 
 							//getting all guarding have same booking number
-					    	 List<Guardian> gl=gr.getGuardianBybookingid(y.getBookingid());
+					    	 List<Guardian> gl=gr.getGuardianBybookingId(y.getBookingId());
 							
 					    	 if(gl!=null)
 							    {
-								 	YoungGust yg=yr.getYoungGustByfolioid(y.getFolioid()).get();
+								 	YoungGust yg=yr.getYoungGustByfolioId(y.getFolioId()).get();
 							    	for(Guardian g:gl)
 							    	{
 							    
-							    			if(g.getYoung_gust()!=null)
+							    			if(g.getYoungGust()!=null)
 							    			{
-							    				g.getYoung_gust().add(new YoungGust(yg.getYounggust_id())); 
+							    				g.getYoungGust().add(new YoungGust(yg.getYoungGustId())); 
 							    				
 							    			}
 							    			else
 							    			{
 							    				Set<YoungGust> young_gust=new HashSet<YoungGust>();
 							    				young_gust.add(yg);
-							    				g.setYoung_gust(young_gust);
+							    				g.setYoungGust(young_gust);
 							    			}
 							    			gr.save(g);
 								

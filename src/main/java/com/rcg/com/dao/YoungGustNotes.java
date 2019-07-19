@@ -2,6 +2,7 @@ package com.rcg.com.dao;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,12 @@ public class YoungGustNotes
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int younggustnotes_id;
+	@Column(name="young_gust_notes_id")
+	private int youngGustNotesId;
 	
 	@ManyToOne
-	private YoungGust younggust;
+	@Column(name="young_gust")
+	private YoungGust youngGust;
 	
 	private String title;
 
@@ -28,45 +31,52 @@ public class YoungGustNotes
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	private CheckInCheckOut checkincheckout;
+	@Column(name="checkin_checkout")
+	private CheckInCheckOut checkinCheckout;
 	
 	private Date created;
 	private Date updated;
-	private int createdby;
-	private int updatedby;
-	private boolean isactive;
+	
+	@Column(name="created_by")
+	private int createdBy;
+	
+	@Column(name="update_dby")
+	private int updatedBy;
+	
+	@Column(name="is_active")
+	private boolean isActive;
 	
 	public YoungGustNotes() 
 	{
 		super();
 	}
 
-	public YoungGustNotes(int younggustnotes_id, YoungGust younggust, String title, String description,
-			CheckInCheckOut checkincheckout, Date created) 
+	public YoungGustNotes(int youngGustNotesId, YoungGust youngGust, String title, String description,
+			CheckInCheckOut checkinCheckout, Date created) 
 	{
 		super();
-		this.younggustnotes_id = younggustnotes_id;
-		this.younggust = younggust;
+		this.youngGustNotesId = youngGustNotesId;
+		this.youngGust = youngGust;
 		this.title = title;
 		this.description = description;
-		this.checkincheckout = checkincheckout;
+		this.checkinCheckout = checkinCheckout;
 		this.created = created;
 	}
 
-	public int getYounggustnotes_id() {
-		return younggustnotes_id;
+	public int getYoungGustNotesId() {
+		return youngGustNotesId;
 	}
 
-	public void setYounggustnotes_id(int younggustnotes_id) {
-		this.younggustnotes_id = younggustnotes_id;
+	public void setYoungGustNotesId(int youngGustNotesId) {
+		this.youngGustNotesId = youngGustNotesId;
 	}
 
-	public YoungGust getYounggust() {
-		return younggust;
+	public YoungGust getYoungGust() {
+		return youngGust;
 	}
 
-	public void setYounggust(YoungGust younggust) {
-		this.younggust = younggust;
+	public void setYoungGust(YoungGust youngGust) {
+		this.youngGust = youngGust;
 	}
 
 	public String getTitle() {
@@ -85,12 +95,12 @@ public class YoungGustNotes
 		this.description = description;
 	}
 
-	public CheckInCheckOut getCheckincheckout() {
-		return checkincheckout;
+	public CheckInCheckOut getCheckinCheckout() {
+		return checkinCheckout;
 	}
 
-	public void setCheckincheckout(CheckInCheckOut checkincheckout) {
-		this.checkincheckout = checkincheckout;
+	public void setCheckinCheckout(CheckInCheckOut checkinCheckout) {
+		this.checkinCheckout = checkinCheckout;
 	}
 
 	public Date getCreated() {
@@ -109,33 +119,29 @@ public class YoungGustNotes
 		this.updated = updated;
 	}
 
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
-	public boolean isIsactive() {
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
-	
-	
-	
-	
 	
 	
 }

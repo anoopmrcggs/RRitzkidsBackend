@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,38 +22,51 @@ public class CheckInCheckOut
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int checkin_checkout_id;
+	@Column(name="checkin_checkout_id")
+	private int checkinCheckoutId;
 	
-	private String nicname;
-	private int tagid;
+	@Column(name="tag_id")
+	private int tagId;
+	
 	private String event;
 	
-	private Date entrytime;
-	private Date exittime;
+	@Column(name="entry_time")
+	private Date entryTime;
+	
+	@Column(name="exit_time")
+	private Date exitTime;
 	
 	
 	@ManyToOne
-	private YoungGust younggust;
+	@Column(name="young_gust")
+	private YoungGust youngGust;
 	
 	@ManyToOne
 	private Language language;
 	
-	@OneToMany(mappedBy = "checkincheckout")
-	private Set<YoungGustNotes> younggustnotes;
+	@OneToMany(mappedBy = "checkinCheckout")
+	@Column(name="young_gust_notes")
+	private Set<YoungGustNotes> youngGustNotes;
 	
-	@OneToMany(mappedBy ="checkedincheckout")
-	private Set<MedicalDetails> medicaldetails;
+	@OneToMany(mappedBy ="checkedinCheckout")
+	@Column(name="medical_details")
+	private Set<MedicalDetails> medicalDetails;
 	
-	@OneToMany(mappedBy = "checkincheckout")
-	private Set<AuthorizedRelation> autorized_relation;
+	@OneToMany(mappedBy = "checkinCheckout")
+	@Column(name="autorized_relation")
+	private Set<AuthorizedRelation> autorizedRelation;
 	
 	
 	private Date created;
 	private Date updated;
-	private int createdby;
 	
-	private int updatedby;
-	private boolean isactive;
+	@Column(name="created_by")
+	private int createdBy;
+	
+	@Column(name="updated_by")
+	private int updatedBy;
+	@Column(name="is_active")
+	private boolean isActive;
 	
 	
 
@@ -63,59 +77,38 @@ public class CheckInCheckOut
 
 
 
-	public CheckInCheckOut(int checkin_checkout_id, String nicname, int tagid, YoungGust younggust, Language language,
-			 Set<AuthorizedRelation> autorized_relation, int createdby) {
+	public CheckInCheckOut(int checkinCheckoutId,int tagId, YoungGust youngGust, Language language,
+			 Set<AuthorizedRelation> autorizedRelation, int createdby) {
 		super();
-		this.checkin_checkout_id = checkin_checkout_id;
-		this.nicname = nicname;
-		this.tagid = tagid;
-		this.younggust = younggust;
+		this.checkinCheckoutId = checkinCheckoutId;
+		this.tagId = tagId;
+		this.youngGust = youngGust;
 		this.language = language;
-		this.autorized_relation = autorized_relation;
-		this.createdby = createdby;
+		this.autorizedRelation = autorizedRelation;
 	}
 
 
 
-	public CheckInCheckOut(int checkin_checkout_id) {
-		super();
-		this.checkin_checkout_id = checkin_checkout_id;
+	public int getCheckinCheckoutId() {
+		return checkinCheckoutId;
 	}
 
 
 
-	public int getCheckin_checkout_id() {
-		return checkin_checkout_id;
+	public void setCheckinCheckoutId(int checkinCheckoutId) {
+		this.checkinCheckoutId = checkinCheckoutId;
 	}
 
 
 
-	public void setCheckin_checkout_id(int checkin_checkout_id) {
-		this.checkin_checkout_id = checkin_checkout_id;
+	public int getTagId() {
+		return tagId;
 	}
 
 
 
-	public String getNicname() {
-		return nicname;
-	}
-
-
-
-	public void setNicname(String nicname) {
-		this.nicname = nicname;
-	}
-
-
-
-	public int getTagid() {
-		return tagid;
-	}
-
-
-
-	public void setTagid(int tagid) {
-		this.tagid = tagid;
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
 	}
 
 
@@ -132,14 +125,38 @@ public class CheckInCheckOut
 
 
 
-	public YoungGust getYounggust() {
-		return younggust;
+	public Date getEntryTime() {
+		return entryTime;
 	}
 
 
 
-	public void setYounggust(YoungGust younggust) {
-		this.younggust = younggust;
+	public void setEntryTime(Date entryTime) {
+		this.entryTime = entryTime;
+	}
+
+
+
+	public Date getExitTime() {
+		return exitTime;
+	}
+
+
+
+	public void setExitTime(Date exitTime) {
+		this.exitTime = exitTime;
+	}
+
+
+
+	public YoungGust getYoungGust() {
+		return youngGust;
+	}
+
+
+
+	public void setYoungGust(YoungGust youngGust) {
+		this.youngGust = youngGust;
 	}
 
 
@@ -156,38 +173,38 @@ public class CheckInCheckOut
 
 
 
-	public Set<YoungGustNotes> getYounggustnotes() {
-		return younggustnotes;
+	public Set<YoungGustNotes> getYoungGustNotes() {
+		return youngGustNotes;
 	}
 
 
 
-	public void setYounggustnotes(Set<YoungGustNotes> younggustnotes) {
-		this.younggustnotes = younggustnotes;
+	public void setYoungGustNotes(Set<YoungGustNotes> youngGustNotes) {
+		this.youngGustNotes = youngGustNotes;
 	}
 
 
 
-	public Set<MedicalDetails> getMedicaldetails() {
-		return medicaldetails;
+	public Set<MedicalDetails> getMedicalDetails() {
+		return medicalDetails;
 	}
 
 
 
-	public void setMedicaldetails(Set<MedicalDetails> medicaldetails) {
-		this.medicaldetails = medicaldetails;
+	public void setMedicalDetails(Set<MedicalDetails> medicalDetails) {
+		this.medicalDetails = medicalDetails;
 	}
 
 
 
-	public Set<AuthorizedRelation> getAutorized_relation() {
-		return autorized_relation;
+	public Set<AuthorizedRelation> getAutorizedRelation() {
+		return autorizedRelation;
 	}
 
 
 
-	public void setAutorized_relation(Set<AuthorizedRelation> autorized_relation) {
-		this.autorized_relation = autorized_relation;
+	public void setAutorizedRelation(Set<AuthorizedRelation> autorizedRelation) {
+		this.autorizedRelation = autorizedRelation;
 	}
 
 
@@ -216,65 +233,39 @@ public class CheckInCheckOut
 
 
 
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
 
 
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
 
 
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
 
 
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 
 
-	public boolean isIsactive() {
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
 
 
 
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
-
-
-	public Date getEntrytime() {
-		return entrytime;
-	}
-
-
-
-	public void setEntrytime(Date entrytime) {
-		this.entrytime = entrytime;
-	}
-
-
-
-	public Date getExittime() {
-		return exittime;
-	}
-
-
-
-	public void setExittime(Date exittime) {
-		this.exittime = exittime;
-	}
-
-
-
-
+	
 }

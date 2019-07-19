@@ -1,52 +1,35 @@
 package com.rcg.com.dto;
 
 import java.util.Date;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rcg.com.dao.CheckInCheckOut;
 import com.rcg.com.dao.YoungGust;
 
 public class YoungGustNotesDto 
 {
 	
-	private int younggustnotes_id;
-	
-
-	@ManyToOne
-	private YoungGustDto younggust;
-	
+	private int youngGustNotesId;
+	private YoungGustDto youngGust;
 	private String title;
-
 	private String description;
-	
-	@ManyToOne(targetEntity = CheckInCheckOut.class)
-	@JsonBackReference
-	private CheckInCheckOutDto checkincheckoutdto;
-	
+	private CheckInCheckOutDto checkinCheckout;
 	private Date created;
 	private Date updated;
+	private int createdBy;
+	private int updatedBy;
+	private boolean isActive;
 	
-	private int createdby;
-	
-	private int updatedby;
-	private boolean isactive;
-	public int getYounggustnotes_id() {
-		return younggustnotes_id;
+	public int getYoungGustNotesId() 
+	{
+		return youngGustNotesId;
 	}
-	public void setYounggustnotes_id(int younggustnotes_id) {
-		this.younggustnotes_id = younggustnotes_id;
+	public void setYoungGustNotesId(int youngGustNotesId) {
+		this.youngGustNotesId = youngGustNotesId;
 	}
-	
-	public YoungGustDto getYounggust() {
-		return younggust;
+	public YoungGustDto getYoungGust() {
+		return youngGust;
 	}
-	public void setYounggust(YoungGustDto younggust) {
-		this.younggust = younggust;
+	public void setYoungGust(YoungGustDto youngGust) {
+		this.youngGust = youngGust;
 	}
 	public String getTitle() {
 		return title;
@@ -60,11 +43,11 @@ public class YoungGustNotesDto
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public CheckInCheckOutDto getCheckincheckoutdto() {
-		return checkincheckoutdto;
+	public CheckInCheckOutDto getCheckinCheckout() {
+		return checkinCheckout;
 	}
-	public void setCheckincheckoutdto(CheckInCheckOutDto checkincheckoutdto) {
-		this.checkincheckoutdto = checkincheckoutdto;
+	public void setCheckinCheckout(CheckInCheckOutDto checkinCheckout) {
+		this.checkinCheckout = checkinCheckout;
 	}
 	public Date getCreated() {
 		return created;
@@ -78,25 +61,23 @@ public class YoungGustNotesDto
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
-	public boolean isIsactive() {
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
-	
-	
 	
 }

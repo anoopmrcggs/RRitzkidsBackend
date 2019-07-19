@@ -1,44 +1,29 @@
 package com.rcg.com.dto;
 
 import java.util.Date;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rcg.com.dao.CheckInCheckOut;
 import com.rcg.com.dao.Guardian;
 import com.rcg.com.dao.Relationship;
 
 public class AuthorizedRelationDto 
 {
-	private int aid;
 	
-	
-	@ManyToOne
+	private int authorizedRelationId;
 	private GuardianDto guardian;
-	
-	@ManyToOne
 	private RelationshipDto relationship;
-	
-	@ManyToOne(targetEntity = CheckInCheckOutDto.class)
-	@JsonBackReference
-	private CheckInCheckOutDto checkincheckout;
-	
-	
+	private CheckInCheckOutDto checkinCheckout;
 	private Date created;
 	private Date updated;
-	private int createdby;
-	private int updatedby;
-	private boolean isactive;
-	public int getAid() {
-		return aid;
+	private int createdBy;
+	private int updatedBy;
+	private boolean isActive;
+	
+	
+	public int getAuthorizedRelationId() {
+		return authorizedRelationId;
 	}
-	public void setAid(int aid) {
-		this.aid = aid;
+	public void setAuthorizedRelationId(int authorizedRelationId) {
+		this.authorizedRelationId = authorizedRelationId;
 	}
 	public GuardianDto getGuardian() {
 		return guardian;
@@ -52,11 +37,11 @@ public class AuthorizedRelationDto
 	public void setRelationship(RelationshipDto relationship) {
 		this.relationship = relationship;
 	}
-	public CheckInCheckOutDto getCheckincheckout() {
-		return checkincheckout;
+	public CheckInCheckOutDto getCheckinCheckout() {
+		return checkinCheckout;
 	}
-	public void setCheckincheckout(CheckInCheckOutDto checkincheckout) {
-		this.checkincheckout = checkincheckout;
+	public void setCheckinCheckout(CheckInCheckOutDto checkinCheckout) {
+		this.checkinCheckout = checkinCheckout;
 	}
 	public Date getCreated() {
 		return created;
@@ -70,25 +55,27 @@ public class AuthorizedRelationDto
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
-	public boolean isIsactive() {
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	
-
-
+	
+	
+	
+	
 }

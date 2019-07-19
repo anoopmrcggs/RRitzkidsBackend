@@ -3,6 +3,7 @@ package com.rcg.com.dao;
 import java.util.Date;
 
 import javax.annotation.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,11 +23,12 @@ public class AuthorizedRelation
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int aid;
+	@Column(name="authorized_relation_id")
+	private int authorizedRelationId;
 	
 	
 	@ManyToOne
-	@JsonIgnoreProperties("young_gust")
+	@JsonIgnoreProperties("youngGust")
 	private Guardian guardian;
 	
 	@ManyToOne
@@ -34,14 +36,21 @@ public class AuthorizedRelation
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	private CheckInCheckOut checkincheckout;
+	@Column(name="checkincheckout")
+	private CheckInCheckOut checkinCheckout;
 	
 	
 	private Date created;
 	private Date updated;
-	private int createdby;
-	private int updatedby;
-	private boolean isactive;
+	
+	@Column(name="created_by")
+	private int createdBy;
+	
+	@Column(name="updated_by")
+	private int updatedBy;
+	
+	@Column(name="is_Active")
+	private boolean isActive;
 
 
 	
@@ -53,35 +62,29 @@ public class AuthorizedRelation
 	
 
 
-	public AuthorizedRelation(int aid, Guardian guardian, Relationship relationship, CheckInCheckOut checkincheckout,
+	public AuthorizedRelation(int authorizedRelationId, Guardian guardian, Relationship relationship, CheckInCheckOut checkinCheckout,
 			int createdby) {
 		super();
-		this.aid = aid;
+		this.authorizedRelationId = authorizedRelationId;
 		this.guardian = guardian;
 		this.relationship = relationship;
-		this.checkincheckout = checkincheckout;
-		this.createdby = createdby;
+		this.checkinCheckout = checkinCheckout;
 	}
 
 
 
 
-	public int getAid() {
-		return aid;
+	public int getAuthorizedRelationId() {
+		return authorizedRelationId;
 	}
 
-
-
-	public void setAid(int aid) {
-		this.aid = aid;
+	public void setAuthorizedRelationId(int authorizedRelationId) {
+		this.authorizedRelationId = authorizedRelationId;
 	}
-
-
 
 	public Guardian getGuardian() {
 		return guardian;
 	}
-
 
 
 	public void setGuardian(Guardian guardian) {
@@ -89,11 +92,9 @@ public class AuthorizedRelation
 	}
 
 
-
 	public Relationship getRelationship() {
 		return relationship;
 	}
-
 
 
 	public void setRelationship(Relationship relationship) {
@@ -102,16 +103,15 @@ public class AuthorizedRelation
 
 
 
-	public CheckInCheckOut getCheckincheckout() {
-		return checkincheckout;
+
+	public CheckInCheckOut getCheckinCheckout() {
+		return checkinCheckout;
 	}
 
 
-
-	public void setCheckincheckout(CheckInCheckOut checkincheckout) {
-		this.checkincheckout = checkincheckout;
+	public void setCheckinCheckout(CheckInCheckOut checkinCheckout) {
+		this.checkinCheckout = checkinCheckout;
 	}
-
 
 
 	public Date getCreated() {
@@ -119,11 +119,9 @@ public class AuthorizedRelation
 	}
 
 
-
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-
 
 
 	public Date getUpdated() {
@@ -131,45 +129,39 @@ public class AuthorizedRelation
 	}
 
 
-
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 
 
-
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
 
-
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
 
-
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
 
-
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 
-
-	public boolean isIsactive() {
-		return isactive;
+	public boolean isActive() {
+		return isActive;
 	}
 
 
-
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
+
 	
 }

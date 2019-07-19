@@ -3,6 +3,7 @@ package com.rcg.com.dao;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,32 +19,55 @@ public class Guardian
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int guardian_id;
-	private int cabin;
-	private int createdby;
-	private int updatedby;
+	@Column(name="guardian_id")
+	private int guardianId;
 	
-	private String firstname;
-	private String lastname;
+	private int cabin;
+	
+	@Column(name="created_by")
+	private int createdBy;
+	
+	@Column(name="updated_by")
+	private int updatedBy;
+	
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
+	
 	private String language;
 	private String nationality;
-	private String shipcode;
+
+	@Column(name="ship_code")
+	private String shipCode;
 	
-	private Date birthdate;
+	@Column(name="birth_date")
+	private Date birthDate;
+	
 	private Date created;
 	private Date updated;
 
+	@Column(name="booking_id")
+	private long bookingId;
 	
-	private long bookingid;
-	private long folioid;
+	@Column(name="folio_id")
+	private long folioId;
 	
 	private char gender;
-	private char passengertype;
 	
-	private boolean isactive;
+	@Column(name="passenger_type")
+	private char passengerType;
+	
+	@Column(name="is_active")
+	private boolean isActive;
+	
+	@Column(name="contact_number")
+	private String contectNumber;
 	
 	@ManyToMany
-	private Set<YoungGust> young_gust;
+	@Column(name = "young_gust")
+	private Set<YoungGust> youngGust;
 	
 	
 	public Guardian() 
@@ -53,156 +77,158 @@ public class Guardian
 
 
 
-	public Guardian(int guardian_id) {
+	public Guardian(int guardianId) 
+	{
 		super();
-		this.guardian_id = guardian_id;
+		this.guardianId = guardianId;
 	}
 
 
 
-	public Guardian(int guardian_id, int cabin, int createdby, int updatedby, String firstname, String lastname,
-			String language, String nationality, String shipcode, Date birthdate, Date created, Date updated,
-			long bookingid, long folioid, char gender, char passengertype, boolean isactive) {
+
+
+	public Guardian(int guardianId, int cabin, int createdBy, int updatedBy, String firstName, String lastName,
+			String language, String nationality, String shipCode, Date birthDate, Date created, Date updated,
+			long bookingId, long folioId, char gender, char passengerType, boolean isActive, Set<YoungGust> youngGust) {
 		super();
-		this.guardian_id = guardian_id;
+		this.guardianId = guardianId;
 		this.cabin = cabin;
-		this.createdby = createdby;
-		this.updatedby = updatedby;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.language = language;
 		this.nationality = nationality;
-		this.shipcode = shipcode;
-		this.birthdate = birthdate;
+		this.shipCode = shipCode;
+		this.birthDate = birthDate;
 		this.created = created;
 		this.updated = updated;
-		this.bookingid = bookingid;
-		this.folioid = folioid;
+		this.bookingId = bookingId;
+		this.folioId = folioId;
 		this.gender = gender;
-		this.passengertype = passengertype;
-		this.isactive = isactive;
+		this.passengerType = passengerType;
+		this.isActive = isActive;
+		this.youngGust = youngGust;
 	}
 
 
 
-	public int getGuardian_id() {
-		return guardian_id;
+	public int getGuardianId() {
+		return guardianId;
 	}
 
-	public void setGuardian_id(int guardian_id) {
-		this.guardian_id = guardian_id;
+
+
+	public void setGuardianId(int guardianId) {
+		this.guardianId = guardianId;
 	}
+
+
 
 	public int getCabin() {
 		return cabin;
 	}
 
+
+
 	public void setCabin(int cabin) {
 		this.cabin = cabin;
 	}
 
-	public String getFirstname() {
-		return firstname;
+
+
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public String getLastname() {
-		return lastname;
+
+
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
+
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
 
 	public String getLanguage() {
 		return language;
 	}
 
+
+
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
+
 
 	public String getNationality() {
 		return nationality;
 	}
 
+
+
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
 
-	public String getShipcode() {
-		return shipcode;
-	}
 
-	public void setShipcode(String shipcode) {
-		this.shipcode = shipcode;
-	}
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public long getBookingid() {
-		return bookingid;
-	}
-
-	public void setBookingid(long bookingid) {
-		this.bookingid = bookingid;
-	}
-
-	public long getFolioid() {
-		return folioid;
-	}
-
-	public void setFolioid(long folioid) {
-		this.folioid = folioid;
-	}
-
-	public char getGender() {
-		return gender;
-	}
-
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-
-	public char getPassengertype() {
-		return passengertype;
-	}
-
-	public void setPassengertype(char passengertype) {
-		this.passengertype = passengertype;
+	public String getShipCode() {
+		return shipCode;
 	}
 
 
 
-	public int getCreatedby() {
-		return createdby;
+	public void setShipCode(String shipCode) {
+		this.shipCode = shipCode;
 	}
 
 
 
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
 
 
-	public int getUpdatedby() {
-		return updatedby;
-	}
-
-
-
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 
@@ -231,29 +257,88 @@ public class Guardian
 
 
 
-	public boolean isIsactive() {
-		return isactive;
+	public long getBookingId() {
+		return bookingId;
 	}
 
 
 
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setBookingId(long bookingId) {
+		this.bookingId = bookingId;
 	}
 
 
 
-	public Set<YoungGust> getYoung_gust() {
-		return young_gust;
+	public long getFolioId() {
+		return folioId;
 	}
 
 
 
-	public void setYoung_gust(Set<YoungGust> young_gust) {
-		this.young_gust = young_gust;
+	public void setFolioId(long folioId) {
+		this.folioId = folioId;
+	}
+
+
+
+	public char getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
+
+
+
+	public char getPassengerType() {
+		return passengerType;
+	}
+
+
+
+	public void setPassengerType(char passengerType) {
+		this.passengerType = passengerType;
+	}
+
+
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+
+
+	public Set<YoungGust> getYoungGust() {
+		return youngGust;
+	}
+
+
+
+	public void setYoungGust(Set<YoungGust> youngGust) {
+		this.youngGust = youngGust;
+	}
+
+
+
+	public String getContectNumber() {
+		return contectNumber;
+	}
+
+
+
+	public void setContectNumber(String contectNumber) {
+		this.contectNumber = contectNumber;
 	}
 	
 	
-
 	
 }

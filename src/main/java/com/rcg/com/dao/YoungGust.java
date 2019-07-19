@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,32 +20,53 @@ public class YoungGust
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int younggust_id;
-	private int cabin;
-	private int createdby;
-	private int updatedby;
+	@Column(name="young_gust_id")
+	private int youngGustId;
 	
-	private String nicname;
-	private String firstname;
-	private String lastname;
+	private int cabin;
+	
+	@Column(name="created_by")
+	private int createdBy;
+	
+	@Column(name="updated_by")
+	private int updatedBy;
+	
+	@Column(name="nick_name")
+	private String nickName;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
+	
 	private String language;
 	private String nationality;
-	private String shipcode;
 	
-	private Date birthdate;
+	@Column(name="ship_code")
+	private String shipCode;
+
+	@Column(name="birth_date")
+	private Date birthDate;
+	
 	private Date created;
 	private Date updated;
 
+	@Column(name="booking_id")
+	private long bookingId;
 	
-	private long bookingid;
-	private long folioid;
+	@Column(name="folio_id")
+	private long folioId;
 	
 	private char gender;
-	private char passengertype;
 	
-	private boolean isactive;
+	@Column(name="passenger_type")
+	private char passengerType;
 	
-	@ManyToMany(mappedBy = "young_gust")
+	@Column(name="is_active")
+	private boolean isActive;
+	
+	@ManyToMany(mappedBy = "youngGust")
 	@JsonBackReference
 	private Set<Guardian> guardian;
 	
@@ -55,157 +77,120 @@ public class YoungGust
 	}
 
 
-	public YoungGust(int younggust_id, int cabin, int createdby, int updatedby, String firstname, String lastname,
-			String language, String nationality, String shipcode, Date birthdate, Date created, Date updated,
-			long bookingid, long folioid, char gender, char passengertype, boolean isactive) {
+	public YoungGust(int youngGustId) {
 		super();
-		this.younggust_id = younggust_id;
-		this.cabin = cabin;
-		this.createdby = createdby;
-		this.updatedby = updatedby;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.language = language;
-		this.nationality = nationality;
-		this.shipcode = shipcode;
-		this.birthdate = birthdate;
-		this.created = created;
-		this.updated = updated;
-		this.bookingid = bookingid;
-		this.folioid = folioid;
-		this.gender = gender;
-		this.passengertype = passengertype;
-		this.isactive = isactive;
+		this.youngGustId = youngGustId;
 	}
 
 
-
-	public YoungGust(int younggust_id) {
-		super();
-		this.younggust_id = younggust_id;
+	public int getYoungGustId() {
+		return youngGustId;
 	}
 
 
-	public int getYounggust_id() {
-		return younggust_id;
+	public void setYoungGustId(int youngGustId) {
+		this.youngGustId = youngGustId;
 	}
 
-	public void setYounggust_id(int younggust_id) {
-		this.younggust_id = younggust_id;
-	}
 
 	public int getCabin() {
 		return cabin;
 	}
 
+
 	public void setCabin(int cabin) {
 		this.cabin = cabin;
 	}
 
-	public String getFirstname() {
-		return firstname;
+
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public String getLastname() {
-		return lastname;
+
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
+
+
+	public String getNickName() {
+		return nickName;
+	}
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 
 	public String getLanguage() {
 		return language;
 	}
 
+
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
 
 	public String getNationality() {
 		return nationality;
 	}
 
+
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
 
-	public String getShipcode() {
-		return shipcode;
-	}
 
-	public void setShipcode(String shipcode) {
-		this.shipcode = shipcode;
-	}
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public long getBookingid() {
-		return bookingid;
-	}
-
-	public void setBookingid(long bookingid) {
-		this.bookingid = bookingid;
-	}
-
-	public long getFolioid() {
-		return folioid;
-	}
-
-	public void setFolioid(long folioid) {
-		this.folioid = folioid;
-	}
-
-	public char getGender() {
-		return gender;
-	}
-
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-
-	public char getPassengertype() {
-		return passengertype;
-	}
-
-	public void setPassengertype(char passengertype) {
-		this.passengertype = passengertype;
+	public String getShipCode() {
+		return shipCode;
 	}
 
 
-
-	public int getCreatedby() {
-		return createdby;
+	public void setShipCode(String shipCode) {
+		this.shipCode = shipCode;
 	}
 
 
-
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
 
-
-	public int getUpdatedby() {
-		return updatedby;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
-
-
-
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
-	}
-
 
 
 	public Date getCreated() {
@@ -213,11 +198,9 @@ public class YoungGust
 	}
 
 
-
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-
 
 
 	public Date getUpdated() {
@@ -225,44 +208,69 @@ public class YoungGust
 	}
 
 
-
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 
 
-
-	public boolean isIsactive() {
-		return isactive;
+	public long getBookingId() {
+		return bookingId;
 	}
 
 
-
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setBookingId(long bookingId) {
+		this.bookingId = bookingId;
 	}
-	
-	
+
+
+	public long getFolioId() {
+		return folioId;
+	}
+
+
+	public void setFolioId(long folioId) {
+		this.folioId = folioId;
+	}
+
+
+	public char getGender() {
+		return gender;
+	}
+
+
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
+
+
+	public char getPassengerType() {
+		return passengerType;
+	}
+
+
+	public void setPassengerType(char passengerType) {
+		this.passengerType = passengerType;
+	}
+
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+
 	public Set<Guardian> getGuardian() {
 		return guardian;
 	}
 
 
-
 	public void setGuardian(Set<Guardian> guardian) {
 		this.guardian = guardian;
 	}
-
-
-	public String getNicname() {
-		return nicname;
-	}
-
-
-	public void setNicname(String nicname) {
-		this.nicname = nicname;
-	}
-
 	
 	
 }

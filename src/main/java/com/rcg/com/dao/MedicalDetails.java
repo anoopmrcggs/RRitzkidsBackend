@@ -2,6 +2,7 @@ package com.rcg.com.dao;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,8 @@ public class MedicalDetails
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int medicaldetails_id;
+	@Column(name="medical_details_id")
+	private int medicalDetailsId;
 	
 	private Date created;
 	private Date updated;
@@ -26,24 +28,31 @@ public class MedicalDetails
 	private String medications;
 	private String allergies;
 	
-	private String medication_allergies;
-	private String special_needs;
+	@Column(name="medication_allergies")
+	private String medicationAllergies;
+	
+	@Column(name="special_needs")
+	private String specialNeeds;
 	private String likes;
 	private String dislikes;
-	private String recurring_messages;
 	
 	@ManyToOne
-	private YoungGust younggust;
+	@Column(name="young_gust")
+	private YoungGust youngGust;
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	private CheckInCheckOut checkedincheckout;
+	@Column(name="checkedin_checkout")
+	private CheckInCheckOut checkinCheckout;
 	
-
-	private int createdby;
+	@Column(name="created_by")
+	private int createdBy;
 	
-	private int updatedby;
-	private boolean isactive;
+	@Column(name="updated_by")
+	private int updatedBy;
+	
+	@Column(name="is_active")
+	private boolean isActive;
 	
 	public MedicalDetails() 
 	{
@@ -51,45 +60,53 @@ public class MedicalDetails
 	}
 
 
-	public MedicalDetails(int medicaldetails_id, YoungGust younggust) {
+	public MedicalDetails(int medicalDetailsId, YoungGust youngGust)
+	{
 		super();
-		this.medicaldetails_id = medicaldetails_id;
-		this.younggust = younggust;
+		this.medicalDetailsId = medicalDetailsId;
+		this.youngGust = youngGust;
 	}
 
-	public int getMedicaldetails_id() {
-		return medicaldetails_id;
+
+	public int getMedicalDetailsId() {
+		return medicalDetailsId;
 	}
 
-	public void setMedicaldetails_id(int medicaldetails_id) {
-		this.medicaldetails_id = medicaldetails_id;
+
+	public void setMedicalDetailsId(int medicalDetailsId) {
+		this.medicalDetailsId = medicalDetailsId;
 	}
+
 
 	public Date getCreated() {
 		return created;
 	}
 
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+
 
 	public Date getUpdated() {
 		return updated;
 	}
 
+
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+
 
 	public String getMedications() {
 		return medications;
 	}
 
+
 	public void setMedications(String medications) {
 		this.medications = medications;
 	}
 
-	
 
 	public String getAllergies() {
 		return allergies;
@@ -101,85 +118,95 @@ public class MedicalDetails
 	}
 
 
-	public String getMedication_allergies() {
-		return medication_allergies;
+	public String getMedicationAllergies() {
+		return medicationAllergies;
 	}
 
-	public void setMedication_allergies(String medication_allergies) {
-		this.medication_allergies = medication_allergies;
+
+	public void setMedicationAllergies(String medicationAllergies) {
+		this.medicationAllergies = medicationAllergies;
 	}
 
-	public String getSpecial_needs() {
-		return special_needs;
+
+	public String getSpecialNeeds() {
+		return specialNeeds;
 	}
 
-	public void setSpecial_needs(String special_needs) {
-		this.special_needs = special_needs;
+
+	public void setSpecialNeeds(String specialNeeds) {
+		this.specialNeeds = specialNeeds;
 	}
+
 
 	public String getLikes() {
 		return likes;
 	}
 
+
 	public void setLikes(String likes) {
 		this.likes = likes;
 	}
+
 
 	public String getDislikes() {
 		return dislikes;
 	}
 
+
 	public void setDislikes(String dislikes) {
 		this.dislikes = dislikes;
 	}
 
-	public String getRecurring_messages() {
-		return recurring_messages;
+
+	public YoungGust getYoungGust() {
+		return youngGust;
 	}
 
-	public void setRecurring_messages(String recurring_messages) {
-		this.recurring_messages = recurring_messages;
+
+	public void setYoungGust(YoungGust youngGust) {
+		this.youngGust = youngGust;
 	}
 
-	public int getCreatedby() {
-		return createdby;
+
+	public CheckInCheckOut getCheckinCheckout() {
+		return checkinCheckout;
 	}
 
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+
+	public void setCheckinCheckout(CheckInCheckOut checkinCheckout) {
+		this.checkinCheckout = checkinCheckout;
 	}
 
-	public int getUpdatedby() {
-		return updatedby;
+
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public boolean isIsactive() {
-		return isactive;
+
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
-	public CheckInCheckOut getCheckedincheckout() {
-		return checkedincheckout;
+
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setCheckedincheckout(CheckInCheckOut checkedincheckout) {
-		this.checkedincheckout = checkedincheckout;
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	
 	
-	public YoungGust getYounggust() {
-		return younggust;
-	}
-
-	public void setYounggust(YoungGust younggust) {
-		this.younggust = younggust;
-	}
 
 }
