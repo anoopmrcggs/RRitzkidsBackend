@@ -38,7 +38,6 @@ public class CheckInCheckOut
 	
 	
 	@ManyToOne
-	@Column(name="young_gust")
 	private YoungGust youngGust;
 	
 	@ManyToOne
@@ -48,12 +47,10 @@ public class CheckInCheckOut
 	@Column(name="young_gust_notes")
 	private Set<YoungGustNotes> youngGustNotes;
 	
-	@OneToMany(mappedBy ="checkedinCheckout")
-	@Column(name="medical_details")
+	@OneToMany(mappedBy ="checkinCheckout")
 	private Set<MedicalDetails> medicalDetails;
 	
 	@OneToMany(mappedBy = "checkinCheckout")
-	@Column(name="autorized_relation")
 	private Set<AuthorizedRelation> autorizedRelation;
 	
 	
@@ -67,6 +64,9 @@ public class CheckInCheckOut
 	private int updatedBy;
 	@Column(name="is_active")
 	private boolean isActive;
+	
+	@Column(name="contact_number")
+	private String contactNumber;
 	
 	
 
@@ -87,6 +87,12 @@ public class CheckInCheckOut
 		this.autorizedRelation = autorizedRelation;
 	}
 
+
+	public CheckInCheckOut(int checkinCheckoutId) 
+	{
+		super();
+		this.checkinCheckoutId = checkinCheckoutId;
+	}
 
 
 	public int getCheckinCheckoutId() {
@@ -267,5 +273,18 @@ public class CheckInCheckOut
 		this.isActive = isActive;
 	}
 
+
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+	
 	
 }

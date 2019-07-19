@@ -21,6 +21,7 @@ public class MedicalDetailsDto
 	private int createdBy;
 	private int updatedBy;
 	private boolean isActive;
+	
 	public int getMedicalDetailsId() {
 		return medicalDetailsId;
 	}

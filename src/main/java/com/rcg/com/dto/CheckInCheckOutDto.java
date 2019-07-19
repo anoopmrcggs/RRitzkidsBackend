@@ -10,6 +10,7 @@ import com.rcg.com.dao.YoungGustNotes;
 
 public class CheckInCheckOutDto 
 {
+	
 	private int checkinCheckoutId;
 	private int tagId;
 	private String event;
@@ -17,6 +18,8 @@ public class CheckInCheckOutDto
 	private Date exitTime;
 	private YoungGustDto youngGust;
 	private LanguageDto language;
+	private String nickName;
+	private String contactNumber;
 	
 	private Set<YoungGustNotesDto> youngGustNotes;
 	private Set<MedicalDetailsDto> medicalDetails;
@@ -118,6 +121,18 @@ public class CheckInCheckOutDto
 	}
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 	
 	

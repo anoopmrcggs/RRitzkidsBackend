@@ -22,7 +22,6 @@ public class YoungGustNotes
 	private int youngGustNotesId;
 	
 	@ManyToOne
-	@Column(name="young_gust")
 	private YoungGust youngGust;
 	
 	private String title;
@@ -31,7 +30,6 @@ public class YoungGustNotes
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	@Column(name="checkin_checkout")
 	private CheckInCheckOut checkinCheckout;
 	
 	private Date created;

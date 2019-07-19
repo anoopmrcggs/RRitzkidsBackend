@@ -36,7 +36,6 @@ public class AuthorizedRelation
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	@Column(name="checkincheckout")
 	private CheckInCheckOut checkinCheckout;
 	
 	

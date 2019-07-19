@@ -37,12 +37,10 @@ public class MedicalDetails
 	private String dislikes;
 	
 	@ManyToOne
-	@Column(name="young_gust")
 	private YoungGust youngGust;
 	
 	@ManyToOne(targetEntity = CheckInCheckOut.class)
 	@JsonBackReference
-	@Column(name="checkedin_checkout")
 	private CheckInCheckOut checkinCheckout;
 	
 	@Column(name="created_by")
