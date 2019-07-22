@@ -148,17 +148,23 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		cr.findAll().forEach(checkInCheckOuts::add);
 		return checkInCheckOuts;
 	}
-
+	
+	
 	@Override
-	public Optional<CheckInCheckOut> getCheckInCheckoutForm(int cid) throws RitzkidsException 
+	public CheckInCheckOut getCheckInCheckoutForm(int cid) throws RitzkidsException 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(!cr.findById(cid).isPresent())
+		{
+			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			return cr.findById(cid).get();
+		}
 	}
 	
 	
-	
-	
+
 	private CheckInCheckOut checkincheckoutMapper(CheckInCheckOutDto cdto)
 	{
 		ModelMapper mapper=new ModelMapper();

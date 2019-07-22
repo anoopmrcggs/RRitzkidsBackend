@@ -65,6 +65,9 @@ public class CheckInCheckOut
 	@Column(name="is_active")
 	private boolean isActive;
 	
+	@Column(name="checkin_status")
+	private boolean checkinStatus;
+	
 	@Column(name="contact_number")
 	private String contactNumber;
 	
@@ -283,6 +286,18 @@ public class CheckInCheckOut
 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+
+
+
+	public boolean isCheckinStatus() {
+		return checkinStatus;
+	}
+
+
+
+	public void setCheckinStatus(boolean checkinStatus) {
+		this.checkinStatus = checkinStatus;
 	}
 
 	

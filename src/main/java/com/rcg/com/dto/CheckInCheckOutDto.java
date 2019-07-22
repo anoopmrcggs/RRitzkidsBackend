@@ -30,6 +30,7 @@ public class CheckInCheckOutDto
 	private int createdBy;
 	private int updatedBy;
 	private boolean isActive;
+	private boolean checkinStatus;
 	
 	
 	public int getCheckinCheckoutId() {
@@ -133,6 +134,12 @@ public class CheckInCheckOutDto
 	}
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+	public boolean isCheckinStatus() {
+		return checkinStatus;
+	}
+	public void setCheckinStatus(boolean checkinStatus) {
+		this.checkinStatus = checkinStatus;
 	}
 	
 	

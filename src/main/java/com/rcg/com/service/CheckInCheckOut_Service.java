@@ -13,6 +13,6 @@ public interface CheckInCheckOut_Service
 	
 	public List<CheckInCheckOut> getAllCheckInCheckoutForm() throws RitzkidsException;
 	
-	public Optional<CheckInCheckOut> getCheckInCheckoutForm(int cid) throws RitzkidsException;
+	public CheckInCheckOut getCheckInCheckoutForm(int cid) throws RitzkidsException;
 
 }
