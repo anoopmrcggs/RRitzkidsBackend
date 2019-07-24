@@ -14,5 +14,7 @@ public interface CheckInCheckOut_Service
 	public List<CheckInCheckOut> getAllCheckInCheckoutForm() throws RitzkidsException;
 	
 	public CheckInCheckOut getCheckInCheckoutForm(int cid) throws RitzkidsException;
+	
+	public int updateCheckinCheckout(boolean status,int cid,int arid) throws RitzkidsException;
 
 }

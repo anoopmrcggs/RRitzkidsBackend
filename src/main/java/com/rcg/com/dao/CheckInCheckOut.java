@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -47,8 +49,14 @@ public class CheckInCheckOut
 	@Column(name="young_gust_notes")
 	private Set<YoungGustNotes> youngGustNotes;
 	
-	@OneToMany(mappedBy ="checkinCheckout")
-	private Set<MedicalDetails> medicalDetails;
+	/*
+	 * @OneToMany(mappedBy ="checkinCheckout") private Set<MedicalDetails>
+	 * medicalDetails;
+	 */
+
+	@OneToOne(mappedBy ="checkinCheckout",cascade = CascadeType.ALL)
+	private MedicalDetails medicalDetails;
+	
 	
 	@OneToMany(mappedBy = "checkinCheckout")
 	private Set<AuthorizedRelation> autorizedRelation;
@@ -71,6 +79,14 @@ public class CheckInCheckOut
 	@Column(name="contact_number")
 	private String contactNumber;
 	
+	@Column(name="guardian_Location")
+	private String guardianLocation;
+	
+	@Column(name="is_self_checkout")
+	private boolean isSelfCheckout;
+	
+	@Column(name="secure_password")
+	private String securePassword;
 	
 
 	public CheckInCheckOut() 
@@ -193,14 +209,13 @@ public class CheckInCheckOut
 	}
 
 
-
-	public Set<MedicalDetails> getMedicalDetails() {
+	public MedicalDetails getMedicalDetails() {
 		return medicalDetails;
 	}
 
 
 
-	public void setMedicalDetails(Set<MedicalDetails> medicalDetails) {
+	public void setMedicalDetails(MedicalDetails medicalDetails) {
 		this.medicalDetails = medicalDetails;
 	}
 
@@ -299,6 +314,43 @@ public class CheckInCheckOut
 	public void setCheckinStatus(boolean checkinStatus) {
 		this.checkinStatus = checkinStatus;
 	}
+
+
+	public String getGuardianLocation() {
+		return guardianLocation;
+	}
+
+
+
+	public void setGuardianLocation(String guardianLocation) {
+		this.guardianLocation = guardianLocation;
+	}
+
+
+
+	public boolean isSelfCheckout() {
+		return isSelfCheckout;
+	}
+
+
+
+	public void setSelfCheckout(boolean isSelfCheckout) {
+		this.isSelfCheckout = isSelfCheckout;
+	}
+
+
+
+	public String getSecurePassword() {
+		return securePassword;
+	}
+
+
+
+	public void setSecurePassword(String securePassword) {
+		this.securePassword = securePassword;
+	}
+
+
 
 	
 	

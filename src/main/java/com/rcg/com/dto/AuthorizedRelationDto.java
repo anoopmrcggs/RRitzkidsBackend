@@ -12,12 +12,15 @@ public class AuthorizedRelationDto
 	private GuardianDto guardian;
 	private RelationshipDto relationship;
 	private CheckInCheckOutDto checkinCheckout;
+	private String contactNumber;
 	private Date created;
 	private Date updated;
 	private int createdBy;
 	private int updatedBy;
 	private boolean isActive;
-	
+	private boolean isCheckedout;
+	private String priority;
+
 	
 	public int getAuthorizedRelationId() {
 		return authorizedRelationId;
@@ -73,9 +76,23 @@ public class AuthorizedRelationDto
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
-	
-	
-	
+	public boolean isCheckedout() {
+		return isCheckedout;
+	}
+	public void setCheckedout(boolean isCheckedout) {
+		this.isCheckedout = isCheckedout;
+	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	public String getPriority() {
+		return priority;
+	}
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
 	
 }

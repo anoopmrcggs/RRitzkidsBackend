@@ -1,6 +1,8 @@
 package com.rcg.com.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.CheckInCheckOut;
+import com.rcg.com.dao.Guardian;
 import com.rcg.com.dao.YoungGust;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
@@ -20,8 +23,8 @@ import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
-@RequestMapping("/ritzkids")
-public class CheckInCheckOutForm 
+@RequestMapping("/api")
+public class CheckInCheckOutFormController 
 {
 	@Autowired
 	private CheckInCheckOut_Service cs;
@@ -29,8 +32,9 @@ public class CheckInCheckOutForm
 	@RequestMapping(method = RequestMethod.POST,value="/checkincheckoutform")
 	public ResponseEntity<?> save(@RequestBody CheckInCheckOutDto cdto) throws RitzkidsException
 	{
-		cs.saveCheckInCheckoutForm(cdto);
-		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
+		//int cid=cs.saveCheckInCheckoutForm(cdto);
+		return ResponseEntity.ok(new ResponseStatus<Integer>(RitzConstants.SUCCESS_CODE, RitzConstants.OK, RitzConstants.SUCCESS, cs.saveCheckInCheckoutForm(cdto)));
+		//return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 	}
 	
 	@RequestMapping("/checkincheckoutform")
@@ -43,6 +47,13 @@ public class CheckInCheckOutForm
 	public ResponseEntity<?>getForm(@PathVariable int cid) throws RitzkidsException
 	{
 		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,cs.getCheckInCheckoutForm(cid)));
+	}
+	
+	@RequestMapping("/checkincheckoutform/{cid}/ar/{aid}/status/{st}")
+	public ResponseEntity<?>updateForm(@PathVariable boolean st,@PathVariable int cid,@PathVariable int aid) throws RitzkidsException
+	{
+		cs.updateCheckinCheckout(st, cid, aid);
+		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 	}
 	
 }

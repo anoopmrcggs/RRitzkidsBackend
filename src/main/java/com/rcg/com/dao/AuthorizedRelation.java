@@ -50,7 +50,15 @@ public class AuthorizedRelation
 	
 	@Column(name="is_Active")
 	private boolean isActive;
-
+	
+	@Column(name="is_checkedout")
+	private boolean isCheckedout;
+	
+	@Column(name="contact_number")
+	private String contactNumber;
+	
+	@Column(name="priority")
+	private String priority;
 
 	
 	public AuthorizedRelation() 
@@ -160,6 +168,48 @@ public class AuthorizedRelation
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+
+
+
+	public boolean isCheckedout() {
+		return isCheckedout;
+	}
+
+
+
+
+	public void setCheckedout(boolean isCheckedout) {
+		this.isCheckedout = isCheckedout;
+	}
+
+
+
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+
+
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+
+
+
+	public String getPriority() {
+		return priority;
+	}
+
+
+
+
+	public void setPriority(String priority) {
+		this.priority = priority;
 	}
 
 	

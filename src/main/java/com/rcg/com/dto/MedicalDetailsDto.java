@@ -13,7 +13,8 @@ public class MedicalDetailsDto
 	private String medications;
 	private String allergies;
 	private String medicationAllergies;
-	private String specialNeeds;
+	private String emergencyContact;
+	private String preferences;
 	private String likes;
 	private String dislikes;
 	private YoungGustDto youngGust;
@@ -21,6 +22,7 @@ public class MedicalDetailsDto
 	private int createdBy;
 	private int updatedBy;
 	private boolean isActive;
+	
 	
 	public int getMedicalDetailsId() {
 		return medicalDetailsId;
@@ -58,11 +60,17 @@ public class MedicalDetailsDto
 	public void setMedicationAllergies(String medicationAllergies) {
 		this.medicationAllergies = medicationAllergies;
 	}
-	public String getSpecialNeeds() {
-		return specialNeeds;
+	public String getEmergencyContact() {
+		return emergencyContact;
 	}
-	public void setSpecialNeeds(String specialNeeds) {
-		this.specialNeeds = specialNeeds;
+	public void setEmergencyContact(String emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+	public String getPreferences() {
+		return preferences;
+	}
+	public void setPreferences(String preferences) {
+		this.preferences = preferences;
 	}
 	public String getLikes() {
 		return likes;

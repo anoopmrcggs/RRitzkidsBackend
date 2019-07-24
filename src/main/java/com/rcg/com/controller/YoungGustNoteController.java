@@ -15,8 +15,8 @@ import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
-@RequestMapping("/ritzkids")
-public class YoungGustNote 
+@RequestMapping("/api")
+public class YoungGustNoteController 
 {
 	@Autowired
 	private YoungGustNote_Service ygs;
@@ -33,6 +33,14 @@ public class YoungGustNote
 	public ResponseEntity<?> update(@RequestBody YoungGustNotesDto ydto,@PathVariable int cid,@PathVariable int nid) throws RitzkidsException
 	{
 		ygs.updateYoungGustNote(ydto,cid,nid);
+		return ResponseEntity.ok(new ResponseStatus<YoungGust>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
+
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE,value="/younggustnote/{nid}")
+	public ResponseEntity<?> delete(@PathVariable int nid) throws RitzkidsException
+	{
+		ygs.deleteYoungGustNote(nid);
 		return ResponseEntity.ok(new ResponseStatus<YoungGust>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 
 	}

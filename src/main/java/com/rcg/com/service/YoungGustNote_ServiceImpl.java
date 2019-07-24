@@ -36,7 +36,7 @@ public class YoungGustNote_ServiceImpl implements YoungGustNote_Service
 		}
 
 	}
-	
+	@Override
 	public void updateYoungGustNote(YoungGustNotesDto youngGustNotesDto,int cid,int nid) throws RitzkidsException
 	{
 		if(!ygr.findById(nid).isPresent())
@@ -51,6 +51,19 @@ public class YoungGustNote_ServiceImpl implements YoungGustNote_Service
 			ygr.save(yg);
 		}
 		
+	}
+	
+	@Override
+	public void deleteYoungGustNote(int nid) throws RitzkidsException 
+	{
+		if(!ygr.findById(nid).isPresent())
+		{
+			throw new RitzkidsException("YoungGustNote ID not valid",RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			ygr.deleteById(nid);
+		}
 	}
 	
 	

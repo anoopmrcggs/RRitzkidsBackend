@@ -19,7 +19,7 @@ import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
-@RequestMapping("/ritzkids")
+@RequestMapping("/api")
 public class RelationshipController 
 {
 	@Autowired

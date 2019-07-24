@@ -18,7 +18,7 @@ import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
-@RequestMapping("/ritzkids")
+@RequestMapping("/api")
 public class RoleControll 
 {
 	@Autowired
@@ -37,10 +37,10 @@ public class RoleControll
 		return ResponseEntity.ok(new ResponseStatus<List<Role>>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,rs.getAllRole()));
 	}
 	
-	@RequestMapping()
-	public String saveRoleWithPermision() throws RitzkidsException
-	{
-		
-		return "success";
-	}
+	/*
+	 * @RequestMapping() public String saveRoleWithPermision() throws
+	 * RitzkidsException {
+	 * 
+	 * return "success"; }
+	 */
 }

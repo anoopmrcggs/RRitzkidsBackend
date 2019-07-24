@@ -22,17 +22,28 @@ public class CheckInCheckOutDto
 	private String contactNumber;
 	
 	private Set<YoungGustNotesDto> youngGustNotes;
-	private Set<MedicalDetailsDto> medicalDetails;
+	private MedicalDetailsDto medicalDetails;
 	private Set<AuthorizedRelationDto> autorizedRelation;
 	
 	private Date created;
 	private Date updated;
 	private int createdBy;
 	private int updatedBy;
-	private boolean isActive;
+	private Boolean isActive;
 	private boolean checkinStatus;
+	private String guardianLocation;
+	private String kidLocation;
+	private String ageGroup;
+	private String securePassword;
+	private Boolean isSelfCheckout;
+
 	
-	
+	public String getSecurePassword() {
+		return securePassword;
+	}
+	public void setSecurePassword(String securePassword) {
+		this.securePassword = securePassword;
+	}
 	public int getCheckinCheckoutId() {
 		return checkinCheckoutId;
 	}
@@ -81,10 +92,10 @@ public class CheckInCheckOutDto
 	public void setYoungGustNotes(Set<YoungGustNotesDto> youngGustNotes) {
 		this.youngGustNotes = youngGustNotes;
 	}
-	public Set<MedicalDetailsDto> getMedicalDetails() {
+	public MedicalDetailsDto getMedicalDetails() {
 		return medicalDetails;
 	}
-	public void setMedicalDetails(Set<MedicalDetailsDto> medicalDetails) {
+	public void setMedicalDetails(MedicalDetailsDto medicalDetails) {
 		this.medicalDetails = medicalDetails;
 	}
 	public Set<AuthorizedRelationDto> getAutorizedRelation() {
@@ -108,39 +119,72 @@ public class CheckInCheckOutDto
 	public int getCreatedBy() {
 		return createdBy;
 	}
+	
 	public void setCreatedBy(int createdBy) {
 		this.createdBy = createdBy;
 	}
+	
 	public int getUpdatedBy() {
 		return updatedBy;
 	}
+	
 	public void setUpdatedBy(int updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	public boolean isActive() {
+	
+	public Boolean getIsActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 	public String getNickName() {
 		return nickName;
 	}
+	
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+	
 	public String getContactNumber() {
 		return contactNumber;
+	}
+	
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
 	}
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+	
 	public boolean isCheckinStatus() {
 		return checkinStatus;
 	}
+	
 	public void setCheckinStatus(boolean checkinStatus) {
 		this.checkinStatus = checkinStatus;
 	}
-	
-	
+
+	public String getGuardianLocation() {
+		return guardianLocation;
+	}
+	public void setGuardianLocation(String guardianLocation) {
+		this.guardianLocation = guardianLocation;
+	}
+	public String getKidLocation() {
+		return kidLocation;
+	}
+	public void setKidLocation(String kidLocation) {
+		this.kidLocation = kidLocation;
+	}
+	public Boolean getIsSelfCheckout() {
+		return isSelfCheckout;
+	}
+	public void setIsSelfCheckout(Boolean isSelfCheckout) {
+		this.isSelfCheckout = isSelfCheckout;
+	}
+
 }

@@ -10,18 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rcg.com.dao.ConsentForm;
 import com.rcg.com.dao.ConsentFormTemplate;
-import com.rcg.com.dto.ConsentFormDto;
 import com.rcg.com.dto.ConsentformTemplateWrapper;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.service.ConsentFormTemplate_Service;
-import com.rcg.com.service.ConsentForm_Service;
 import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
-@RequestMapping("/ritzkids")
+@RequestMapping("/api")
 public class ConsentFormTemplateController 
 {
 	@Autowired
@@ -31,8 +28,9 @@ public class ConsentFormTemplateController
 	@RequestMapping(method = RequestMethod.POST,value="/language/{lid}/consentformtemplate")
 	public ResponseEntity<?> save(@RequestBody ConsentformTemplateWrapper cf,@PathVariable int lid) throws RitzkidsException
 	{
+		//cf.getConsentFomTemplateDto().forEach((a)->System.out.println("Data : Head - "+a.getHead()+" - Boady - "+a.getBoady()+" - Item - "+a.getItem()));
 		cs.saveConsentForm(cf, lid);
-		return ResponseEntity.ok(new ResponseStatus<ConsentForm>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS));	
+		return ResponseEntity.ok(new ResponseStatus<ConsentFormTemplate>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS));	
 	}
 	//Get All ConsentForm
 	@RequestMapping("/consentformtemplate")
@@ -45,7 +43,7 @@ public class ConsentFormTemplateController
 	public ResponseEntity<?> getConcernform(@PathVariable int lid) throws RitzkidsException
 	{
 		
-		return ResponseEntity.ok(new ResponseStatus<List<ConsentFormTemplate>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS,cs.getAllConsentForm()));	
+		return ResponseEntity.ok(new ResponseStatus<List<ConsentFormTemplate>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS,cs.getConsentFormById(lid)));	
 	}
 	//Update ConsentForm
 	

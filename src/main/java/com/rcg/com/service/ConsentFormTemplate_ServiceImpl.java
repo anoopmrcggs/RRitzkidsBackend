@@ -8,14 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rcg.com.dao.ConsentForm;
 import com.rcg.com.dao.ConsentFormTemplate;
 import com.rcg.com.dao.Language;
 import com.rcg.com.dto.ConsentFormDto;
 import com.rcg.com.dto.ConsentFormTemplateDto;
 import com.rcg.com.dto.ConsentformTemplateWrapper;
 import com.rcg.com.exceptions.RitzkidsException;
-import com.rcg.com.repository.ConCernFormRepository;
 import com.rcg.com.repository.ConCernFormTemplateRepository;
 import com.rcg.com.repository.LanguageRepository;
 import com.rcg.com.util.RitzConstants;
@@ -31,7 +29,7 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 	
 	@Override
 	public String saveConsentForm(ConsentformTemplateWrapper concernFormtemplateWrapperDto,int lid) throws RitzkidsException
-	{
+	{		
 		Optional<Language> language=lr.findById(lid);
 		if(!language.isPresent())
 		{

@@ -3,6 +3,7 @@ package com.rcg.com.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.rcg.com.dao.YoungGust;
 import com.rcg.com.dao.YoungGustNotes;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
+import com.rcg.com.dto.GuardianDto;
 import com.rcg.com.dto.MedicalDetailsDto;
 import com.rcg.com.dto.YoungGustNotesDto;
 import com.rcg.com.exceptions.RitzkidsException;
@@ -63,7 +65,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	@Override
 	public int saveCheckInCheckoutForm(CheckInCheckOutDto checkincheckoutdto ) throws RitzkidsException 
 	{
-		
 		//CheckinCheckoutFormMapping
 		CheckInCheckOut checkform=checkincheckoutMapper(checkincheckoutdto);
 		if(!lr.findById(checkincheckoutdto.getLanguage().getLid()).isPresent())
@@ -83,20 +84,43 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		{
 			YoungGust yg=ygo.get();
 			yg.setNickName(checkincheckoutdto.getNickName());
+			yg.setLocation(checkincheckoutdto.getKidLocation());
+			yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
+			yg.setLanguage(checkincheckoutdto.getLanguage().getName());
 			ygr.save(yg);
 			checkform.setYoungGust(yg);
 		}
+
+		/*
+		 * Set<AuthorizedRelationDto> ars=checkincheckoutdto.getAutorizedRelation();
+		 * ars.forEach(
+		 * 
+		 * (a)-> { Optional<Guardian> go=gr.findById(a.getGuardian().getGuardianId());
+		 * if(go.isPresent()) { Guardian g=go.get();
+		 * //g.setContectNumber(a.getContactNumber()); gr.save(g); }
+		 * 
+		 * 
+		 * }
+		 * 
+		 * );
+		 */
 		
+		checkform.setCheckinStatus(true);
 		cr.save(checkform);
 		
 		
+		MedicalDetails md=  medicalDetailsMapper(checkincheckoutdto.getMedicalDetails());
+		md.setCheckinCheckout(checkform);
+		mr.save(md);
+		
 		/*
 		 * //Mapping MedicalDetailsDto to medical Details
-		 * checkincheckoutdto.getMedicaldetailsDto().forEach( (a)->{ MedicalDetails
+		 * checkincheckoutdto.getMedicalDetails().forEach( (a)->{ MedicalDetails
 		 * m=medicalDetailsMapper(a); m.setCheckinCheckout(checkform); mr.save(m);
 		 * 
 		 * } );
 		 */
+		 
 
 		/*
 		 * //Mapping YoungGustDto to YoungGust
@@ -138,14 +162,17 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			throw new RitzkidsException("Authorized pickup data should be there ",RitzConstants.ERROR_CODE);
 		}
 
-		return 0;
+		return checkform.getCheckinCheckoutId();
 	}
+	
+	
 
 	@Override
 	public List<CheckInCheckOut> getAllCheckInCheckoutForm() throws RitzkidsException 
 	{
 		List<CheckInCheckOut> checkInCheckOuts=new ArrayList<CheckInCheckOut>();
-		cr.findAll().forEach(checkInCheckOuts::add);
+		//cr.findAll().forEach(checkInCheckOuts::add);
+		cr.findAllByOrderByCheckinCheckoutIdDesc().forEach(checkInCheckOuts::add);
 		return checkInCheckOuts;
 	}
 	
@@ -162,6 +189,45 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			return cr.findById(cid).get();
 		}
 	}
+	
+	
+
+	@Override
+	public int updateCheckinCheckout(boolean status, int cid, int arid) throws RitzkidsException 
+	{
+		
+		if(!cr.findById(cid).isPresent())
+		{
+			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			Optional<CheckInCheckOut> cfo=cr.findById(cid);
+			CheckInCheckOut cf=cfo.get();
+			cf.setCheckinStatus(status);
+			cf.setCheckinCheckoutId(cid);
+			cf.setCheckinStatus(false);
+			cr.save(cf);
+			
+			if(!ar.findById(arid).isPresent())
+			{
+				throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE);
+			}
+			else
+			{
+			
+				Optional<AuthorizedRelation> aro=ar.findById(arid);
+				AuthorizedRelation arelation=aro.get();
+				arelation.setCheckedout(status);
+				arelation.setAuthorizedRelationId(arid);
+				ar.save(arelation);
+				
+			}
+			
+		}
+		return 0;
+	}
+	
 	
 	
 

@@ -70,6 +70,11 @@ public class YoungGust
 	@JsonBackReference
 	private Set<Guardian> guardian;
 	
+	@Column(name="age_group")
+	private String ageGroup;
+
+	private String location;
+	
 
 	public YoungGust() 
 	{
@@ -270,6 +275,26 @@ public class YoungGust
 
 	public void setGuardian(Set<Guardian> guardian) {
 		this.guardian = guardian;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+
+
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
 	}
 	
 	

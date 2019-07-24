@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.rcg.com.dao.ConsentForm;
 import com.rcg.com.dao.ConsentFormTemplate;
 
 public interface ConCernFormTemplateRepository extends CrudRepository<ConsentFormTemplate,Integer>

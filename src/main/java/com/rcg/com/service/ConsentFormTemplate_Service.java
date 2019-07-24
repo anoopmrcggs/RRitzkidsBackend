@@ -2,7 +2,6 @@ package com.rcg.com.service;
 
 import java.util.List;
 
-import com.rcg.com.dao.ConsentForm;
 import com.rcg.com.dao.ConsentFormTemplate;
 import com.rcg.com.dto.ConsentFormDto;
 import com.rcg.com.dto.ConsentFormTemplateDto;

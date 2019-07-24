@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -31,17 +34,28 @@ public class MedicalDetails
 	@Column(name="medication_allergies")
 	private String medicationAllergies;
 	
-	@Column(name="special_needs")
-	private String specialNeeds;
+	@Column(name="emergency_contact")
+	private String emergencyContact;
+	
+	private String preferences;
+	
 	private String likes;
 	private String dislikes;
 	
-	@ManyToOne
-	private YoungGust youngGust;
+	/*
+	 * @ManyToOne private YoungGust youngGust;
+	 */
 	
-	@ManyToOne(targetEntity = CheckInCheckOut.class)
+	/*
+	 * @ManyToOne(targetEntity = CheckInCheckOut.class)
+	 * 
+	 * @JsonBackReference private CheckInCheckOut checkinCheckout;
+	 */
+	
+	@OneToOne
 	@JsonBackReference
 	private CheckInCheckOut checkinCheckout;
+	
 	
 	@Column(name="created_by")
 	private int createdBy;
@@ -58,11 +72,11 @@ public class MedicalDetails
 	}
 
 
-	public MedicalDetails(int medicalDetailsId, YoungGust youngGust)
+	public MedicalDetails(int medicalDetailsId)
 	{
 		super();
 		this.medicalDetailsId = medicalDetailsId;
-		this.youngGust = youngGust;
+		
 	}
 
 
@@ -126,13 +140,23 @@ public class MedicalDetails
 	}
 
 
-	public String getSpecialNeeds() {
-		return specialNeeds;
+	public String getEmergencyContact() {
+		return emergencyContact;
 	}
 
 
-	public void setSpecialNeeds(String specialNeeds) {
-		this.specialNeeds = specialNeeds;
+	public void setEmergencyContact(String emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+
+
+	public String getPreferences() {
+		return preferences;
+	}
+
+
+	public void setPreferences(String preferences) {
+		this.preferences = preferences;
 	}
 
 
@@ -153,16 +177,6 @@ public class MedicalDetails
 
 	public void setDislikes(String dislikes) {
 		this.dislikes = dislikes;
-	}
-
-
-	public YoungGust getYoungGust() {
-		return youngGust;
-	}
-
-
-	public void setYoungGust(YoungGust youngGust) {
-		this.youngGust = youngGust;
 	}
 
 
@@ -204,6 +218,7 @@ public class MedicalDetails
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
 	
 	
 
