@@ -56,8 +56,6 @@ public class CheckInCheckOutDto
 	@NotBlank(message="Age group is mandatory")
 	private String ageGroup;
 	
-	@NotNull
-	@NotBlank(message="Secure password is mandatory")
 	private String securePassword;
 	private Boolean isSelfCheckout;
 
