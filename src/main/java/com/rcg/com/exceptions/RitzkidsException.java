@@ -2,6 +2,9 @@ package com.rcg.com.exceptions;
 
 public class RitzkidsException extends Exception 
 {
+	
+	private static final long serialVersionUID = -7621538005853247535L;
+	
 	private int ex_code;
 	
 	public RitzkidsException(String message,int ex_code)

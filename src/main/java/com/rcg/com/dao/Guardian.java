@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
 @Entity
 @Table(name="ryg_guardian")
 public class Guardian 

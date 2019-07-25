@@ -2,9 +2,7 @@ package com.rcg.com.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.rcg.com.dao.Role;
 

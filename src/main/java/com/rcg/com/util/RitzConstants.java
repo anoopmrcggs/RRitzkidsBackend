@@ -3,8 +3,6 @@ package com.rcg.com.util;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.springframework.http.HttpStatus;
-
 public class RitzConstants {
 	
 	

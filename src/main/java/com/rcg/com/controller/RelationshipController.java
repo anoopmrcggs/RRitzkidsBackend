@@ -2,6 +2,8 @@ package com.rcg.com.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +29,7 @@ public class RelationshipController
 	
 	//save Relationship
 	@RequestMapping(method = RequestMethod.POST,value = "/relationship")
-	public ResponseEntity<?> save(@RequestBody RelationshipDto rdto)
+	public ResponseEntity<?> save(@Valid @RequestBody RelationshipDto rdto)
 	{
 		rs.saveRelationship(rdto);
 		return ResponseEntity.ok(new ResponseStatus<Relationship>(RitzConstants.SUCCESS_CODE, RitzConstants.OK, RitzConstants.SUCCESS));
@@ -46,7 +48,7 @@ public class RelationshipController
 	}
 	//Update Relationship
 	@RequestMapping(method = RequestMethod.POST,value = "/relationship/{rid}")
-	public ResponseEntity<?> update(@RequestBody RelationshipDto rdto) throws RitzkidsException,ConstraintsException
+	public ResponseEntity<?> update(@Valid @RequestBody RelationshipDto rdto) throws RitzkidsException,ConstraintsException
 	{
 		return ResponseEntity.ok(new ResponseStatus<Relationship>(RitzConstants.SUCCESS_CODE, RitzConstants.OK, RitzConstants.SUCCESS));
 	}

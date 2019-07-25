@@ -1,8 +1,6 @@
 package com.rcg.com.controller;
 
 
-
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,20 +31,20 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler
 		return ResponseEntity.ok(new ResponseStatus<Error>(RitzConstants.ERROR_CODE, RitzConstants.NOT_FOUND, error.getError().getMessage()));
 	}
 
+	
 	@SuppressWarnings("rawtypes")
-	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,HttpStatus status, WebRequest request) 
-	{
+	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 
 		FieldError fieldError = ex.getBindingResult().getFieldError();
 		String errorMessage = fieldError.getDefaultMessage();
 		String annoTationType = ex.getBindingResult().getAllErrors().get(0).getCode();
-		if (RitzConstants.VALIDATION_ERROR_TYPE.contains(annoTationType))
-		{
+		if (RitzConstants.VALIDATION_ERROR_TYPE.contains(annoTationType)) {
 			String fieldName = fieldError.getField();
 			errorMessage = fieldName + " " + errorMessage;
 		}
+		
 		return ResponseEntity.ok(new ResponseStatus<Error>(RitzConstants.WARN_CODE, RitzConstants.WARN, errorMessage));
 
 	}
-
 }

@@ -3,7 +3,6 @@ package com.rcg.com.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.rcg.com.dao.AuthorizedRelation;
 import com.rcg.com.dao.CheckInCheckOut;
-import com.rcg.com.dao.Guardian;
 import com.rcg.com.dao.Language;
 import com.rcg.com.dao.MedicalDetails;
 import com.rcg.com.dao.YoungGust;
-import com.rcg.com.dao.YoungGustNotes;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
-import com.rcg.com.dto.GuardianDto;
 import com.rcg.com.dto.MedicalDetailsDto;
-import com.rcg.com.dto.YoungGustNotesDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.repository.AuthorizedRelationRepository;
 import com.rcg.com.repository.CheckInCheckOutRepository;
@@ -28,7 +23,6 @@ import com.rcg.com.repository.GuardianRepository;
 import com.rcg.com.repository.LanguageRepository;
 import com.rcg.com.repository.MedicalDetailsRepository;
 import com.rcg.com.repository.RelationshipRepository;
-import com.rcg.com.repository.YoungGustNotesRepository;
 import com.rcg.com.repository.YoungGustRepository;
 import com.rcg.com.util.RitzConstants;
 
@@ -44,8 +38,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	@Autowired
 	private CheckInCheckOutRepository cr;
 	
-	@Autowired
-	private YoungGustNotesRepository yr; 
 	
 	@Autowired
 	private YoungGustRepository ygr;
@@ -65,101 +57,100 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	@Override
 	public int saveCheckInCheckoutForm(CheckInCheckOutDto checkincheckoutdto ) throws RitzkidsException 
 	{
-		//CheckinCheckoutFormMapping
-		CheckInCheckOut checkform=checkincheckoutMapper(checkincheckoutdto);
-		if(!lr.findById(checkincheckoutdto.getLanguage().getLid()).isPresent())
-		{
-			throw new RitzkidsException("No language were found in this ID",RitzConstants.ERROR_CODE);
-		}
-		else
-		{
-			checkform.setLanguage(new Language(checkincheckoutdto.getLanguage().getLid(), "", ""));
-		}
-		Optional<YoungGust> ygo=ygr.findById(checkincheckoutdto.getYoungGust().getYoungGustId());
-		if(!ygo.isPresent())
-		{
-			throw new RitzkidsException("No Young gust were found in given ID",RitzConstants.ERROR_CODE);
-		}
-		else
-		{
-			YoungGust yg=ygo.get();
-			yg.setNickName(checkincheckoutdto.getNickName());
-			yg.setLocation(checkincheckoutdto.getKidLocation());
-			yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
-			yg.setLanguage(checkincheckoutdto.getLanguage().getName());
-			ygr.save(yg);
-			checkform.setYoungGust(yg);
-		}
-
-		/*
-		 * Set<AuthorizedRelationDto> ars=checkincheckoutdto.getAutorizedRelation();
-		 * ars.forEach(
-		 * 
-		 * (a)-> { Optional<Guardian> go=gr.findById(a.getGuardian().getGuardianId());
-		 * if(go.isPresent()) { Guardian g=go.get();
-		 * //g.setContectNumber(a.getContactNumber()); gr.save(g); }
-		 * 
-		 * 
-		 * }
-		 * 
-		 * );
-		 */
 		
+		Optional<YoungGust> ygo=null;
+		
+		CheckInCheckOut checkform=checkincheckoutMapper(checkincheckoutdto);
+
+		//Setting Language
+		if(checkincheckoutdto.getLanguage()!=null)
+		{
+				
+			if(!lr.findById(checkincheckoutdto.getLanguage().getLid()).isPresent())
+			{
+				throw new RitzkidsException("No language were found in this ID",RitzConstants.ERROR_CODE);
+			}
+			else
+			{
+				checkform.setLanguage(new Language(checkincheckoutdto.getLanguage().getLid(), "", ""));
+			}
+		
+		}
+		else
+		{
+			
+			throw new RitzkidsException("Language is mandatory", RitzConstants.ERROR_CODE);
+		}
+		
+		
+		if(checkincheckoutdto.getYoungGust()!=null)
+		{
+			ygo=ygr.findById(checkincheckoutdto.getYoungGust().getYoungGustId());
+			if(!ygo.isPresent())
+			{
+				throw new RitzkidsException("No Young gust were found in given ID",RitzConstants.ERROR_CODE);
+			}
+			else
+			{
+				YoungGust yg=ygo.get();
+				yg.setNickName(checkincheckoutdto.getNickName());
+				yg.setLocation(checkincheckoutdto.getKidLocation());
+				yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
+				yg.setLanguage(checkincheckoutdto.getLanguage().getName());
+				ygr.save(yg);
+				checkform.setYoungGust(yg);
+			}
+		}
+		else
+		{
+			throw new RitzkidsException("Young gust data is mandatory",RitzConstants.ERROR_CODE);
+		}
+		
+		
+		//Save Checkin checkout form
 		checkform.setCheckinStatus(true);
 		cr.save(checkform);
 		
-		
+		//saving medical details
 		MedicalDetails md=  medicalDetailsMapper(checkincheckoutdto.getMedicalDetails());
 		md.setCheckinCheckout(checkform);
 		mr.save(md);
 		
-		/*
-		 * //Mapping MedicalDetailsDto to medical Details
-		 * checkincheckoutdto.getMedicalDetails().forEach( (a)->{ MedicalDetails
-		 * m=medicalDetailsMapper(a); m.setCheckinCheckout(checkform); mr.save(m);
-		 * 
-		 * } );
-		 */
-		 
-
-		/*
-		 * //Mapping YoungGustDto to YoungGust
-		 * checkincheckoutdto.getYounggustnotesDto().forEach( (a)->{
-		 * 
-		 * YoungGustNotes yn=youngGustNotesMapper(a); yn.setCheckinCheckout(checkform);
-		 * yr.save(yn); } );
-		 */
 		
 		//Mapping AuthorizedRelationDto to Authorized Relation
 		if(checkincheckoutdto.getAutorizedRelation()!=null)
 		{
-		checkincheckoutdto.getAutorizedRelation().forEach(
+			checkincheckoutdto.getAutorizedRelation().forEach(
 				(a)->{
-						AuthorizedRelation mappedRelation=authorizedRelationMapper(a);
-						if(!(gr.findById(mappedRelation.getGuardian().getGuardianId())).isPresent())
-						{
-							System.out.println("Guardian ID not found");
-						}
-						else
-						{
-							if(!rr.findById((mappedRelation.getRelationship().getRid())).isPresent())
-							{
-								System.out.println("Relation ID not found");
-
-							}
-							else
-							{
-								mappedRelation.setCheckinCheckout(checkform);
-								ar.save(mappedRelation);
-							}
+								AuthorizedRelation mappedRelation=authorizedRelationMapper(a);
 						
-						}
+								if(!(gr.findById(mappedRelation.getGuardian().getGuardianId())).isPresent())
+									{
+									//	throw new RitzkidsException("Guardian ID not found", RitzConstants.ERROR_CODE);
+									}
+								else
+								{
+
+									if(!rr.findById((mappedRelation.getRelationship().getRid())).isPresent())
+									{
+										//throw new RitzkidsException("Relationship ID not found", RitzConstants.ERROR_CODE);		
+									}
+									else
+									{
+										mappedRelation.setCheckinCheckout(checkform);
+										ar.save(mappedRelation);
+									}
+						
+								}
+					
 					}
 				);
+		
+			
 		}
 		else
 		{
-			throw new RitzkidsException("Authorized pickup data should be there ",RitzConstants.ERROR_CODE);
+			throw new RitzkidsException("Authorized pickup is mandatory ",RitzConstants.ERROR_CODE);
 		}
 
 		return checkform.getCheckinCheckoutId();
@@ -241,12 +232,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	{
 		ModelMapper mapper=new ModelMapper();
 		return mapper.map(mdto,MedicalDetails.class);
-	}
-	
-	private YoungGustNotes youngGustNotesMapper(YoungGustNotesDto ydto)
-	{
-		ModelMapper mapper=new ModelMapper();
-		return mapper.map(ydto,YoungGustNotes.class);
 	}
 	
 	private AuthorizedRelation authorizedRelationMapper(AuthorizedRelationDto adto)

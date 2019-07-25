@@ -1,9 +1,7 @@
 package com.rcg.com.dto;
 
 import java.util.Date;
-import com.rcg.com.dao.CheckInCheckOut;
-import com.rcg.com.dao.Guardian;
-import com.rcg.com.dao.Relationship;
+
 
 public class AuthorizedRelationDto 
 {

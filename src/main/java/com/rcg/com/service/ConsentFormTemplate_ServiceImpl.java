@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.rcg.com.dao.ConsentFormTemplate;
 import com.rcg.com.dao.Language;
-import com.rcg.com.dto.ConsentFormDto;
 import com.rcg.com.dto.ConsentFormTemplateDto;
 import com.rcg.com.dto.ConsentformTemplateWrapper;
 import com.rcg.com.exceptions.RitzkidsException;

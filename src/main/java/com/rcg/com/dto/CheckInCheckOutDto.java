@@ -2,24 +2,35 @@ package com.rcg.com.dto;
 
 import java.util.Date;
 import java.util.Set;
-import com.rcg.com.dao.AuthorizedRelation;
-import com.rcg.com.dao.Language;
-import com.rcg.com.dao.MedicalDetails;
-import com.rcg.com.dao.YoungGust;
-import com.rcg.com.dao.YoungGustNotes;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 
 public class CheckInCheckOutDto 
 {
 	
 	private int checkinCheckoutId;
 	private int tagId;
+	@NotNull
+	@NotBlank(message="Event is mandatory")
 	private String event;
+	
 	private Date entryTime;
+	
 	private Date exitTime;
+	
+
 	private YoungGustDto youngGust;
+	
+
 	private LanguageDto language;
+	
+	
 	private String nickName;
+	
 	private String contactNumber;
+	
 	
 	private Set<YoungGustNotesDto> youngGustNotes;
 	private MedicalDetailsDto medicalDetails;
@@ -30,10 +41,23 @@ public class CheckInCheckOutDto
 	private int createdBy;
 	private int updatedBy;
 	private Boolean isActive;
+	
 	private boolean checkinStatus;
+	
+	@NotNull
+	@NotBlank(message="Guardian location is mandatory")
 	private String guardianLocation;
+	
+	@NotNull
+	@NotBlank(message="Young gust location is mandatory")
 	private String kidLocation;
+	
+	@NotNull
+	@NotBlank(message="Age group is mandatory")
 	private String ageGroup;
+	
+	@NotNull
+	@NotBlank(message="Secure password is mandatory")
 	private String securePassword;
 	private Boolean isSelfCheckout;
 

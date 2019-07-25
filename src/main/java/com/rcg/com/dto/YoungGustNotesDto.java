@@ -1,17 +1,25 @@
 package com.rcg.com.dto;
 
 import java.util.Date;
-import com.rcg.com.dao.CheckInCheckOut;
-import com.rcg.com.dao.YoungGust;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class YoungGustNotesDto 
 {
 	
 	private int youngGustNotesId;
 	private YoungGustDto youngGust;
+	
+	@NotNull
+	@NotBlank(message="Note title is mandatory")
 	private String title;
+	@NotNull
+	@NotBlank(message="Note description is mandatory")
 	private String description;
+	
 	private CheckInCheckOutDto checkinCheckout;
+	
 	private Date created;
 	private Date updated;
 	private int createdBy;
