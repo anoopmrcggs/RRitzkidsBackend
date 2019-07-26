@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.ConsentFormTemplate;
 import com.rcg.com.dto.ConsentformTemplateWrapper;
+import com.rcg.com.dto.SaveConsentFormDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.service.ConsentFormTemplate_Service;
 import com.rcg.com.util.ResponseStatus;
@@ -38,6 +39,7 @@ public class ConsentFormTemplateController
 	{
 		return ResponseEntity.ok(new ResponseStatus<List<ConsentFormTemplate>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS,cs.getAllConsentForm()));	
 	}
+	
 	//Get ConsentForm byID
 	@RequestMapping("/language/{lid}/consentformtemplate")
 	public ResponseEntity<?> getConcernform(@PathVariable int lid) throws RitzkidsException
@@ -45,6 +47,19 @@ public class ConsentFormTemplateController
 		
 		return ResponseEntity.ok(new ResponseStatus<List<ConsentFormTemplate>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS,cs.getConsentFormById(lid)));	
 	}
+	
+	//Generate PDF from Consent form
+	
+	@RequestMapping(method = RequestMethod.POST,value="/saveconsentfom")
+	public ResponseEntity<?> generatePDF(@RequestBody SaveConsentFormDto cfdto) throws RitzkidsException
+	{
+		System.out.println("Completed Consent Form");
+		cs.generatePDF(cfdto);
+		return ResponseEntity.ok(new ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS));	
+	}
+	
+	
+	
 	//Update ConsentForm
 	
 	//Delete ConcernForm

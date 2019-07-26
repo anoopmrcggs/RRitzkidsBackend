@@ -1,5 +1,7 @@
 package com.rcg.com.service;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,11 +9,15 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import com.rcg.com.dao.ConsentFormTemplate;
 import com.rcg.com.dao.Language;
 import com.rcg.com.dto.ConsentFormTemplateDto;
 import com.rcg.com.dto.ConsentformTemplateWrapper;
+import com.rcg.com.dto.SaveConsentFormDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.repository.ConCernFormTemplateRepository;
 import com.rcg.com.repository.LanguageRepository;
@@ -25,6 +31,10 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 	
 	@Autowired 
 	private LanguageRepository lr;
+	
+	@Autowired
+	private TemplateEngine templateEngine;
+	
 	
 	@Override
 	public String saveConsentForm(ConsentformTemplateWrapper concernFormtemplateWrapperDto,int lid) throws RitzkidsException
@@ -124,6 +134,52 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		}
 		
 	}
+	
+	public boolean generatePDF(SaveConsentFormDto cdto) throws RitzkidsException
+	{
+		
+		boolean status = false; 
+		Context context=new Context(); 
+		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getGuardianName();
+		
+		
+		int[] numArr = {1};
+
+		//Setting content
+		cr.getAllConCernFormTemplateRepositoryBylanguageLid(cdto.getLanguageId()).forEach
+		(
+		(a)->{
+			int i=numArr[0];
+			context.setVariable("head"+i, a.getHead());
+			context.setVariable("body"+i, a.getBoady());
+			context.setVariable("item"+i, a.getItem());
+			numArr[0]=numArr[0]+1;
+		}
+			
+				
+		);
+		
+		//Setting Signature
+		context.setVariable("s1",cdto.getSignature1());
+		context.setVariable("s2",cdto.getSignature2());
+		context.setVariable("s3",cdto.getSignature3());
+		context.setVariable("name",cdto.getGuardianName());
+
+		
+		String ht=templateEngine.process("consenttemplate", context); 
+		
+		try { 
+				OutputStream os = new FileOutputStream(fileName); 
+				PdfRendererBuilder builder = new
+				PdfRendererBuilder(); builder.withHtmlContent(ht, "file:");
+				builder.toStream(os); builder.run();
+				status=true;
+				
+		}catch(Exception e) {e.printStackTrace();}
+		
+		return status;
+	}
+	
 
 	
 	private ConsentFormTemplate formMapper(ConsentFormTemplateDto fdto)
