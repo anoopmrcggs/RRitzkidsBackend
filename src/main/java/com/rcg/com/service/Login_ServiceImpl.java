@@ -27,6 +27,7 @@ public class Login_ServiceImpl implements Login_Service
 	@Override
 	public Employee loginValidate(LoginDto ldto) throws RitzkidsException 
 	{
+
 		Optional<Login> loginO= lr.getLoginByusername(ldto.getUsername());
 		if(!loginO.isPresent())
 		{
@@ -34,6 +35,7 @@ public class Login_ServiceImpl implements Login_Service
 		}
 		else
 		{
+			
 			if((MDEncryption.getMd5(ldto.getPassword().toString())).equals(loginO.get().getPassword()))
 			{
 				Optional<Employee> emp=er.findById(loginO.get().getEmployee().getEmployeeId());
@@ -43,8 +45,17 @@ public class Login_ServiceImpl implements Login_Service
 
 				}
 				else
-				{
-					return er.findById(emp.get().getEmployeeId()).get();
+				{					
+					if(er.findById(emp.get().getEmployeeId()).get().getIsactive())
+					{
+						System.out.println("3----------------"+ldto.getUsername());
+						System.out.println("3----------------"+ldto.getPassword());
+						return er.findById(emp.get().getEmployeeId()).get();
+					}
+					else
+					{
+						throw new RitzkidsException("Not an active employee",RitzConstants.ERROR_CODE);
+					}
 				}
 			}
 			else

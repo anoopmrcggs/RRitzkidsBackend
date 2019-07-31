@@ -24,8 +24,8 @@ public class LoginController
 	@RequestMapping(method = RequestMethod.POST,value="/login")
 	public ResponseEntity<?> validateLogin(@RequestBody LoginDto ldto) throws RitzkidsException
 	{
-		System.out.println("Name : "+ldto.getUsername());
-		System.out.println("Login Controller");
-		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,ls.loginValidate(ldto)));
+	
+		Employee emp=ls.loginValidate(ldto);
+		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,emp));
 	}
 }

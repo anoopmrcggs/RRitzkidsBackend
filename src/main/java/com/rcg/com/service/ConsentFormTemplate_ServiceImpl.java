@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,6 +124,7 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 	@Override
 	public String deleteConsentForm(int cid) throws RitzkidsException
 	{
+		
 		Optional< ConsentFormTemplate> cf=cr.getConCernFormTemplateRepositoryBylanguageLid(cid);
 		if(!cf.isPresent())
 		{
@@ -171,7 +173,12 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		
 		try { 
 				File f=new File("");
-				OutputStream os = new FileOutputStream(f.getAbsolutePath()+fileName); 
+				
+				String[] floc=f.getAbsolutePath().split("/");
+				String abPath=f.getAbsolutePath();
+				String loc=abPath.replace("/"+floc[(floc.length-1)], "/");
+				
+				OutputStream os = new FileOutputStream(loc+"/genPdf/"+fileName); 
 				PdfRendererBuilder builder = new
 				PdfRendererBuilder(); builder.withHtmlContent(ht, "file:");
 				builder.toStream(os); builder.run();

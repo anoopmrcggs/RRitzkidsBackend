@@ -12,6 +12,8 @@ public interface Employee_Service
 	
 	public List<Employee> getAllEmployee() throws RitzkidsException;
 	
+	public String updateEmployee(EmployeeDto edto,int eid) throws RitzkidsException;
+	
 	public Employee getEmployee(int eid) throws RitzkidsException;	
 	
 	public String roleAssign(int empid,int rid)throws RitzkidsException;

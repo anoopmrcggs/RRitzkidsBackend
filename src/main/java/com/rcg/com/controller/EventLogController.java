@@ -45,7 +45,7 @@ public class EventLogController
 	}
 	
 	
-	@RequestMapping(method=RequestMethod.PUT,value="/eventlog/cid/{cid}/eventlog/{elid}")
+	@RequestMapping(method=RequestMethod.PUT,value="/eventlog/cid/{cid}/eventid/{elid}")
 	public ResponseEntity<?> update(@RequestBody EventLogDto ydto,@PathVariable int cid,@PathVariable int elid) throws RitzkidsException
 	{
 		es.updateEventLog(ydto,cid,elid);

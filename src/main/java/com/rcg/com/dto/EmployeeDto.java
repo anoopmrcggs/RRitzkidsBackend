@@ -21,7 +21,7 @@ public class EmployeeDto
 	private Date created;
 	private int updatedby;
 	private Date updated;
-	private boolean isactive;
+	private Boolean isactive;
 	
 	
 	public int getEmployeeId() {
@@ -84,17 +84,18 @@ public class EmployeeDto
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public boolean isIsactive() {
-		return isactive;
-	}
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
-	}
+
 	public String getNewPassword() {
 		return newPassword;
 	}
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+	public Boolean getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(Boolean isactive) {
+		this.isactive = isactive;
 	}
 	
 }

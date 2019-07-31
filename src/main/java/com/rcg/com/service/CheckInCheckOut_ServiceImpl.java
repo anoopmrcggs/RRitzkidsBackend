@@ -99,6 +99,10 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				yg.setNickName(checkincheckoutdto.getNickName());
 				yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
 				yg.setLanguage(checkincheckoutdto.getLanguage().getName());
+				yg.setCreated(new Date());
+				yg.setCreatedBy(checkincheckoutdto.getCreatedBy());
+				yg.setUpdated(new Date());
+				yg.setUpdatedBy(checkincheckoutdto.getCreatedBy());
 				ygr.save(yg);
 				checkform.setYoungGust(yg);
 			}
@@ -112,6 +116,8 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		//Save Checkin checkout form
 		checkform.setCreated(new Date());
 		checkform.setUpdated(new Date());
+		checkform.setCreatedBy(checkincheckoutdto.getCreatedBy());
+		checkform.setUpdatedBy(checkincheckoutdto.getCreatedBy());
 		checkform.setCheckinStatus(true);
 		cr.save(checkform);
 		
@@ -120,6 +126,8 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		md.setCheckinCheckout(checkform);
 		md.setCreated(new Date());
 		md.setUpdated(new Date());
+		md.setCreatedBy(checkincheckoutdto.getCreatedBy());
+		md.setUpdatedBy(checkincheckoutdto.getCreatedBy());
 		mr.save(md);
 		
 		
@@ -146,6 +154,9 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 									{
 										mappedRelation.setCreated(new Date());
 										mappedRelation.setUpdated(new Date());
+										mappedRelation.setCreatedBy(checkincheckoutdto.getCreatedBy());
+										mappedRelation.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+										
 										mappedRelation.setCheckinCheckout(checkform);
 										ar.save(mappedRelation);
 									}
@@ -275,6 +286,8 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 					md.setMedicalDetailsId(md_id);
 					md.setCheckinCheckout(ck);
 					md.setUpdated(new Date());
+					md.setCreatedBy(cdto.getCreatedBy());
+					md.setUpdatedBy(cdto.getCreatedBy());
 					mr.save(md);
 				}
 			}
@@ -286,6 +299,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		}
 		ck.setCheckinStatus(true);
 		ck.setUpdated(new Date());
+		ck.setUpdatedBy(cdto.getUpdatedBy());
 		cr.save(ck);
 		return 0;
 	}

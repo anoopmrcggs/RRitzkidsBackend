@@ -24,10 +24,10 @@ public class Login
 	private String password;
 	
 	@Column(name="created_by")
-	private String cretedBy;
+	private int cretedBy;
 	
 	@Column(name="updated_by")
-	private String updatedBy;
+	private int updatedBy;
 	
 	private Date created;
 	private Date updated;
@@ -67,19 +67,22 @@ public class Login
 		this.password = password;
 	}
 
-	public String getCretedBy() {
+	
+
+
+	public int getCretedBy() {
 		return cretedBy;
 	}
 
-	public void setCretedBy(String cretedBy) {
+	public void setCretedBy(int cretedBy) {
 		this.cretedBy = cretedBy;
 	}
 
-	public String getUpdatedBy() {
+	public int getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public void setUpdatedBy(int updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

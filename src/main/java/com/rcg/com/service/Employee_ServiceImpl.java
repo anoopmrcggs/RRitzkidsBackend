@@ -45,8 +45,9 @@ public class Employee_ServiceImpl implements Employee_Service
 		Employee emp=employeeMapper(edto);
 		emp.setCreated(new Date());
 		emp.setUpdated(new Date());
-		emp.setCreatedby(createdby);
-		emp.setUpdatedby(updatedby);
+		emp.setIsactive(true);
+		emp.setCreatedby(edto.getCreatedby());
+		emp.setUpdatedby(edto.getUpdatedby());
 		er.save(emp);
 		
 		// Saving login Credential
@@ -55,6 +56,9 @@ public class Employee_ServiceImpl implements Employee_Service
 		lg.setUsername(edto.getUsername());
 		lg.setPassword(MDEncryption.getMd5(edto.getPassword()));
 		lg.setEmployee(emp);
+		lg.setCretedBy(edto.getCreatedby());
+		lg.setUpdatedBy(edto.getUpdatedby());
+		lg.setUpdated(new Date());
 		lr.save(lg);
 		
 		return emp.getEmployeeId();
@@ -82,7 +86,53 @@ public class Employee_ServiceImpl implements Employee_Service
 		}
 	
 	}
+	
+//Update Employee
+	
+	@Override
+	public String updateEmployee(EmployeeDto edto,int eid) throws RitzkidsException 
+	{
+		if(edto.getFirstName()!=null)
+		{
+			if(edto.getLastName()!=null)
+			{
+				if(edto.getIsactive()!=null)
+				{
+					Optional<Employee> empO=er.findById(eid);
+					if(empO.isPresent())
+					{
+						throw new RitzkidsException("No Employe were found in This ID", RitzConstants.ERROR_CODE);
+					}
+					else
+					{
+						Employee employee=empO.get();
+						employee.setUpdatedby(edto.getUpdatedby());
+						employee.setEmployeeId(eid);
+						employee.setUpdated(new Date());
+						employee.setCreated(new Date());
+						er.save(employee);
+					}
+					
+				}
+				else
+				{
+					throw new RitzkidsException("Null employee status", RitzConstants.ERROR_CODE);
+				}
+			}
+			else
+			{
+				throw new RitzkidsException("Last name is null", RitzConstants.ERROR_CODE);
 
+			}
+		}
+		else
+		{
+			throw new RitzkidsException("First name is null", RitzConstants.ERROR_CODE);
+		}
+		return "Success";
+	}
+	
+//Password Resetting
 
 	@Override
 	public String passwordReset(EmployeeDto edto, int eid) throws RitzkidsException 
@@ -94,12 +144,23 @@ public class Employee_ServiceImpl implements Employee_Service
 		}
 		else
 		{
-			Login login=loginO.get();
-			login.setPassword(MDEncryption.getMd5(edto.getPassword()));
-			lr.save(login);
+			if(edto.getPassword()!=null)
+			{
+				Login login=loginO.get();
+				login.setPassword(MDEncryption.getMd5(edto.getPassword()));
+				login.setUpdated(new Date());
+				
+				
+				lr.save(login);
+			}
+			else
+			{
+				throw new RitzkidsException("Blank password",RitzConstants.ERROR_CODE );
+			}
 		}
 		return "Success";
 	}
+
 
 	@Override
 	public String passwordChange(EmployeeDto edto, int eid) throws RitzkidsException 
@@ -111,18 +172,25 @@ public class Employee_ServiceImpl implements Employee_Service
 		}
 		else
 		{
-			Login login=loginO.get();
-			
-			if(MDEncryption.getMd5(edto.getPassword()).equals(login.getPassword()))
+			if(edto.getPassword()!=null && edto.getNewPassword()!=null) 
 			{
-				login.setPassword(MDEncryption.getMd5(edto.getNewPassword()));
-				lr.save(login);
-				System.out.println("Change Password ------  "+login.getLoginId());
+				Login login=loginO.get();
+				
+				if(MDEncryption.getMd5(edto.getPassword()).equals(login.getPassword()))
+				{
+					login.setPassword(MDEncryption.getMd5(edto.getNewPassword()));
+					login.setUpdated(new Date());
+					lr.save(login);
+				}
+				else
+				{
+					throw new RitzkidsException("Old password is wrong", RitzConstants.ERROR_CODE);
+	
+				}
 			}
 			else
 			{
-				throw new RitzkidsException("Old password is wrong", RitzConstants.ERROR_CODE);
-
+				throw new RitzkidsException("Password and New password should not be null", RitzConstants.ERROR_CODE);
 			}
 		}
 		return "Success";

@@ -38,6 +38,8 @@ public class YoungGustNote_ServiceImpl implements YoungGustNote_Service
 			yg.setCheckinCheckout(new CheckInCheckOut(cid));
 			yg.setCreated(new Date());
 			yg.setUpdated(new Date());
+			yg.setCreatedBy(youngGustNotesDto.getCreatedBy());
+			yg.setUpdatedBy(youngGustNotesDto.getCreatedBy());
 			ygr.save(yg);
 		}
 

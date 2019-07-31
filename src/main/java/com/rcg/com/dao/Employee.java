@@ -32,7 +32,7 @@ public class Employee
 	private Date created;
 	private int updatedby;
 	private Date updated;
-	private boolean isactive;
+	private Boolean isactive;
 	
 	public Employee() 
 	{
@@ -103,11 +103,11 @@ public class Employee
 		this.updated = updated;
 	}
 
-	public boolean isIsactive() {
+	public Boolean getIsactive() {
 		return isactive;
 	}
 
-	public void setIsactive(boolean isactive) {
+	public void setIsactive(Boolean isactive) {
 		this.isactive = isactive;
 	}
 

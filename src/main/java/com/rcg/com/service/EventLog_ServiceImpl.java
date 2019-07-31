@@ -39,6 +39,8 @@ public class EventLog_ServiceImpl implements EventLog_Service
 			el.setCheckinCheckout(new CheckInCheckOut(cid));
 			el.setCreated(new Date());
 			el.setUpdated(new Date());
+			el.setCreatedBy(edto.getCreatedBy());
+			el.setUpdatedBy(edto.getCreatedBy());
 			er.save(el);
 		}
 	}
@@ -70,6 +72,7 @@ public class EventLog_ServiceImpl implements EventLog_Service
 			EventLog el=eventLogModelMapper(edto);
 			el.setCheckinCheckout(new CheckInCheckOut(cid));
 			el.setUpdated(new Date());
+			el.setUpdatedBy(edto.getUpdatedBy());
 			el.setEventLogId(elid);
 			er.save(el);
 		}
