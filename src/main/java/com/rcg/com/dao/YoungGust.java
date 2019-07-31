@@ -72,7 +72,8 @@ public class YoungGust
 	@Column(name="age_group")
 	private String ageGroup;
 
-	private String location;
+	@Column(name="young_gust_location")
+	private String youngGustLocation;
 	
 
 	public YoungGust() 
@@ -277,13 +278,13 @@ public class YoungGust
 	}
 
 
-	public String getLocation() {
-		return location;
+	public String getYoungGustLocation() {
+		return youngGustLocation;
 	}
 
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setYoungGustLocation(String youngGustLocation) {
+		this.youngGustLocation = youngGustLocation;
 	}
 
 

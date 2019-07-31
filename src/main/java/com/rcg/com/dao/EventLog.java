@@ -13,13 +13,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity 
-@Table(name="ryg_young_gust_notes")
-public class YoungGustNotes 
+@Table(name="ryg_event_log")
+public class EventLog 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="young_gust_notes_id")
-	private int youngGustNotesId;
+	@Column(name="event_log_id")
+	private int eventLogId;
 	
 	@ManyToOne
 	private YoungGust youngGust;
@@ -44,29 +44,17 @@ public class YoungGustNotes
 	@Column(name="is_active")
 	private boolean isActive;
 	
-	public YoungGustNotes() 
+	public EventLog() 
 	{
 		super();
 	}
 
-	public YoungGustNotes(int youngGustNotesId, YoungGust youngGust, String title, String description,
-			CheckInCheckOut checkinCheckout, Date created) 
-	{
-		super();
-		this.youngGustNotesId = youngGustNotesId;
-		this.youngGust = youngGust;
-		this.title = title;
-		this.description = description;
-		this.checkinCheckout = checkinCheckout;
-		this.created = created;
+	public int getEventLogId() {
+		return eventLogId;
 	}
 
-	public int getYoungGustNotesId() {
-		return youngGustNotesId;
-	}
-
-	public void setYoungGustNotesId(int youngGustNotesId) {
-		this.youngGustNotesId = youngGustNotesId;
+	public void setEventLogId(int eventLogId) {
+		this.eventLogId = eventLogId;
 	}
 
 	public YoungGust getYoungGust() {
@@ -140,6 +128,5 @@ public class YoungGustNotes
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
-	
+
 }

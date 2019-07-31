@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="ryg_authorizedRelation")
+@Table(name="ryg_authorized_relation")
 public class AuthorizedRelation 
 {
 	@Id
@@ -54,6 +54,10 @@ public class AuthorizedRelation
 	
 	@Column(name="priority")
 	private String priority;
+	
+	@Column(name="location")
+	private String location;
+
 
 	
 	public AuthorizedRelation() 
@@ -203,9 +207,25 @@ public class AuthorizedRelation
 
 
 
-	public void setPriority(String priority) {
+	public void setPriority(String priority) 
+	{
 		this.priority = priority;
 	}
+
+
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 
 	
 }

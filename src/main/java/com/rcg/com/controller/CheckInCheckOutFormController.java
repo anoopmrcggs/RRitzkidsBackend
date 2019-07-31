@@ -45,9 +45,16 @@ public class CheckInCheckOutFormController
 	}
 	
 	@RequestMapping("/checkincheckoutform/{cid}/ar/{aid}/status/{st}")
-	public ResponseEntity<?>updateForm(@PathVariable boolean st,@PathVariable int cid,@PathVariable int aid) throws RitzkidsException
+	public ResponseEntity<?>updateStatus(@PathVariable boolean st,@PathVariable int cid,@PathVariable int aid) throws RitzkidsException
 	{
-		cs.updateCheckinCheckout(st, cid, aid);
+		cs.updateCheckinCheckoutStatus(st, cid, aid);
+		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT,value="/checkincheckoutform/{cid}")
+	public ResponseEntity<?> updateCheckinChekoutForm(@RequestBody CheckInCheckOutDto cdto,@PathVariable int cid) throws RitzkidsException
+	{
+		cs.updateCheckinCheckout(cdto, cid);
 		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 	}
 	

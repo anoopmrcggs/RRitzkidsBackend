@@ -18,6 +18,7 @@ public class AuthorizedRelationDto
 	private boolean isActive;
 	private boolean isCheckedout;
 	private String priority;
+	private String location;
 
 	
 	public int getAuthorizedRelationId() {
@@ -92,5 +93,11 @@ public class AuthorizedRelationDto
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-	
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	 
 }

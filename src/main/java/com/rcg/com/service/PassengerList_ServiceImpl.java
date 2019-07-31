@@ -1,6 +1,7 @@
 package com.rcg.com.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,8 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 								g.setYoungGust(youngGustSet);
 							  }
 						  }
-						  
+						  g.setCreated(new Date());
+						  g.setUpdated(new Date());
 						  gr.save(g);
 
 					  }
@@ -91,6 +93,8 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 							    				young_gust.add(yg);
 							    				g.setYoungGust(young_gust);
 							    			}
+							    			g.setCreated(new Date());
+							    			g.setUpdated(new Date());
 							    			gr.save(g);
 								
 							    	}

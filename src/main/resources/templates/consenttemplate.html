@@ -4,11 +4,13 @@
        <div class="container">
            <div class="row">
                <h2 th:utext="${head1}"></h2>
-               <p><mark th:utext="${body}"></mark></p>
-               <div class="col-md-9" th:utext="${item1}"></div>
-               <div class="col-md-3" style="float:right">
-                   <img th:src="*{s1}" alt="Sign"/>
-               </div>
+               <p><mark th:utext="${body1}"></mark></p>
+               <div class="col-md-12">
+	               <div class="col-md-9" th:utext="${item1}"></div>
+	               <div class="col-md-3" style="float:right">
+	                   <img th:src="*{s1}" alt="Sign"/>
+	               </div>
+	          </div>
            </div>
             <div class="row">
                <h2 th:utext="${head2}"></h2>

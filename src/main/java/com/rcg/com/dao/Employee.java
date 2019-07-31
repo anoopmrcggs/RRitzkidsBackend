@@ -2,6 +2,7 @@ package com.rcg.com.dao;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,14 @@ public class Employee
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int employee_id;
-	private String username;
+	@Column(name="employee_id")
+	private int employeeId;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="lst_name")
+	private String lastName;
 	
 	@OneToOne
 	private Role role;
@@ -32,26 +39,28 @@ public class Employee
 		super();
 	}
 
-	public Employee(int employee_id) 
-	{
-		super();
-		this.employee_id = employee_id;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public int getEmployee_id() {
-		return employee_id;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public void setEmployee_id(int employee_id) {
-		this.employee_id = employee_id;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Role getRole() {
@@ -101,9 +110,5 @@ public class Employee
 	public void setIsactive(boolean isactive) {
 		this.isactive = isactive;
 	}
-	
-	
-	
-	
-	
+
 }

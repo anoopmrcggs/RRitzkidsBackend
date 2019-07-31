@@ -1,8 +1,11 @@
 package com.rcg.com.service;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +85,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			throw new RitzkidsException("Language is mandatory", RitzConstants.ERROR_CODE);
 		}
 		
-		
+		//Adding Young gust
 		if(checkincheckoutdto.getYoungGust()!=null)
 		{
 			ygo=ygr.findById(checkincheckoutdto.getYoungGust().getYoungGustId());
@@ -94,7 +97,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			{
 				YoungGust yg=ygo.get();
 				yg.setNickName(checkincheckoutdto.getNickName());
-				yg.setLocation(checkincheckoutdto.getKidLocation());
 				yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
 				yg.setLanguage(checkincheckoutdto.getLanguage().getName());
 				ygr.save(yg);
@@ -108,12 +110,16 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		
 		
 		//Save Checkin checkout form
+		checkform.setCreated(new Date());
+		checkform.setUpdated(new Date());
 		checkform.setCheckinStatus(true);
 		cr.save(checkform);
 		
 		//saving medical details
 		MedicalDetails md=  medicalDetailsMapper(checkincheckoutdto.getMedicalDetails());
 		md.setCheckinCheckout(checkform);
+		md.setCreated(new Date());
+		md.setUpdated(new Date());
 		mr.save(md);
 		
 		
@@ -122,6 +128,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		{
 			checkincheckoutdto.getAutorizedRelation().forEach(
 				(a)->{
+								System.out.println("------ Saving relation------");
 								AuthorizedRelation mappedRelation=authorizedRelationMapper(a);
 						
 								if(!(gr.findById(mappedRelation.getGuardian().getGuardianId())).isPresent())
@@ -137,6 +144,8 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 									}
 									else
 									{
+										mappedRelation.setCreated(new Date());
+										mappedRelation.setUpdated(new Date());
 										mappedRelation.setCheckinCheckout(checkform);
 										ar.save(mappedRelation);
 									}
@@ -184,7 +193,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	
 
 	@Override
-	public int updateCheckinCheckout(boolean status, int cid, int arid) throws RitzkidsException 
+	public int updateCheckinCheckoutStatus(boolean status, int cid, int arid) throws RitzkidsException 
 	{
 		
 		if(!cr.findById(cid).isPresent())
@@ -198,6 +207,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			cf.setCheckinStatus(status);
 			cf.setCheckinCheckoutId(cid);
 			cf.setCheckinStatus(false);
+			cf.setUpdated(new Date());
 			cr.save(cf);
 			
 			if(!ar.findById(arid).isPresent())
@@ -211,6 +221,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				AuthorizedRelation arelation=aro.get();
 				arelation.setCheckedout(status);
 				arelation.setAuthorizedRelationId(arid);
+				arelation.setUpdated(new Date());
 				ar.save(arelation);
 				
 			}
@@ -221,6 +232,65 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	
 	
 	
+	
+	
+	
+
+	@Override
+	public int updateCheckinCheckout(CheckInCheckOutDto cdto,int cid) throws RitzkidsException 
+	{
+		CheckInCheckOut ck=checkincheckoutMapper(cdto);
+		ck.setCheckinCheckoutId(cid);
+		if(!cr.findById(cid).isPresent())
+		{
+			throw new RitzkidsException("Invalid Checkin Checkout ID",RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			//Updating Authorized details
+			Set<AuthorizedRelation> ars=ck.getAutorizedRelation();
+			Iterator<AuthorizedRelation> itr=ars.iterator(); 
+			
+			AuthorizedRelation aro;
+			while(itr.hasNext()) 
+			{ 
+				aro=itr.next();
+				aro.setCheckinCheckout(ck);
+				aro.setUpdated(new Date());
+				ar.save(aro);
+				
+			}
+			
+			
+			if(ck.getMedicalDetails()!=null)
+			{
+				if(!(mr.getMedicalDetailsBycheckinCheckoutCheckinCheckoutId(cid)).isPresent())
+				{
+					throw new RitzkidsException("Medical details ID not valid",RitzConstants.ERROR_CODE);
+				}
+				else
+				{
+					int md_id=mr.getMedicalDetailsBycheckinCheckoutCheckinCheckoutId(cid).get().getMedicalDetailsId();
+					MedicalDetails md=ck.getMedicalDetails();
+					md.setMedicalDetailsId(md_id);
+					md.setCheckinCheckout(ck);
+					md.setUpdated(new Date());
+					mr.save(md);
+				}
+			}
+			else
+			{
+				throw new RitzkidsException("Medical details not found",RitzConstants.ERROR_CODE);
+			}
+			
+		}
+		ck.setCheckinStatus(true);
+		ck.setUpdated(new Date());
+		cr.save(ck);
+		return 0;
+	}
+
+
 
 	private CheckInCheckOut checkincheckoutMapper(CheckInCheckOutDto cdto)
 	{

@@ -52,4 +52,23 @@ public class EmployeeController
 	{
 		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
 	}
+	
+	
+	//Employee Password Change
+	@RequestMapping(method = RequestMethod.PUT,value = "/employee/pass/change/{eid}")
+	public ResponseEntity<?> changePassword(@PathVariable int eid,@RequestBody EmployeeDto edto) throws RitzkidsException
+	{
+		es.passwordChange(edto, eid);
+		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	//Employee Password Reset
+	@RequestMapping(method = RequestMethod.PUT,value = "/employee/pass/reset/{eid}")
+	public ResponseEntity<?> resetPassword(@PathVariable int eid,@RequestBody EmployeeDto edto) throws RitzkidsException
+	{
+		es.passwordReset(edto, eid);
+		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	
 }

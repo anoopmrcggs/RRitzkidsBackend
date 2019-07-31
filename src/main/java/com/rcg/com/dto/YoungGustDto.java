@@ -28,8 +28,9 @@ private int youngGustId;
 	private char passengerType;
 	private boolean isActive;
 	private Set<GuardianDto> guardian;
-	private String location;
+	private String youngGustLocation;
 	private String ageGroup;
+	
 
 
 	
@@ -147,11 +148,12 @@ private int youngGustId;
 	public void setGuardian(Set<GuardianDto> guardian) {
 		this.guardian = guardian;
 	}
-	public String getLocation() {
-		return location;
+	
+	public String getYoungGustLocation() {
+		return youngGustLocation;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setYoungGustLocation(String youngGustLocation) {
+		this.youngGustLocation = youngGustLocation;
 	}
 	public String getAgeGroup() {
 		return ageGroup;

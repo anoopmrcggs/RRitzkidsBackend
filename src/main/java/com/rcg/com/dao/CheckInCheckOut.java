@@ -45,10 +45,6 @@ public class CheckInCheckOut
 	@Column(name="young_gust_notes")
 	private Set<YoungGustNotes> youngGustNotes;
 	
-	/*
-	 * @OneToMany(mappedBy ="checkinCheckout") private Set<MedicalDetails>
-	 * medicalDetails;
-	 */
 
 	@OneToOne(mappedBy ="checkinCheckout",cascade = CascadeType.ALL)
 	private MedicalDetails medicalDetails;
@@ -56,7 +52,6 @@ public class CheckInCheckOut
 	
 	@OneToMany(mappedBy = "checkinCheckout")
 	private Set<AuthorizedRelation> autorizedRelation;
-	
 	
 	private Date created;
 	private Date updated;
@@ -84,7 +79,9 @@ public class CheckInCheckOut
 	@Column(name="secure_password")
 	private String securePassword;
 	
-
+	@Column(name="young_gust_location")
+	private String youngGustLocation;
+	
 	public CheckInCheckOut() 
 	{
 		super();
@@ -348,6 +345,17 @@ public class CheckInCheckOut
 
 
 
-	
-	
+	public String getYoungGustLocation() {
+		return youngGustLocation;
+	}
+
+
+
+	public void setYoungGustLocation(String youngGustLocation) {
+		this.youngGustLocation = youngGustLocation;
+	}
+
+
+
+		
 }

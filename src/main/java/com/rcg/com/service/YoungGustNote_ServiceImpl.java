@@ -1,6 +1,7 @@
 package com.rcg.com.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,8 @@ public class YoungGustNote_ServiceImpl implements YoungGustNote_Service
 		{
 			YoungGustNotes yg=youngGoustNoteModelMapper(youngGustNotesDto);
 			yg.setCheckinCheckout(new CheckInCheckOut(cid));
+			yg.setCreated(new Date());
+			yg.setUpdated(new Date());
 			ygr.save(yg);
 		}
 
@@ -70,6 +73,7 @@ public class YoungGustNote_ServiceImpl implements YoungGustNote_Service
 		{
 			YoungGustNotes yg=youngGoustNoteModelMapper(youngGustNotesDto);
 			yg.setCheckinCheckout(new CheckInCheckOut(cid));
+			yg.setUpdated(new Date());
 			yg.setYoungGustNotesId(nid);
 			ygr.save(yg);
 		}

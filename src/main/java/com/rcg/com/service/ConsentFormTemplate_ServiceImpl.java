@@ -1,5 +1,6 @@
 package com.rcg.com.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -169,7 +170,8 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		String ht=templateEngine.process("consenttemplate", context); 
 		
 		try { 
-				OutputStream os = new FileOutputStream(fileName); 
+				File f=new File("");
+				OutputStream os = new FileOutputStream(f.getAbsolutePath()+fileName); 
 				PdfRendererBuilder builder = new
 				PdfRendererBuilder(); builder.withHtmlContent(ht, "file:");
 				builder.toStream(os); builder.run();

@@ -12,13 +12,12 @@ public interface Employee_Service
 	
 	public List<Employee> getAllEmployee() throws RitzkidsException;
 	
-	public Employee getEmployee(int eid) throws RitzkidsException;
-
-	public int updateEmployee(int eid,EmployeeDto employee) throws RitzkidsException;
+	public Employee getEmployee(int eid) throws RitzkidsException;	
 	
 	public String roleAssign(int empid,int rid)throws RitzkidsException;
 	
-	public String deleteEmployee(int eid) throws RitzkidsException;
+	public String passwordReset(EmployeeDto edto, int eid) throws RitzkidsException;
 	
-	
+	public String passwordChange(EmployeeDto edto, int eid) throws RitzkidsException;
+
 }

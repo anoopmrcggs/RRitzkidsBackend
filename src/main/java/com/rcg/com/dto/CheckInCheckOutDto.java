@@ -50,8 +50,8 @@ public class CheckInCheckOutDto
 	
 	@NotNull
 	@NotBlank(message="Young gust location is mandatory")
-	private String kidLocation;
-	
+	private String youngGustLocation;
+
 	@NotNull
 	@NotBlank(message="Age group is mandatory")
 	private String ageGroup;
@@ -190,23 +190,28 @@ public class CheckInCheckOutDto
 		this.checkinStatus = checkinStatus;
 	}
 
-	public String getGuardianLocation() {
+	public String getGuardianLocation() 
+	{
 		return guardianLocation;
 	}
-	public void setGuardianLocation(String guardianLocation) {
+	public void setGuardianLocation(String guardianLocation) 
+	{
 		this.guardianLocation = guardianLocation;
 	}
-	public String getKidLocation() {
-		return kidLocation;
-	}
-	public void setKidLocation(String kidLocation) {
-		this.kidLocation = kidLocation;
-	}
-	public Boolean getIsSelfCheckout() {
+	public Boolean getIsSelfCheckout() 
+	{
 		return isSelfCheckout;
 	}
-	public void setIsSelfCheckout(Boolean isSelfCheckout) {
+	
+	public void setIsSelfCheckout(Boolean isSelfCheckout) 
+	{
 		this.isSelfCheckout = isSelfCheckout;
 	}
-
+	
+	public String getYoungGustLocation() {
+		return youngGustLocation;
+	}
+	public void setYoungGustLocation(String youngGustLocation) {
+		this.youngGustLocation = youngGustLocation;
+	}
 }
