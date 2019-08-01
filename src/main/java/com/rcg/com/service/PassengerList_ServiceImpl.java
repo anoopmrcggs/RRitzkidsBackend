@@ -33,23 +33,24 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 
 	//Save Passenger List into Guardian and Youngest tables
 	@Override
-	public String savePassenger(PassengerListWrapper p) throws RitzkidsException
+	public long savePassenger(PassengerListWrapper p) throws RitzkidsException
 	{
-
+		long bookingId;
+		long bid[]=new long[1];
 		if(p.getPassengerWrapper()!=null)
 		{
 			List<PassengerListDto> pl=p.getPassengerWrapper();
 
 			  pl.forEach(a-> 
 			  { //Check if Passenger is a adult type 
-				  if(String.valueOf(a.getPassengertype()).equals("A"))
+				  if(String.valueOf(a.getPassengerType()).equals("A"))
 				  {
 					  Guardian g=guardianMapper(a);
 					  //Check Whether Guardian Existing or not
-					  if(!gr.getGuardianByfolioId(g.getFolioId()).isPresent())
+					  if(!gr.getGuardianByfolioID(g.getFolioID()).isPresent())
 					  {
 						  //getting all kid already registered on the given booking number
-						  List<YoungGust> ygl=yr.getYoungGustBybookingId(g.getBookingId());
+						  List<YoungGust> ygl=yr.getYoungGustBybookingID(g.getBookingID());
 						  //if Kid found in same booking number
 						  if(ygl.size()>0)
 						  {
@@ -59,35 +60,39 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 								youngGustSet.add(young); 
 								g.setYoungGust(youngGustSet);
 							  }
+							 
 						  }
 						  g.setCreated(new Date());
 						  g.setUpdated(new Date());
 						  gr.save(g);
 
 					  }
+					  
+					bid[0]=g.getBookingID(); 
+					  
 				  }
 				  else
 				  {
 					    YoungGust y=youngGustMapper(a);
 					    //check kid already existing or not
-					    if(!yr.getYoungGustByfolioId(y.getFolioId()).isPresent())
+					    if(!yr.getYoungGustByfolioID(y.getFolioID()).isPresent())
 					    {
 					    	 yr.save(y);					    	 
 							//getting all guarding have same booking number
-					    	 List<Guardian> gl=gr.getGuardianBybookingId(y.getBookingId());
+					    	 List<Guardian> gl=gr.getGuardianBybookingID(y.getBookingID());
 							
 					    	 if(gl!=null)
 							    {
-								 	YoungGust yg=yr.getYoungGustByfolioId(y.getFolioId()).get();
+								 	YoungGust yg=yr.getYoungGustByfolioID(y.getFolioID()).get();
 							    	for(Guardian g:gl)
 							    	{
-							    
+							    			//if there is any young guest already there
 							    			if(g.getYoungGust()!=null)
 							    			{
 							    				g.getYoungGust().add(new YoungGust(yg.getYoungGustId())); 
 							    				
 							    			}
-							    			else
+							    			else //empty young guest
 							    			{
 							    				Set<YoungGust> young_gust=new HashSet<YoungGust>();
 							    				young_gust.add(yg);
@@ -111,9 +116,8 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 		}
 		
 		  
-		 
-		
-		return "success";
+		 bookingId=bid[0];
+		return bookingId;
 	}
 	//get All guardian detail
 	@Override
@@ -124,7 +128,7 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 		return g;
 	}
 	
-	//geting guardian detail
+	//get guardian detail
 	@Override
 	public Guardian getGuardian(int gid) throws RitzkidsException 
 	{
@@ -141,6 +145,15 @@ public class PassengerList_ServiceImpl implements PassengerList_Service
 		 
 	}
 
+	//get Guardian by Folio ID
+	@Override
+	public List<Guardian> getAllGuardianByBookingId(long bid) throws RitzkidsException 
+	{
+		List<Guardian> g=new ArrayList<Guardian>();
+		gr.getGuardianBybookingID(bid).forEach(g::add);
+		return g;
+	}
+	
 	
 	private Guardian guardianMapper(PassengerListDto pdto)
 	{

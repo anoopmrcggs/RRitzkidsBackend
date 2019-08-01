@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.CheckInCheckOut;
 import com.rcg.com.dto.CheckInCheckOutDto;
+import com.rcg.com.dto.YoungGustCheckinStatusDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.service.CheckInCheckOut_Service;
 import com.rcg.com.util.ResponseStatus;
@@ -56,6 +57,12 @@ public class CheckInCheckOutFormController
 	{
 		cs.updateCheckinCheckout(cdto, cid);
 		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	@RequestMapping("/youngguestcheckinstatus/{fid}")
+	public ResponseEntity<?> youngGuestCheckinStatus(@PathVariable int fid) throws RitzkidsException
+	{
+		return ResponseEntity.ok(new ResponseStatus<YoungGustCheckinStatusDto>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,cs.getCheckinCheckoutStatus(fid)));
 	}
 	
 }

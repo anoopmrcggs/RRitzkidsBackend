@@ -22,8 +22,8 @@ private int youngGustId;
 	private Date birthDate;
 	private Date created;
 	private Date updated;
-	private long bookingId;
-	private long folioId;
+	private long bookingID;
+	private long folioID;
 	private char gender;
 	private char passengerType;
 	private boolean isActive;
@@ -112,17 +112,18 @@ private int youngGustId;
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public long getBookingId() {
-		return bookingId;
+
+	public long getBookingID() {
+		return bookingID;
 	}
-	public void setBookingId(long bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingID(long bookingID) {
+		this.bookingID = bookingID;
 	}
-	public long getFolioId() {
-		return folioId;
+	public long getFolioID() {
+		return folioID;
 	}
-	public void setFolioId(long folioId) {
-		this.folioId = folioId;
+	public void setFolioID(long folioID) {
+		this.folioID = folioID;
 	}
 	public char getGender() {
 		return gender;

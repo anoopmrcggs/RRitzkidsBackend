@@ -9,7 +9,7 @@ import com.rcg.com.dao.Guardian;
 
 public interface GuardianRepository extends CrudRepository<Guardian, Integer>
 {
-	public List<Guardian> getGuardianBybookingId(long bid);
-	public Optional<Guardian> getGuardianByfolioId(long fid);
+	public List<Guardian> getGuardianBybookingID(long bid);
+	public Optional<Guardian> getGuardianByfolioID(long fid);
 
 }

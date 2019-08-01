@@ -99,13 +99,16 @@ public class Employee_ServiceImpl implements Employee_Service
 				if(edto.getIsactive()!=null)
 				{
 					Optional<Employee> empO=er.findById(eid);
-					if(empO.isPresent())
+					if(!empO.isPresent())
 					{
 						throw new RitzkidsException("No Employe were found in This ID", RitzConstants.ERROR_CODE);
 					}
 					else
 					{
 						Employee employee=empO.get();
+						employee.setFirstName(edto.getFirstName());
+						employee.setLastName(edto.getLastName());
+						employee.setIsactive(edto.getIsactive());
 						employee.setUpdatedby(edto.getUpdatedby());
 						employee.setEmployeeId(eid);
 						employee.setUpdated(new Date());

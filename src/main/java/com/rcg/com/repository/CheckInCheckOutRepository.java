@@ -1,6 +1,7 @@
 package com.rcg.com.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,6 +11,6 @@ public interface CheckInCheckOutRepository extends CrudRepository<CheckInCheckOu
 {
 	public List<CheckInCheckOut>  findAllByOrderByCheckinCheckoutIdAsc();
 	public List<CheckInCheckOut>  findAllByOrderByCheckinCheckoutIdDesc();
-
+	public Optional<CheckInCheckOut> findTopByyoungGustYoungGustIdOrderByCheckinCheckoutIdDesc(int yid);
 	
 }

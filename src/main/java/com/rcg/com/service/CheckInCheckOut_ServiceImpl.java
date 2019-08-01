@@ -19,6 +19,7 @@ import com.rcg.com.dao.YoungGust;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
 import com.rcg.com.dto.MedicalDetailsDto;
+import com.rcg.com.dto.YoungGustCheckinStatusDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.repository.AuthorizedRelationRepository;
 import com.rcg.com.repository.CheckInCheckOutRepository;
@@ -302,6 +303,30 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		ck.setUpdatedBy(cdto.getUpdatedBy());
 		cr.save(ck);
 		return 0;
+	}
+
+
+	@Override
+	public YoungGustCheckinStatusDto getCheckinCheckoutStatus(int fid) throws RitzkidsException 
+	{
+		Optional<YoungGust> yg=ygr.getYoungGustByfolioID(fid);
+		
+		if(!yg.isPresent())
+		{
+			throw new RitzkidsException("No young guest were found in this ID : "+fid,RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			YoungGustCheckinStatusDto ycdto=new YoungGustCheckinStatusDto();
+			Optional<CheckInCheckOut> ck=cr.findTopByyoungGustYoungGustIdOrderByCheckinCheckoutIdDesc(yg.get().getYoungGustId());
+			
+			ycdto.setCheckinID(ck.get().getCheckinCheckoutId());
+			ycdto.setFolioID(ck.get().getYoungGust().getFolioID());
+			ycdto.setStatus(ck.get().isCheckinStatus());
+		
+			return ycdto;
+		}
+		 
 	}
 
 

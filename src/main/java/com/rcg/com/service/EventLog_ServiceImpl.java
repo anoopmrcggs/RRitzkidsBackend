@@ -3,6 +3,8 @@ package com.rcg.com.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,13 +65,16 @@ public class EventLog_ServiceImpl implements EventLog_Service
 	@Override
 	public void updateEventLog(EventLogDto edto, int cid, int elid) throws RitzkidsException 
 	{
-		if(!er.findById(elid).isPresent())
+		Optional<EventLog> eO=er.findById(elid);
+		if(!eO.isPresent())
 		{
 			throw new RitzkidsException("Eventlog ID not valid",RitzConstants.ERROR_CODE);
 		}
 		else
 		{
-			EventLog el=eventLogModelMapper(edto);
+			EventLog el=eO.get();
+			el.setTitle(edto.getTitle());
+			el.setDescription(edto.getDescription());
 			el.setCheckinCheckout(new CheckInCheckOut(cid));
 			el.setUpdated(new Date());
 			el.setUpdatedBy(edto.getUpdatedBy());

@@ -7,28 +7,27 @@ public class PassengerListDto
 {
 	
 	private int cabin;
-	private int createdby;
-	private int updatedby;
+	private int createdBy;
+	private int updatedBy;
 	
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String language;
 	private String nationality;
-	private String shipcode;
+	private String shipCode;
 	
-	private Date birthdate;
+	private Date birthDate;
 	private Date created;
 	private Date updated;
 
 	
-	private long bookingid;
-	private long folioid;
+	private long bookingID;
+	private long folioID;
 	
 	private char gender;
-	private char passengertype;
+	private char passengerType;
 	
-	private boolean isactive;
-	
+	private Boolean  isctive;
 
 	public int getCabin() {
 		return cabin;
@@ -38,20 +37,36 @@ public class PassengerListDto
 		this.cabin = cabin;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getLanguage() {
@@ -70,36 +85,52 @@ public class PassengerListDto
 		this.nationality = nationality;
 	}
 
-	public String getShipcode() {
-		return shipcode;
+	public String getShipCode() {
+		return shipCode;
 	}
 
-	public void setShipcode(String shipcode) {
-		this.shipcode = shipcode;
+	public void setShipCode(String shipCode) {
+		this.shipCode = shipCode;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
-	public long getBookingid() {
-		return bookingid;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setBookingid(long bookingid) {
-		this.bookingid = bookingid;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-	public long getFolioid() {
-		return folioid;
+	public Date getUpdated() {
+		return updated;
 	}
 
-	public void setFolioid(long folioid) {
-		this.folioid = folioid;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
+	public long getBookingID() {
+		return bookingID;
+	}
+
+	public void setBookingID(long bookingID) {
+		this.bookingID = bookingID;
+	}
+
+	public long getFolioID() {
+		return folioID;
+	}
+
+	public void setFolioID(long folioID) {
+		this.folioID = folioID;
 	}
 
 	public char getGender() {
@@ -110,75 +141,22 @@ public class PassengerListDto
 		this.gender = gender;
 	}
 
-	public char getPassengertype() {
-		return passengertype;
+	public char getPassengerType() {
+		return passengerType;
 	}
 
-	public void setPassengertype(char passengertype) {
-		this.passengertype = passengertype;
+	public void setPassengerType(char passengerType) {
+		this.passengerType = passengerType;
 	}
 
-
-
-	public int getCreatedby() {
-		return createdby;
+	public Boolean getIsctive() {
+		return isctive;
 	}
 
-
-
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
-	}
-
-
-
-	public int getUpdatedby() {
-		return updatedby;
-	}
-
-
-
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
-	}
-
-
-
-	public Date getCreated() {
-		return created;
-	}
-
-
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
-
-
-	public boolean isIsactive() {
-		return isactive;
-	}
-
-
-
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setIsctive(Boolean isctive) {
+		this.isctive = isctive;
 	}
 	
 	
-
 	
 }

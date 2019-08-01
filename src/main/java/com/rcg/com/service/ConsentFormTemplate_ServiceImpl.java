@@ -173,12 +173,12 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		
 		try { 
 				File f=new File("");
-				
+				String fpath="/usr/lib/rcyc-app/concentform/";
 				String[] floc=f.getAbsolutePath().split("/");
 				String abPath=f.getAbsolutePath();
-				String loc=abPath.replace("/"+floc[(floc.length-1)], "/");
+				String local=abPath.replace("/"+floc[(floc.length-1)], "/");
 				
-				OutputStream os = new FileOutputStream(loc+"/genPdf/"+fileName); 
+				OutputStream os = new FileOutputStream(fpath+fileName); 
 				PdfRendererBuilder builder = new
 				PdfRendererBuilder(); builder.withHtmlContent(ht, "file:");
 				builder.toStream(os); builder.run();

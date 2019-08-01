@@ -9,8 +9,8 @@ import com.rcg.com.dao.YoungGust;
 
 public interface YoungGustRepository extends CrudRepository<YoungGust, Integer>
 {
-	public Optional<YoungGust> getYoungGustByfolioId(long fid);	
-	public List<YoungGust> getYoungGustBybookingId(long id);
+	public Optional<YoungGust> getYoungGustByfolioID(long fid);	
+	public List<YoungGust> getYoungGustBybookingID(long id);
 
 	
 }

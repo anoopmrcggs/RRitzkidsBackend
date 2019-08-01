@@ -19,8 +19,8 @@ public class GuardianDto
 	private Date birthDate;
 	private Date created;
 	private Date updated;
-	private long bookingId;
-	private long folioId;
+	private long bookingID;
+	private long folioID;
 	private char gender;
 	private char passengerType;
 	private String contectNumber;
@@ -100,17 +100,18 @@ public class GuardianDto
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public long getBookingId() {
-		return bookingId;
+	
+	public long getBookingID() {
+		return bookingID;
 	}
-	public void setBookingId(long bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingID(long bookingID) {
+		this.bookingID = bookingID;
 	}
-	public long getFolioId() {
-		return folioId;
+	public long getFolioID() {
+		return folioID;
 	}
-	public void setFolioId(long folioId) {
-		this.folioId = folioId;
+	public void setFolioID(long folioID) {
+		this.folioID = folioID;
 	}
 	public char getGender() {
 		return gender;

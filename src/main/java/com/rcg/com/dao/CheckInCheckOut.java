@@ -45,6 +45,11 @@ public class CheckInCheckOut
 	@Column(name="young_gust_notes")
 	private Set<YoungGustNotes> youngGustNotes;
 	
+	
+	@OneToMany(mappedBy = "checkinCheckout")
+	@Column(name="event_log")
+	private Set<EventLog> EventLog;
+	
 
 	@OneToOne(mappedBy ="checkinCheckout",cascade = CascadeType.ALL)
 	private MedicalDetails medicalDetails;
@@ -353,6 +358,18 @@ public class CheckInCheckOut
 
 	public void setYoungGustLocation(String youngGustLocation) {
 		this.youngGustLocation = youngGustLocation;
+	}
+
+
+
+	public Set<EventLog> getEventLog() {
+		return EventLog;
+	}
+
+
+
+	public void setEventLog(Set<EventLog> eventLog) {
+		EventLog = eventLog;
 	}
 
 

@@ -52,10 +52,10 @@ public class YoungGust
 	private Date updated;
 
 	@Column(name="booking_id")
-	private long bookingId;
+	private long bookingID;
 	
 	@Column(name="folio_id")
-	private long folioId;
+	private long folioID;
 	
 	private char gender;
 	
@@ -218,23 +218,23 @@ public class YoungGust
 	}
 
 
-	public long getBookingId() {
-		return bookingId;
+	public long getBookingID() {
+		return bookingID;
 	}
 
 
-	public void setBookingId(long bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingID(long bookingID) {
+		this.bookingID = bookingID;
 	}
 
 
-	public long getFolioId() {
-		return folioId;
+	public long getFolioID() {
+		return folioID;
 	}
 
 
-	public void setFolioId(long folioId) {
-		this.folioId = folioId;
+	public void setFolioID(long folioID) {
+		this.folioID = folioID;
 	}
 
 

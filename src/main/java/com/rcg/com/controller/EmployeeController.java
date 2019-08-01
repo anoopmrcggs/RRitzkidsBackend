@@ -57,7 +57,6 @@ public class EmployeeController
 	@RequestMapping(method = RequestMethod.PUT,value = "/employee/pass/update/{eid}")
 	public ResponseEntity<?> update(@PathVariable int eid,@RequestBody EmployeeDto edto) throws RitzkidsException
 	{
-		System.out.println("UPdate Emploiyee");
 		es.updateEmployee(edto, eid);
 		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
 	}

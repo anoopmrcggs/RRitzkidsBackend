@@ -4,8 +4,8 @@ import java.util.List;
 
 public class DataDto 
 {
-	long bookingId;
-    List<GuestListDto> guestList;
+	private long bookingId;
+    private List<GuestListDto> guestList;
     
 	public long getBookingId() {
 		return bookingId;

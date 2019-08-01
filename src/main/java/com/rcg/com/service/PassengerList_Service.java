@@ -8,9 +8,11 @@ import com.rcg.com.exceptions.RitzkidsException;
 
 public interface PassengerList_Service 
 {
-	public String savePassenger(PassengerListWrapper p)throws RitzkidsException;
+	public long savePassenger(PassengerListWrapper p)throws RitzkidsException;
 	
 	public List<Guardian> getAllGuardian()throws RitzkidsException;
+	
+	public List<Guardian> getAllGuardianByBookingId(long bid)throws RitzkidsException;
 	
 	public Guardian getGuardian(int gid)throws RitzkidsException;
 

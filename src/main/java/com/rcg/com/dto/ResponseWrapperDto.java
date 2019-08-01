@@ -4,10 +4,10 @@ import java.util.List;
 
 public class ResponseWrapperDto 
 {
-	 int code;
-	 String message;
-	 List<DataDto> data;
-	 String status;
+	 private int code;
+	 private String message;
+	 private List<DataDto> data;
+	 private String status;
 	 
 	public int getCode() {
 		return code;

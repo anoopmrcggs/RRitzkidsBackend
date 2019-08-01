@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rcg.com.dao.Guardian;
 import com.rcg.com.dto.DataDto;
 import com.rcg.com.dto.GuestListDto;
+import com.rcg.com.dto.PassengerListDto;
 import com.rcg.com.dto.PassengerListWrapper;
 import com.rcg.com.dto.ResponseWrapperDto;
 import com.rcg.com.dto.SearchDataDto;
@@ -31,43 +32,57 @@ public class PassengerListController
 	@Autowired
 	private GuestList_Service gs;
 	
-	/*
-	 * // Saving All Passengers
-	 * 
-	 * @RequestMapping(method = RequestMethod.POST,value = "/passengerlist") public
-	 * ResponseEntity<?> savePassenger(@RequestBody PassengerListWrapper pl) throws
-	 * RitzkidsException { ps.savePassenger(pl); return ResponseEntity.ok(new
-	 * ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.
-	 * SUCCESS)); }
-	 */
+	@Autowired
+	private PassengerList_Service ps;
+	
+	
+	  // Saving All Passengers
 	  
-	  //getting All Guardians
+	  @RequestMapping(method = RequestMethod.POST,value = "/passengerlist") 
+	  public ResponseEntity<?> savePassenger(@RequestBody PassengerListWrapper pl) throws RitzkidsException 
+	  { 
+		  return ResponseEntity.ok(new  ResponseStatus<List<Guardian>>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getAllGuardianByBookingId(ps.savePassenger(pl)))); 
+	  }
+	 
 	  @RequestMapping(method = RequestMethod.POST,value="/guardianlist") 
-	  public  ResponseWrapperDto getAllGuardian(@RequestBody SearchDataDto sdto) throws RitzkidsException 
+	  public ResponseEntity<?> getAllGuardians(@RequestBody SearchDataDto sdto) throws RitzkidsException 
+	  {
+		  return ResponseEntity.ok(new ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getAllGuardian())); 
+	  }
+	  
+	  
+	  //Search All Guardians From Middle-ware
+	  @RequestMapping(method = RequestMethod.POST,value="/guestlist") 
+	  public  ResponseWrapperDto getAllGuardianFromMiddleWare(@RequestBody SearchDataDto sdto) throws RitzkidsException 
 	  {
 		  return gs.getGuest(sdto);
 		 //return ResponseEntity.ok(new ResponseStatus>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,gs.getGuest(sdto))); 
 	  }
 	  
-	/*
-	 * //getting Single Guardian
-	 * 
-	 * @RequestMapping("/guardianlist/{gid}") public ResponseEntity<?>
-	 * getGuardian(@PathVariable int gid) throws RitzkidsException { return
-	 * ResponseEntity.ok(new
-	 * ResponseStatus<Guardian>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,
-	 * RitzConstants.SUCCESS,ps.getGuardian(gid))); }
-	 */
+	  //Search All Guardians From DB
+	  @RequestMapping(method = RequestMethod.GET,value="/guestlist/{bid}") 
+	  public  ResponseEntity<?>  getAllGuardianByBookingID(@PathVariable long bid) throws RitzkidsException 
+	  {
+		 return ResponseEntity.ok(new ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getAllGuardianByBookingId(bid))); 
+	  }
+	  
+	
+	  //getting Single Guardian
+	  @RequestMapping("/guardianlist/{gid}") public ResponseEntity<?>
+	  getGuardian(@PathVariable int gid) throws RitzkidsException 
+	  { 
+		  return ResponseEntity.ok(new ResponseStatus<Guardian>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getGuardian(gid))); 
+	  }
+	 
 	 
 	/*
 	 * @RequestMapping(method = RequestMethod.POST,value = "/passengerlist") public
 	 * ResponseEntity<?> savePassenger(@RequestBody PassengerListDto pl) {
-	 * System.out.println("Dta : "+pl.getFirstname()+" -- "+pl.getPassengertype()
-	 * +" -- "+pl.getBirthdate()+" -- "+pl.isIsactive()); //ps.savePassenger(pl);
-	 * return ResponseEntity.ok(new
+	 * ps.savePassenger(pl); return ResponseEntity.ok(new
 	 * ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.
 	 * SUCCESS)); }
 	 */
+	 
 	
 	
 }
