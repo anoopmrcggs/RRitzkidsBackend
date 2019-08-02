@@ -41,8 +41,8 @@ public class CheckInCheckOutDto
 	private int createdBy;
 	private int updatedBy;
 	private Boolean isActive;
-	
-	private boolean checkinStatus;
+
+	private Boolean checkinStatus;
 	
 	@NotNull
 	@NotBlank(message="Guardian location is mandatory")
@@ -182,14 +182,12 @@ public class CheckInCheckOutDto
 		this.contactNumber = contactNumber;
 	}
 	
-	public boolean isCheckinStatus() {
+	public Boolean getCheckinStatus() {
 		return checkinStatus;
 	}
-	
-	public void setCheckinStatus(boolean checkinStatus) {
+	public void setCheckinStatus(Boolean checkinStatus) {
 		this.checkinStatus = checkinStatus;
 	}
-
 	public String getGuardianLocation() 
 	{
 		return guardianLocation;

@@ -18,6 +18,7 @@ import com.rcg.com.dao.MedicalDetails;
 import com.rcg.com.dao.YoungGust;
 import com.rcg.com.dto.AuthorizedRelationDto;
 import com.rcg.com.dto.CheckInCheckOutDto;
+import com.rcg.com.dto.CheckInCheckOutStatsUpdationDto;
 import com.rcg.com.dto.MedicalDetailsDto;
 import com.rcg.com.dto.YoungGustCheckinStatusDto;
 import com.rcg.com.exceptions.RitzkidsException;
@@ -135,39 +136,33 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		//Mapping AuthorizedRelationDto to Authorized Relation
 		if(checkincheckoutdto.getAutorizedRelation()!=null)
 		{
-			checkincheckoutdto.getAutorizedRelation().forEach(
-				(a)->{
-								System.out.println("------ Saving relation------");
-								AuthorizedRelation mappedRelation=authorizedRelationMapper(a);
-						
-								if(!(gr.findById(mappedRelation.getGuardian().getGuardianId())).isPresent())
-									{
-									//	throw new RitzkidsException("Guardian ID not found", RitzConstants.ERROR_CODE);
-									}
-								else
-								{
-
-									if(!rr.findById((mappedRelation.getRelationship().getRid())).isPresent())
-									{
-										//throw new RitzkidsException("Relationship ID not found", RitzConstants.ERROR_CODE);		
-									}
-									else
-									{
-										mappedRelation.setCreated(new Date());
-										mappedRelation.setUpdated(new Date());
-										mappedRelation.setCreatedBy(checkincheckoutdto.getCreatedBy());
-										mappedRelation.setUpdatedBy(checkincheckoutdto.getCreatedBy());
-										
-										mappedRelation.setCheckinCheckout(checkform);
-										ar.save(mappedRelation);
-									}
-						
-								}
-					
-					}
-				);
-		
 			
+			Iterator<AuthorizedRelationDto> itr=checkincheckoutdto.getAutorizedRelation().iterator();
+			while(itr.hasNext())
+			{
+				AuthorizedRelation mappedRelation=authorizedRelationMapper(itr.next());
+				if(!(gr.findById(mappedRelation.getGuardian().getGuardianId())).isPresent())
+				{
+					throw new RitzkidsException("Guardian ID not found", RitzConstants.ERROR_CODE);		
+				}
+				else
+				{
+					if(!rr.findById((mappedRelation.getRelationship().getRid())).isPresent())
+					{
+						throw new RitzkidsException("Relationship ID not found", RitzConstants.ERROR_CODE);		
+					}
+					else
+					{
+						mappedRelation.setCreated(new Date());
+						mappedRelation.setUpdated(new Date());
+						mappedRelation.setCreatedBy(checkincheckoutdto.getCreatedBy());
+						mappedRelation.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+						
+						mappedRelation.setCheckinCheckout(checkform);
+						ar.save(mappedRelation);
+					}
+				}
+			}
 		}
 		else
 		{
@@ -201,6 +196,51 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			return cr.findById(cid).get();
 		}
 	}
+	
+	
+	
+	
+	@Override
+	public int updateCheckinCheckout(CheckInCheckOutStatsUpdationDto cdto) throws RitzkidsException 
+	{
+		
+		if(!cr.findById(cdto.getChechinID()).isPresent())
+		{
+			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
+		}
+		else
+		{
+			Optional<CheckInCheckOut> cfo=cr.findById(cdto.getChechinID());
+			CheckInCheckOut cf=cfo.get();
+			cf.setCheckinStatus(cdto.getStatus());
+			cf.setCheckinCheckoutId(cdto.getChechinID());
+			cf.setCheckinStatus(false);
+			cf.setUpdated(new Date());
+			cf.setUpdatedBy(cdto.getUpdatedBy());
+			cr.save(cf);
+
+			  if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
+			  { 
+				  throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE); 
+			  } 
+			  else 
+			  {
+			  
+			  Optional<AuthorizedRelation> aro=ar.findById(cdto.getAuthorizedID()); AuthorizedRelation
+			  arelation=aro.get(); arelation.setCheckedout(cdto.getStatus());
+			  arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
+			  arelation.setUpdated(new Date());
+			  cf.setUpdatedBy(cdto.getUpdatedBy());
+			  ar.save(arelation);
+			  
+			  }
+			 
+			
+		}
+		return 0;
+	}
+	
+	
 	
 	
 
@@ -273,6 +313,21 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				
 			}
 			
+			Optional<YoungGust> ygo=ygr.findById(cdto.getYoungGust().getYoungGustId());
+			if(!ygo.isPresent())
+			{
+				throw new RitzkidsException("No Young gust were found in given ID",RitzConstants.ERROR_CODE);
+			}
+			else
+			{
+				YoungGust yg=ygo.get();
+				yg.setNickName(cdto.getNickName());
+				yg.setAgeGroup(cdto.getAgeGroup());
+				ygr.save(yg);
+			
+			}
+			
+			
 			
 			if(ck.getMedicalDetails()!=null)
 			{
@@ -309,6 +364,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	@Override
 	public YoungGustCheckinStatusDto getCheckinCheckoutStatus(int fid) throws RitzkidsException 
 	{
+	
 		Optional<YoungGust> yg=ygr.getYoungGustByfolioID(fid);
 		
 		if(!yg.isPresent())
@@ -319,12 +375,20 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		{
 			YoungGustCheckinStatusDto ycdto=new YoungGustCheckinStatusDto();
 			Optional<CheckInCheckOut> ck=cr.findTopByyoungGustYoungGustIdOrderByCheckinCheckoutIdDesc(yg.get().getYoungGustId());
-			
-			ycdto.setCheckinID(ck.get().getCheckinCheckoutId());
-			ycdto.setFolioID(ck.get().getYoungGust().getFolioID());
-			ycdto.setStatus(ck.get().isCheckinStatus());
-		
-			return ycdto;
+			if(ck.isPresent())
+			{
+				ycdto.setCheckinID(ck.get().getCheckinCheckoutId());
+				ycdto.setFolioID(ck.get().getYoungGust().getFolioID());
+				ycdto.setStatus(ck.get().isCheckinStatus());
+				return ycdto;
+			}
+			else
+			{
+				ycdto.setCheckinID(0);
+				ycdto.setFolioID(fid);
+				ycdto.setStatus(false);
+				return ycdto;
+			}
 		}
 		 
 	}

@@ -1,6 +1,5 @@
 package com.rcg.com.service;
 
-import org.springframework.http.ResponseEntity;
 
 import com.rcg.com.dto.ResponseWrapperDto;
 import com.rcg.com.dto.SearchDataDto;

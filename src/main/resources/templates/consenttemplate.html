@@ -3,34 +3,36 @@
    <body>
        <div class="container">
            <div class="row">
-               <h2 th:utext="${head1}"></h2>
+            <div align="center">   <h2 th:utext="${head1}"></h2></div>
                <p><mark th:utext="${body1}"></mark></p>
-               <div class="col-md-12">
-	               <div class="col-md-9" th:utext="${item1}"></div>
-	               <div class="col-md-3" style="float:right">
-	                   <img th:src="*{s1}" alt="Sign"/>
-	               </div>
-	          </div>
+                <span class="col-md-3" style="float:right">
+                   <img th:src="*{s1}" alt="Sign"/>
+               </span>
+               <div class="col-md-9" th:utext="${item1}"></div>
            </div>
             <div class="row">
                <h2 th:utext="${head2}"></h2>
                <p th:utext="${body2}"></p>
-               <div class="col-md-9" th:utext="${item2}"></div>
                <div class="col-md-3"  style="float:right">
                    <img th:src="*{s2}" alt="Sign" />
                </div>
+               <div class="col-md-9" th:utext="${item2}"></div>
            </div>
             <div class="row">
                <h2 th:utext="${head3}"></h2>
                <p th:utext="${body3}"></p>
-               <div class="col-md-9" th:utext="${item3}"></div>
-               <div class="col-md-3" align="center">
+                <div class="col-md-3" style="float:right">
                    <img th:src="*{s3}" alt="Sign"/>
                </div>
-               <div class="col-md-3" align="center">
-                  <span>Authorized pickup name :</span><span th:text="${name} " ></span>
+               <div class="col-md-9" th:utext="${item3}"></div>
+           </div>
+           <div class="row" align="center">
+               <div align="center">
+                  <span> <img th:src="*{s4}" alt="Sign"/></span>
                </div>
-               
+               <div align="center">
+                  <span>Authorized pickup:</span><span th:text="${name} " ></span>
+               </div>
            </div>
        </div>
    </body>

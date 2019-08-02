@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class EventLog 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="event_log_id")
 	private int eventLogId;
 	

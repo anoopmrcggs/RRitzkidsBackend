@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class CheckInCheckOut 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="checkin_checkout_id")
 	private int checkinCheckoutId;
 	

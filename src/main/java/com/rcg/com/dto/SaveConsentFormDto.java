@@ -9,7 +9,9 @@ public class SaveConsentFormDto
 	private String signature1;
 	private String signature2;
 	private String signature3;
+	private String signature4;
 	private String guardianName;
+	private String voyageNumber;
 	
 	public int getLanguageId() 
 	{
@@ -69,6 +71,22 @@ public class SaveConsentFormDto
 	public void setGuardianName(String guardianName)
 	{
 		this.guardianName = guardianName;
+	}
+
+	public String getSignature4() {
+		return signature4;
+	}
+
+	public void setSignature4(String signature4) {
+		this.signature4 = signature4;
+	}
+
+	public String getVoyageNumber() {
+		return voyageNumber;
+	}
+
+	public void setVoyageNumber(String voyageNumber) {
+		this.voyageNumber = voyageNumber;
 	}
 	
 }

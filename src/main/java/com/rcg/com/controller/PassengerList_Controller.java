@@ -2,8 +2,6 @@ package com.rcg.com.controller;
 
 import java.util.List;
 
-import javax.xml.ws.ResponseWrapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.Guardian;
-import com.rcg.com.dto.DataDto;
-import com.rcg.com.dto.GuestListDto;
-import com.rcg.com.dto.PassengerListDto;
 import com.rcg.com.dto.PassengerListWrapper;
 import com.rcg.com.dto.ResponseWrapperDto;
 import com.rcg.com.dto.SearchDataDto;
@@ -27,7 +22,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class PassengerListController
+public class PassengerList_Controller
 {
 	@Autowired
 	private GuestList_Service gs;
@@ -59,7 +54,7 @@ public class PassengerListController
 		 //return ResponseEntity.ok(new ResponseStatus>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,gs.getGuest(sdto))); 
 	  }
 	  
-	  //Search All Guardians From DB
+	  //Search Guardians From DB
 	  @RequestMapping(method = RequestMethod.GET,value="/guestlist/{bid}") 
 	  public  ResponseEntity<?>  getAllGuardianByBookingID(@PathVariable long bid) throws RitzkidsException 
 	  {

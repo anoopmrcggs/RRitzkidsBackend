@@ -1,8 +1,6 @@
 package com.rcg.com.dto;
 
-import java.util.Date;
 
-import com.rcg.com.dao.Employee;
 
 public class LoginDto 
 {

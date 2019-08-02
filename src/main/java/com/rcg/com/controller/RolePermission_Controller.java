@@ -14,7 +14,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class Role_PermissionController 
+public class RolePermission_Controller 
 {
 	@Autowired
 	private RoleMapping_ServiceImpl rms;

@@ -22,7 +22,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class RelationshipController 
+public class Relationship_Controller 
 {
 	@Autowired
 	private Relationship_Service rs;

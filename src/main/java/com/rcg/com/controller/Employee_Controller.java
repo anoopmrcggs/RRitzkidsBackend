@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.Employee;
@@ -19,7 +21,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class EmployeeController 
+public class Employee_Controller 
 {
 	@Autowired
 	private Employee_ServiceImpl es;
@@ -76,6 +78,14 @@ public class EmployeeController
 	{
 		es.passwordReset(edto, eid);
 		return ResponseEntity.ok(new ResponseStatus<Employee>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	//Employee user name validation
+	@RequestMapping("/employee/usernamestatus/{username}")
+	public ResponseEntity<?> usernameValidation(@PathVariable String username) throws RitzkidsException
+	{
+		Boolean st=es.validUserName(username);
+		return ResponseEntity.ok(new ResponseStatus<Boolean>(RitzConstants.SUCCESS_CODE, RitzConstants.OK, RitzConstants.SUCCESS, st));
 	}
 	
 	

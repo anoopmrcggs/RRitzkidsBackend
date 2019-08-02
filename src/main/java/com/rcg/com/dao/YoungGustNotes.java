@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class YoungGustNotes 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="young_gust_notes_id")
 	private int youngGustNotesId;
 	

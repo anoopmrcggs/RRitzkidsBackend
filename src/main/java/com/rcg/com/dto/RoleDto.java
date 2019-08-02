@@ -7,7 +7,7 @@ import javax.persistence.ManyToMany;
 
 public class RoleDto 
 {
-	private int role_id;
+	private int roleId;
 	private String name;
 	private int createdby;
 	private Date created;
@@ -19,12 +19,14 @@ public class RoleDto
 	private Set<PermissionDto> permission;
 
 	
-	public int getRole_id() {
-		return role_id;
+	
+
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getName() {

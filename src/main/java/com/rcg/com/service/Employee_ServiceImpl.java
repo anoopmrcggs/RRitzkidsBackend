@@ -1,7 +1,6 @@
 package com.rcg.com.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,32 +33,35 @@ public class Employee_ServiceImpl implements Employee_Service
 	@Autowired
 	private LoginRepository lr;
 	
-	private int createdby=100;
-	private int updatedby=100;
-	private Calendar calender=Calendar.getInstance();
-	
 	
 	@Override
 	public int SaveEmployee(EmployeeDto edto) throws RitzkidsException 
 	{
 		Employee emp=employeeMapper(edto);
-		emp.setCreated(new Date());
-		emp.setUpdated(new Date());
-		emp.setIsactive(true);
-		emp.setCreatedby(edto.getCreatedby());
-		emp.setUpdatedby(edto.getUpdatedby());
-		er.save(emp);
+		if(!lr.getLoginByusername(edto.getUsername()).isPresent())
+		{
+			emp.setCreated(new Date());
+			emp.setUpdated(new Date());
+			emp.setIsactive(true);
+			emp.setCreatedby(edto.getCreatedby());
+			emp.setUpdatedby(edto.getUpdatedby());
+			er.save(emp);
 		
 		// Saving login Credential
 		
-		Login lg=new Login();
-		lg.setUsername(edto.getUsername());
-		lg.setPassword(MDEncryption.getMd5(edto.getPassword()));
-		lg.setEmployee(emp);
-		lg.setCretedBy(edto.getCreatedby());
-		lg.setUpdatedBy(edto.getUpdatedby());
-		lg.setUpdated(new Date());
-		lr.save(lg);
+			Login lg=new Login();
+			lg.setUsername(edto.getUsername());
+			lg.setPassword(MDEncryption.getMd5(edto.getPassword()));
+			lg.setEmployee(emp);
+			lg.setCretedBy(edto.getCreatedby());
+			lg.setUpdatedBy(edto.getUpdatedby());
+			lg.setUpdated(new Date());
+			lr.save(lg);
+		}
+		else
+		{
+			throw new RitzkidsException("Username already exist",RitzConstants.ERROR_CODE);
+		}
 		
 		return emp.getEmployeeId();
 	}
@@ -221,6 +223,17 @@ public class Employee_ServiceImpl implements Employee_Service
 			throw new RitzkidsException("No Employee were found in this ID", RitzConstants.ERROR_CODE);
 		}
 		return "Success";
+	}
+	
+	
+	public boolean validUserName(String username) throws RitzkidsException
+	{
+		boolean status=false;
+		if(lr.getLoginByusername(username).isPresent())
+		{
+			status=true;
+		}
+		return status;
 	}
 	
 	private Employee employeeMapper(EmployeeDto employee)

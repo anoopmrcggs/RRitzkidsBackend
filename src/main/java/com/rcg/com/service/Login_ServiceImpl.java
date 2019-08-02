@@ -3,7 +3,6 @@ package com.rcg.com.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rcg.com.dao.Employee;
@@ -48,8 +47,6 @@ public class Login_ServiceImpl implements Login_Service
 				{					
 					if(er.findById(emp.get().getEmployeeId()).get().getIsactive())
 					{
-						System.out.println("3----------------"+ldto.getUsername());
-						System.out.println("3----------------"+ldto.getPassword());
 						return er.findById(emp.get().getEmployeeId()).get();
 					}
 					else

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Employee 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="employee_id")
 	private int employeeId;
 	
@@ -38,6 +38,15 @@ public class Employee
 	{
 		super();
 	}
+	
+	
+
+	public Employee(int employeeId) {
+		super();
+		this.employeeId = employeeId;
+	}
+
+
 
 	public int getEmployeeId() {
 		return employeeId;

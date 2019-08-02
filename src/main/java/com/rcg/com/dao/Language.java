@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Language 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int lid;
 	private String name;
 	private String rep;

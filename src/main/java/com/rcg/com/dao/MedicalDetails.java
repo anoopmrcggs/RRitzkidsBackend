@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class MedicalDetails 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="medical_details_id")
 	private int medicalDetailsId;
 	

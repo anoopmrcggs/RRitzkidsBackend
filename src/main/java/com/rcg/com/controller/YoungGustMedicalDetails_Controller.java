@@ -15,7 +15,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class YoungGustMedicalDetailsController 
+public class YoungGustMedicalDetails_Controller 
 {
 	@Autowired
 	private YoungGustMedical_Service ms;

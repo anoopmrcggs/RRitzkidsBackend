@@ -21,7 +21,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class YoungGustNoteController 
+public class YoungGustNote_Controller 
 {
 	@Autowired
 	private YoungGustNote_Service ygs;

@@ -20,7 +20,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class ConsentFormTemplateController 
+public class ConsentFormTemplate_Controller 
 {
 	@Autowired
 	private ConsentFormTemplate_Service cs;

@@ -14,13 +14,16 @@ import javax.persistence.Table;
 public class Login 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="login_id")
 	private int loginId;
 	
 	@ManyToOne
 	private Employee employee;
-	private String username;
+	
+	 @Column(unique = true)
+	 private String username;
+	
 	private String password;
 	
 	@Column(name="created_by")

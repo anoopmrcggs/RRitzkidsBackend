@@ -2,6 +2,8 @@ package com.rcg.com.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 import com.rcg.com.dao.Role;
 
 

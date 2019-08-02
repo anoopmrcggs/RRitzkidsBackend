@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.CheckInCheckOut;
 import com.rcg.com.dto.CheckInCheckOutDto;
+import com.rcg.com.dto.CheckInCheckOutStatsUpdationDto;
 import com.rcg.com.dto.YoungGustCheckinStatusDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.service.CheckInCheckOut_Service;
@@ -22,7 +23,7 @@ import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class CheckInCheckOutFormController 
+public class CheckInCheckOutForm_Controller 
 {
 	@Autowired
 	private CheckInCheckOut_Service cs;
@@ -49,6 +50,13 @@ public class CheckInCheckOutFormController
 	public ResponseEntity<?>updateStatus(@PathVariable boolean st,@PathVariable int cid,@PathVariable int aid) throws RitzkidsException
 	{
 		cs.updateCheckinCheckoutStatus(st, cid, aid);
+		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
+	}
+	
+	@RequestMapping(method=RequestMethod.POST , value = "/checkincheckoutform/status")
+	public ResponseEntity<?>updateStatus(@RequestBody CheckInCheckOutStatsUpdationDto cdto) throws RitzkidsException
+	{
+		cs.updateCheckinCheckout(cdto);
 		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS));
 	}
 	

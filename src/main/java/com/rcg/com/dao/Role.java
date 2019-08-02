@@ -3,6 +3,7 @@ package com.rcg.com.dao;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,53 +16,47 @@ import javax.persistence.Table;
 public class Role 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int role_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="role_id")
+	private int roleId;
+	
 	private String name;
-	private int createdby;
+	
+	@Column(name="created_by")
+	private int createdBy;
+	
 	private Date created;
-	private int updatedby;
+	
+	@Column(name="updated_by")
+	private int updatedBy;
+	
 	private Date updated;
-	private boolean isactive;
+	
+	@Column(name="is_active")
+	private Boolean isActive;
 
-	@ManyToMany//(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-	/*
-	 * @JoinTable(name = "ryg_role_permission", joinColumns
-	 * = @JoinColumn(name="role_id",referencedColumnName = "role_id"),
-	 * inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName
-	 * = "permission_id"))
-	 */
+	@ManyToMany
 	private Set<Permission> permission;
 
 	public Role() 
 	{
 		super();
 	}
-	
-	public Role(int role_id) 
-	{
-		this.role_id = role_id;
-	}
 
-	public Role(int role_id, String name, int createdby, Date created, int updatedby, Date updated, boolean isactive,
-			Set<Permission> permission) {
+
+	public Role(int roleId) {
 		super();
-		this.role_id = role_id;
-		this.name = name;
-		this.createdby = createdby;
-		this.created = created;
-		this.updatedby = updatedby;
-		this.updated = updated;
-		this.isactive = isactive;
-		this.permission = permission;
+		this.roleId = roleId;
 	}
 
-	public int getRole_id() {
-		return role_id;
+
+
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getName() {
@@ -72,12 +67,12 @@ public class Role
 		this.name = name;
 	}
 
-	public int getCreatedby() {
-		return createdby;
+	public int getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreatedby(int createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public Date getCreated() {
@@ -88,12 +83,12 @@ public class Role
 		this.created = created;
 	}
 
-	public int getUpdatedby() {
-		return updatedby;
+	public int getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setUpdatedby(int updatedby) {
-		this.updatedby = updatedby;
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	public Date getUpdated() {
@@ -104,12 +99,12 @@ public class Role
 		this.updated = updated;
 	}
 
-	public boolean isIsactive() {
-		return isactive;
+	public Boolean getIsActive() {
+		return isActive;
 	}
 
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public Set<Permission> getPermission() {
@@ -120,8 +115,4 @@ public class Role
 		this.permission = permission;
 	}
 	
-	
-	
-
-
 }

@@ -13,19 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rcg.com.dao.EventLog;
-import com.rcg.com.dao.YoungGust;
-import com.rcg.com.dao.YoungGustNotes;
 import com.rcg.com.dto.EventLogDto;
-import com.rcg.com.dto.YoungGustNotesDto;
 import com.rcg.com.exceptions.RitzkidsException;
 import com.rcg.com.service.EventLog_Service;
-import com.rcg.com.service.YoungGustNote_Service;
 import com.rcg.com.util.ResponseStatus;
 import com.rcg.com.util.RitzConstants;
 
 @RestController
 @RequestMapping("/api")
-public class EventLogController 
+public class EventLog_Controller 
 {
 	@Autowired
 	private EventLog_Service es;

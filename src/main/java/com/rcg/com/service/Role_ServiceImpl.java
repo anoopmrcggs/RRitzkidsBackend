@@ -29,10 +29,10 @@ public class Role_ServiceImpl implements Role_Service
 		Role role=roleMapper(r);
 		role.setCreated(calender.getTime());
 		role.setUpdated(calender.getTime());
-		role.setCreatedby(createdby);
-		role.setUpdatedby(updatedby);
+		role.setCreatedBy(createdby);
+		role.setUpdatedBy(updatedby);
 		rr.save(role);
-		return role.getRole_id();
+		return role.getRoleId();
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,7 +142,17 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		
 		boolean status = false; 
 		Context context=new Context(); 
-		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getGuardianName();
+		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getVoyageNumber()+"_"+cdto.getGuardianName().toUpperCase();
+		File f=new File("");
+		
+		//Server Location
+		String fpath="/usr/lib/rcyc-app/concentform/"+fileName;
+		
+		//LocalLocation
+		String[] floc=f.getAbsolutePath().split("/");
+		String abPath=f.getAbsolutePath();
+		String local=abPath.replace("/"+floc[(floc.length-1)], "/");
+			   local=local+"genPdf/"+fileName;
 		
 		
 		int[] numArr = {1};
@@ -166,19 +175,15 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		context.setVariable("s1",cdto.getSignature1());
 		context.setVariable("s2",cdto.getSignature2());
 		context.setVariable("s3",cdto.getSignature3());
+		context.setVariable("s4",cdto.getSignature4());
 		context.setVariable("name",cdto.getGuardianName());
 
 		
 		String ht=templateEngine.process("consenttemplate", context); 
 		
+		
 		try { 
-				File f=new File("");
-				String fpath="/usr/lib/rcyc-app/concentform/";
-				String[] floc=f.getAbsolutePath().split("/");
-				String abPath=f.getAbsolutePath();
-				String local=abPath.replace("/"+floc[(floc.length-1)], "/");
-				
-				OutputStream os = new FileOutputStream(fpath+fileName); 
+				OutputStream os = new FileOutputStream(local); 
 				PdfRendererBuilder builder = new
 				PdfRendererBuilder(); builder.withHtmlContent(ht, "file:");
 				builder.toStream(os); builder.run();
