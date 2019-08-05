@@ -67,6 +67,9 @@ public class Guardian
 	@Column(name = "young_gust")
 	private Set<YoungGust> youngGust;
 	
+	@Column(name="image_url")
+	private String imageUrl;
+	
 	
 	public Guardian() 
 	{
@@ -333,6 +336,18 @@ public class Guardian
 
 	public void setContectNumber(String contectNumber) {
 		this.contectNumber = contectNumber;
+	}
+
+
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

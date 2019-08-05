@@ -75,6 +75,9 @@ public class YoungGust
 	@Column(name="young_gust_location")
 	private String youngGustLocation;
 	
+	@Column(name="image_url")
+	private String imageUrl;
+	
 
 	public YoungGust() 
 	{
@@ -295,6 +298,16 @@ public class YoungGust
 
 	public void setAgeGroup(String ageGroup) {
 		this.ageGroup = ageGroup;
+	}
+
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

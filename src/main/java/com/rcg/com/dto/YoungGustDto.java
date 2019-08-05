@@ -3,6 +3,8 @@ package com.rcg.com.dto;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
+
 
 
 public class YoungGustDto 
@@ -30,6 +32,7 @@ private int youngGustId;
 	private Set<GuardianDto> guardian;
 	private String youngGustLocation;
 	private String ageGroup;
+	private String imageUrl;
 	
 
 
@@ -161,6 +164,12 @@ private int youngGustId;
 	}
 	public void setAgeGroup(String ageGroup) {
 		this.ageGroup = ageGroup;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	

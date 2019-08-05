@@ -210,33 +210,42 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		}
 		else
 		{
+			
 			Optional<CheckInCheckOut> cfo=cr.findById(cdto.getChechinID());
 			CheckInCheckOut cf=cfo.get();
-			cf.setCheckinStatus(cdto.getStatus());
-			cf.setCheckinCheckoutId(cdto.getChechinID());
-			cf.setCheckinStatus(false);
-			cf.setUpdated(new Date());
-			cf.setUpdatedBy(cdto.getUpdatedBy());
-			cr.save(cf);
-
-			  if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
-			  { 
-				  throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE); 
-			  } 
-			  else 
-			  {
-			  
-			  Optional<AuthorizedRelation> aro=ar.findById(cdto.getAuthorizedID()); AuthorizedRelation
-			  arelation=aro.get(); arelation.setCheckedout(cdto.getStatus());
-			  arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
-			  arelation.setUpdated(new Date());
-			  cf.setUpdatedBy(cdto.getUpdatedBy());
-			  ar.save(arelation);
-			  
-			  }
-			 
-			
+			if(cf.isSelfCheckout())
+			{
+				cf.setUpdated(new Date());
+				cf.setUpdatedBy(cdto.getUpdatedBy());
+				cr.save(cf);
+			}
+			else
+			{
+				cf.setCheckinStatus(cdto.getStatus());
+				cf.setCheckinCheckoutId(cdto.getChechinID());
+				cf.setCheckinStatus(false);
+				cf.setUpdated(new Date());
+				cf.setUpdatedBy(cdto.getUpdatedBy());
+				cr.save(cf);
+	
+				  if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
+				  { 
+					  throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE); 
+				  } 
+				  else 
+				  {
+				  
+				  Optional<AuthorizedRelation> aro=ar.findById(cdto.getAuthorizedID()); AuthorizedRelation
+				  arelation=aro.get(); arelation.setCheckedout(cdto.getStatus());
+				  arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
+				  arelation.setUpdated(new Date());
+				  cf.setUpdatedBy(cdto.getUpdatedBy());
+				  ar.save(arelation);
+				  
+				  }
+			}
 		}
+			 
 		return 0;
 	}
 	
