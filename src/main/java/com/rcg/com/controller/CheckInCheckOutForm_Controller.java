@@ -45,7 +45,7 @@ public class CheckInCheckOutForm_Controller
 	{
 		return ResponseEntity.ok(new ResponseStatus<CheckInCheckOut>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,cs.getCheckInCheckoutForm(cid)));
 	}
-	
+	@Deprecated
 	@RequestMapping("/checkincheckoutform/{cid}/ar/{aid}/status/{st}")
 	public ResponseEntity<?>updateStatus(@PathVariable boolean st,@PathVariable int cid,@PathVariable int aid) throws RitzkidsException
 	{

@@ -81,8 +81,8 @@ public class CheckInCheckOut
 	@Column(name="is_self_checkout")
 	private boolean isSelfCheckout;
 	
-	@Column(name="secure_password")
-	private String securePassword;
+	@Column(name="pickup_instruction")
+	private String pickupInstructions;
 	
 	@Column(name="young_gust_location")
 	private String youngGustLocation;
@@ -338,14 +338,14 @@ public class CheckInCheckOut
 
 
 
-	public String getSecurePassword() {
-		return securePassword;
+	public String getPickupInstructions() {
+		return pickupInstructions;
 	}
 
 
 
-	public void setSecurePassword(String securePassword) {
-		this.securePassword = securePassword;
+	public void setPickupInstructions(String pickupInstructions) {
+		this.pickupInstructions = pickupInstructions;
 	}
 
 

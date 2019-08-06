@@ -56,35 +56,52 @@ public class CheckInCheckOutDto
 	@NotBlank(message="Age group is mandatory")
 	private String ageGroup;
 	
-	private String securePassword;
+	private String pickupInstructions;
 	private Boolean isSelfCheckout;
 
+
+	public String getPickupInstructions() 
+	{
+		return pickupInstructions;
+	}
 	
-	public String getSecurePassword() {
-		return securePassword;
+	public void setPickupInstructions(String pickupInstructions) 
+	{
+		this.pickupInstructions = pickupInstructions;
 	}
-	public void setSecurePassword(String securePassword) {
-		this.securePassword = securePassword;
-	}
-	public int getCheckinCheckoutId() {
+	
+	public int getCheckinCheckoutId() 
+	{
 		return checkinCheckoutId;
 	}
-	public void setCheckinCheckoutId(int checkinCheckoutId) {
+	
+	public void setCheckinCheckoutId(int checkinCheckoutId) 
+	{
 		this.checkinCheckoutId = checkinCheckoutId;
 	}
-	public int getTagId() {
+	
+	public int getTagId() 
+	{
 		return tagId;
 	}
-	public void setTagId(int tagId) {
+	
+	public void setTagId(int tagId) 
+	{
 		this.tagId = tagId;
 	}
-	public String getEvent() {
+	
+	public String getEvent() 
+	{
 		return event;
 	}
-	public void setEvent(String event) {
+	
+	public void setEvent(String event) 
+	{
 		this.event = event;
 	}
-	public Date getEntryTime() {
+	
+	public Date getEntryTime() 
+	{
 		return entryTime;
 	}
 	public void setEntryTime(Date entryTime) {

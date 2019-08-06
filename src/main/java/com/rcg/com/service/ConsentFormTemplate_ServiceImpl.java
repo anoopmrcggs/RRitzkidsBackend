@@ -142,11 +142,13 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		
 		boolean status = false; 
 		Context context=new Context(); 
-		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getVoyageNumber()+"_"+cdto.getGuardianName().toUpperCase();
+		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getYoungGusetFolioID()+"_"+cdto.getGuardianName().toUpperCase();
 		File f=new File("");
 		
+		//change location local to server  when taking build
+		
 		//Server Location
-		String fpath="/usr/lib/rcyc-app/concentform/"+fileName;
+		String fpath="/usr/lib/rcyc-app/consentform/"+fileName;
 		
 		//LocalLocation
 		String[] floc=f.getAbsolutePath().split("/");
@@ -176,7 +178,7 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		context.setVariable("s2",cdto.getSignature2());
 		context.setVariable("s3",cdto.getSignature3());
 		context.setVariable("s4",cdto.getSignature4());
-		context.setVariable("name",cdto.getGuardianName());
+		context.setVariable("name",cdto.getSignedGuardian());
 
 		
 		String ht=templateEngine.process("consenttemplate", context); 

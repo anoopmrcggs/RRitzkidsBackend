@@ -2,29 +2,31 @@ package com.rcg.com.dto;
 
 public class CheckInCheckOutStatsUpdationDto 
 {
-	private int chechinID;
+	private int checkinID;
 	private int authorizedID;
 	private int updatedBy;
-	public int getUpdatedBy() {
+	private Boolean status;
+	
+	
+	
+	public int getUpdatedBy() 
+	{
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(int updatedBy) 
+	{
 		this.updatedBy = updatedBy;
 	}
+	
+	public int getCheckinID() {
+		return checkinID;
+	}
 
-	private Boolean Status;
-	
-	public int getChechinID() 
-	{
-		return chechinID;
+	public void setCheckinID(int checkinID) {
+		this.checkinID = checkinID;
 	}
-	
-	public void setChechinID(int chechinID) 
-	{
-		this.chechinID = chechinID;
-	}
-	
+
 	public int getAuthorizedID() 
 	{
 		return authorizedID;
@@ -34,14 +36,14 @@ public class CheckInCheckOutStatsUpdationDto
 	{
 		this.authorizedID = authorizedID;
 	}
-	
-	public Boolean getStatus()
-	{
-		return Status;
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	
-	public void setStatus(Boolean status) 
-	{
-		Status = status;
-	}
+	
 }

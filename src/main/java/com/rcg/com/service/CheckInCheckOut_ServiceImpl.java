@@ -120,6 +120,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 		checkform.setUpdated(new Date());
 		checkform.setCreatedBy(checkincheckoutdto.getCreatedBy());
 		checkform.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+		checkform.setEntryTime(new Date());
 		checkform.setCheckinStatus(true);
 		cr.save(checkform);
 		
@@ -204,28 +205,31 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	public int updateCheckinCheckout(CheckInCheckOutStatsUpdationDto cdto) throws RitzkidsException 
 	{
 		
-		if(!cr.findById(cdto.getChechinID()).isPresent())
+		if(!cr.findById(cdto.getCheckinID()).isPresent())
 		{
 			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
 		}
 		else
 		{
 			
-			Optional<CheckInCheckOut> cfo=cr.findById(cdto.getChechinID());
+			Optional<CheckInCheckOut> cfo=cr.findById(cdto.getCheckinID());
 			CheckInCheckOut cf=cfo.get();
 			if(cf.isSelfCheckout())
 			{
 				cf.setUpdated(new Date());
 				cf.setUpdatedBy(cdto.getUpdatedBy());
+				cf.setCheckinStatus(cdto.getStatus());
+				cf.setExitTime(new Date());
 				cr.save(cf);
 			}
 			else
 			{
 				cf.setCheckinStatus(cdto.getStatus());
-				cf.setCheckinCheckoutId(cdto.getChechinID());
+				cf.setCheckinCheckoutId(cdto.getCheckinID());
 				cf.setCheckinStatus(false);
 				cf.setUpdated(new Date());
 				cf.setUpdatedBy(cdto.getUpdatedBy());
+				cf.setExitTime(new Date());
 				cr.save(cf);
 	
 				  if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
@@ -239,7 +243,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				  arelation=aro.get(); arelation.setCheckedout(cdto.getStatus());
 				  arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
 				  arelation.setUpdated(new Date());
-				  cf.setUpdatedBy(cdto.getUpdatedBy());
+				  arelation.setUpdatedBy(cdto.getUpdatedBy());
 				  ar.save(arelation);
 				  
 				  }

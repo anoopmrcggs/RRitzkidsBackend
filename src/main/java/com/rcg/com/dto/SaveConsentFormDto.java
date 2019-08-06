@@ -11,7 +11,8 @@ public class SaveConsentFormDto
 	private String signature3;
 	private String signature4;
 	private String guardianName;
-	private String voyageNumber;
+	private String signedGuardian;
+	private String youngGusetFolioID;
 	
 	public int getLanguageId() 
 	{
@@ -81,12 +82,19 @@ public class SaveConsentFormDto
 		this.signature4 = signature4;
 	}
 
-	public String getVoyageNumber() {
-		return voyageNumber;
+	public String getSignedGuardian() {
+		return signedGuardian;
 	}
 
-	public void setVoyageNumber(String voyageNumber) {
-		this.voyageNumber = voyageNumber;
+	public void setSignedGuardian(String signedGuardian) {
+		this.signedGuardian = signedGuardian;
 	}
-	
+
+	public String getYoungGusetFolioID() {
+		return youngGusetFolioID;
+	}
+
+	public void setYoungGusetFolioID(String youngGusetFolioID) {
+		this.youngGusetFolioID = youngGusetFolioID;
+	}
 }
