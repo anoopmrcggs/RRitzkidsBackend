@@ -3,8 +3,6 @@ package com.rcg.com.dto;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-
 
 public class GuardianDto 
 {

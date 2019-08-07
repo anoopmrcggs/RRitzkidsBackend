@@ -58,10 +58,4 @@ public class ConsentFormTemplate_Controller
 		return ResponseEntity.ok(new ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK, RitzConstants.SUCCESS));	
 	}
 	
-	
-	
-	//Update ConsentForm
-	
-	//Delete ConcernForm
-
 }

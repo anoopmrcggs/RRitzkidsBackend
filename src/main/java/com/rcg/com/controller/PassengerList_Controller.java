@@ -68,16 +68,4 @@ public class PassengerList_Controller
 	  { 
 		  return ResponseEntity.ok(new ResponseStatus<Guardian>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.SUCCESS,ps.getGuardian(gid))); 
 	  }
-	 
-	 
-	/*
-	 * @RequestMapping(method = RequestMethod.POST,value = "/passengerlist") public
-	 * ResponseEntity<?> savePassenger(@RequestBody PassengerListDto pl) {
-	 * ps.savePassenger(pl); return ResponseEntity.ok(new
-	 * ResponseStatus<>(RitzConstants.SUCCESS_CODE,RitzConstants.OK,RitzConstants.
-	 * SUCCESS)); }
-	 */
-	 
-	
-	
 }

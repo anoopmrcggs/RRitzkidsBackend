@@ -257,6 +257,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	
 	
 
+	@Deprecated
 	@Override
 	public int updateCheckinCheckoutStatus(boolean status, int cid, int arid) throws RitzkidsException 
 	{

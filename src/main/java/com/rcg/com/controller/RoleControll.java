@@ -35,11 +35,4 @@ public class RoleControll
 	{
 		return ResponseEntity.ok(new ResponseStatus<List<Role>>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,rs.getAllRole()));
 	}
-	
-	/*
-	 * @RequestMapping() public String saveRoleWithPermision() throws
-	 * RitzkidsException {
-	 * 
-	 * return "success"; }
-	 */
 }

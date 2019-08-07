@@ -34,14 +34,11 @@ public class YoungGustNote_Controller
 
 	}
 	
-	
 	@RequestMapping("/younggustnote/{cid}")
 	public ResponseEntity<?> getYoungGustNotes(@PathVariable int cid) throws RitzkidsException
 	{
 		return ResponseEntity.ok(new ResponseStatus<List<YoungGustNotes>>(RitzConstants.SUCCESS_CODE, RitzConstants.OK,RitzConstants.SUCCESS,ygs.getYoungGustNotes(cid)));
 	}
-	
-	
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/younggustnote/cid/{cid}/noteid/{nid}")
 	public ResponseEntity<?> update(@RequestBody YoungGustNotesDto ydto,@PathVariable int cid,@PathVariable int nid) throws RitzkidsException
