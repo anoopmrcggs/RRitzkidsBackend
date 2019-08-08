@@ -86,32 +86,6 @@ public class Guardian
 
 
 
-
-
-	public Guardian(int guardianId, int cabin, int createdBy, int updatedBy, String firstName, String lastName,
-			String language, String nationality, String shipCode, Date birthDate, Date created, Date updated,
-			long bookingId, long folioId, char gender, char passengerType, boolean isActive, Set<YoungGust> youngGust) {
-		super();
-		this.guardianId = guardianId;
-		this.cabin = cabin;
-		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.language = language;
-		this.nationality = nationality;
-		this.shipCode = shipCode;
-		this.birthDate = birthDate;
-		this.created = created;
-		this.updated = updated;
-		this.gender = gender;
-		this.passengerType = passengerType;
-		this.isActive = isActive;
-		this.youngGust = youngGust;
-	}
-
-
-
 	public int getGuardianId() {
 		return guardianId;
 	}

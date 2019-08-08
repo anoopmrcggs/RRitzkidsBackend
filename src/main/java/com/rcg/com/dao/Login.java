@@ -38,13 +38,6 @@ public class Login
 	@Column(name="is_active")
 	private Boolean isActive;
 
-	
-	
-	
-	public Login() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public Employee getEmployee() {
 		return employee;

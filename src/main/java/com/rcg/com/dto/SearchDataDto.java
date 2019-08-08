@@ -3,7 +3,8 @@ package com.rcg.com.dto;
 
 public class SearchDataDto 
 {
-	String searchBy;
+	private String searchBy;
+	private int employeeId;
 
 	public String getSearchBy() {
 		return searchBy;
@@ -12,6 +13,15 @@ public class SearchDataDto
 	public void setSearchBy(String searchBy) {
 		this.searchBy = searchBy;
 	}
-	
+
+	public int getEmployeeId() 
+	{
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) 
+	{
+		this.employeeId = employeeId;
+	}
 	
 }

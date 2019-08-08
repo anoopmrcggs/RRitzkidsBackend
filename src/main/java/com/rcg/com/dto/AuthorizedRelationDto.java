@@ -15,8 +15,8 @@ public class AuthorizedRelationDto
 	private Date updated;
 	private int createdBy;
 	private int updatedBy;
-	private boolean isActive;
-	private boolean isCheckedout;
+	private Boolean isActive;
+	private Boolean isCheckedout;
 	private String priority;
 	private String location;
 
@@ -69,16 +69,17 @@ public class AuthorizedRelationDto
 	public void setUpdatedBy(int updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	public boolean isActive() {
+	
+	public Boolean getIsActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-	public boolean isCheckedout() {
+	public Boolean getIsCheckedout() {
 		return isCheckedout;
 	}
-	public void setCheckedout(boolean isCheckedout) {
+	public void setIsCheckedout(Boolean isCheckedout) {
 		this.isCheckedout = isCheckedout;
 	}
 	public String getContactNumber() {

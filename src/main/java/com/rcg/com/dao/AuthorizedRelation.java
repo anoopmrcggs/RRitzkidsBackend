@@ -44,10 +44,10 @@ public class AuthorizedRelation
 	private int updatedBy;
 	
 	@Column(name="is_Active")
-	private boolean isActive;
+	private Boolean isActive;
 	
 	@Column(name="is_checkedout")
-	private boolean isCheckedout;
+	private Boolean isCheckedout;
 	
 	@Column(name="contact_number")
 	private String contactNumber;
@@ -160,26 +160,28 @@ public class AuthorizedRelation
 	}
 
 
-	public boolean isActive() {
+	public Boolean getIsActive() {
 		return isActive;
 	}
 
 
-	public void setActive(boolean isActive) {
+
+
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
 
 
 
-	public boolean isCheckedout() {
+	public Boolean getIsCheckedout() {
 		return isCheckedout;
 	}
 
 
 
 
-	public void setCheckedout(boolean isCheckedout) {
+	public void setIsCheckedout(Boolean isCheckedout) {
 		this.isCheckedout = isCheckedout;
 	}
 

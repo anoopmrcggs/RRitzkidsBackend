@@ -131,7 +131,7 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		}
 		else
 		{
-			cr.deleteById(cid);;
+			cr.deleteById(cid);
 			return "Operation Completed";
 		}
 		
@@ -144,18 +144,15 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		Context context=new Context(); 
 		String fileName=cdto.getCheckinCheckoutId()+"_"+cdto.getYoungGusetFolioID()+"_"+cdto.getGuardianName().toUpperCase();
 		File f=new File("");
-		
 		//change location local to server  when taking build
-		
 		//Server Location
-		String fpath="/usr/lib/rcyc-app/consentform/"+fileName;
+		String fpath="/usr/lib/rcyc-app/consentform/"+fileName+".pdf";
 		
 		//LocalLocation
 		String[] floc=f.getAbsolutePath().split("/");
 		String abPath=f.getAbsolutePath();
 		String local=abPath.replace("/"+floc[(floc.length-1)], "/");
-			   local=local+"genPdf/"+fileName;
-		
+			   local=local+"genPdf/"+fileName+".pdf";
 		
 		int[] numArr = {1};
 
@@ -174,12 +171,13 @@ public class ConsentFormTemplate_ServiceImpl implements ConsentFormTemplate_Serv
 		);
 		
 		//Setting Signature
+		
+		context.setVariable("logo",RitzConstants.logo);
 		context.setVariable("s1",cdto.getSignature1());
 		context.setVariable("s2",cdto.getSignature2());
 		context.setVariable("s3",cdto.getSignature3());
 		context.setVariable("s4",cdto.getSignature4());
 		context.setVariable("name",cdto.getSignedGuardian());
-
 		
 		String ht=templateEngine.process("consenttemplate", context); 
 		

@@ -44,10 +44,6 @@ public class EventLog
 	@Column(name="is_active")
 	private boolean isActive;
 	
-	public EventLog() 
-	{
-		super();
-	}
 
 	public int getEventLogId() {
 		return eventLogId;

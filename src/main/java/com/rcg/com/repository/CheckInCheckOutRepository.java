@@ -11,6 +11,7 @@ public interface CheckInCheckOutRepository extends CrudRepository<CheckInCheckOu
 {
 	public List<CheckInCheckOut>  findAllByOrderByCheckinCheckoutIdAsc();
 	public List<CheckInCheckOut>  findAllByOrderByCheckinCheckoutIdDesc();
+	//get Latest Sataus of checkin checkout of an young gues 
 	public Optional<CheckInCheckOut> findTopByyoungGustYoungGustIdOrderByCheckinCheckoutIdDesc(int yid);
 	
 }

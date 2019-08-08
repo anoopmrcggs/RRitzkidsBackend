@@ -43,7 +43,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	@Autowired
 	private CheckInCheckOutRepository cr;
 	
-	
 	@Autowired
 	private YoungGustRepository ygr;
 	
@@ -64,7 +63,6 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	{
 		
 		Optional<YoungGust> ygo=null;
-		
 		CheckInCheckOut checkform=checkincheckoutMapper(checkincheckoutdto);
 
 		//Setting Language
@@ -81,7 +79,7 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			}
 		
 		}
-		else
+		else //language not found
 		{
 			
 			throw new RitzkidsException("Language is mandatory", RitzConstants.ERROR_CODE);
@@ -97,16 +95,19 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			}
 			else
 			{
-				YoungGust yg=ygo.get();
-				yg.setNickName(checkincheckoutdto.getNickName());
-				yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
-				yg.setLanguage(checkincheckoutdto.getLanguage().getName());
-				yg.setCreated(new Date());
-				yg.setCreatedBy(checkincheckoutdto.getCreatedBy());
-				yg.setUpdated(new Date());
-				yg.setUpdatedBy(checkincheckoutdto.getCreatedBy());
-				ygr.save(yg);
-				checkform.setYoungGust(yg);
+				try {
+						YoungGust yg=ygo.get();
+						yg.setNickName(checkincheckoutdto.getNickName());
+						yg.setAgeGroup(checkincheckoutdto.getAgeGroup());
+						yg.setLanguage(checkincheckoutdto.getLanguage().getName());
+						yg.setCreated(new Date());
+						yg.setCreatedBy(checkincheckoutdto.getCreatedBy());
+						yg.setUpdated(new Date());
+						yg.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+						ygr.save(yg);
+						checkform.setYoungGust(yg);
+				}catch (Exception e) 
+				{throw new RitzkidsException("Faild to edit Youngguest details", RitzConstants.ERROR_CODE);}
 			}
 		}
 		else
@@ -114,24 +115,31 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			throw new RitzkidsException("Young gust data is mandatory",RitzConstants.ERROR_CODE);
 		}
 		
+		try {
+			//Save Checkin checkout form
+			checkform.setCreated(new Date());
+			checkform.setUpdated(new Date());
+			checkform.setCreatedBy(checkincheckoutdto.getCreatedBy());
+			checkform.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+			checkform.setEntryTime(new Date());
+			checkform.setCheckinStatus(true);
+			cr.save(checkform);
+		}
+		catch (Exception e) 
+		{ throw new RitzkidsException("Faild to create checkincheckout form", RitzConstants.ERROR_CODE);	}
 		
-		//Save Checkin checkout form
-		checkform.setCreated(new Date());
-		checkform.setUpdated(new Date());
-		checkform.setCreatedBy(checkincheckoutdto.getCreatedBy());
-		checkform.setUpdatedBy(checkincheckoutdto.getCreatedBy());
-		checkform.setEntryTime(new Date());
-		checkform.setCheckinStatus(true);
-		cr.save(checkform);
 		
 		//saving medical details
-		MedicalDetails md=  medicalDetailsMapper(checkincheckoutdto.getMedicalDetails());
-		md.setCheckinCheckout(checkform);
-		md.setCreated(new Date());
-		md.setUpdated(new Date());
-		md.setCreatedBy(checkincheckoutdto.getCreatedBy());
-		md.setUpdatedBy(checkincheckoutdto.getCreatedBy());
-		mr.save(md);
+		try {
+			MedicalDetails md=  medicalDetailsMapper(checkincheckoutdto.getMedicalDetails());
+			md.setCheckinCheckout(checkform);
+			md.setCreated(new Date());
+			md.setUpdated(new Date());
+			md.setCreatedBy(checkincheckoutdto.getCreatedBy());
+			md.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+			mr.save(md);
+		}catch (Exception e) 
+		{throw new RitzkidsException("Faild to create medical details", RitzConstants.ERROR_CODE);	}
 		
 		
 		//Mapping AuthorizedRelationDto to Authorized Relation
@@ -154,13 +162,16 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 					}
 					else
 					{
-						mappedRelation.setCreated(new Date());
-						mappedRelation.setUpdated(new Date());
-						mappedRelation.setCreatedBy(checkincheckoutdto.getCreatedBy());
-						mappedRelation.setUpdatedBy(checkincheckoutdto.getCreatedBy());
-						
-						mappedRelation.setCheckinCheckout(checkform);
-						ar.save(mappedRelation);
+						try {
+								mappedRelation.setCreated(new Date());
+								mappedRelation.setUpdated(new Date());
+								mappedRelation.setCreatedBy(checkincheckoutdto.getCreatedBy());
+								mappedRelation.setUpdatedBy(checkincheckoutdto.getCreatedBy());
+								mappedRelation.setCheckinCheckout(checkform);
+								ar.save(mappedRelation);
+								
+						}catch(Exception e)
+						{throw new RitzkidsException("Faild to create authorized relation data", RitzConstants.ERROR_CODE);}
 					}
 				}
 			}
@@ -174,133 +185,95 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 	}
 	
 	
-
+	//get all Checkin checkout form
 	@Override
 	public List<CheckInCheckOut> getAllCheckInCheckoutForm() throws RitzkidsException 
 	{
-		List<CheckInCheckOut> checkInCheckOuts=new ArrayList<CheckInCheckOut>();
-		//cr.findAll().forEach(checkInCheckOuts::add);
+		List<CheckInCheckOut> checkInCheckOuts=new ArrayList<>();
 		cr.findAllByOrderByCheckinCheckoutIdDesc().forEach(checkInCheckOuts::add);
 		return checkInCheckOuts;
 	}
 	
-	
+	//get Checkin check out by ID
 	@Override
 	public CheckInCheckOut getCheckInCheckoutForm(int cid) throws RitzkidsException 
 	{
-		if(!cr.findById(cid).isPresent())
+		Optional<CheckInCheckOut> checkinO=cr.findById(cid);
+		
+		if(!checkinO.isPresent())
 		{
 			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
 		}
 		else
 		{
-			return cr.findById(cid).get();
+			return checkinO.get();
 		}
 	}
 	
 	
 	
-	
+	//check out method
 	@Override
 	public int updateCheckinCheckout(CheckInCheckOutStatsUpdationDto cdto) throws RitzkidsException 
 	{
-		
-		if(!cr.findById(cdto.getCheckinID()).isPresent())
+		Optional<CheckInCheckOut> cfo=cr.findById(cdto.getCheckinID());
+
+		if(!cfo.isPresent())
 		{
 			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
 		}
 		else
 		{
+			//if self checkout 
 			
-			Optional<CheckInCheckOut> cfo=cr.findById(cdto.getCheckinID());
 			CheckInCheckOut cf=cfo.get();
 			if(cf.isSelfCheckout())
 			{
-				cf.setUpdated(new Date());
-				cf.setUpdatedBy(cdto.getUpdatedBy());
-				cf.setCheckinStatus(cdto.getStatus());
-				cf.setExitTime(new Date());
-				cr.save(cf);
+				try {
+						cf.setUpdated(new Date());
+						cf.setUpdatedBy(cdto.getUpdatedBy());
+						cf.setCheckinStatus(cdto.getStatus());
+						cf.setExitTime(new Date());
+						cr.save(cf);
+				}catch(Exception e) 
+				{throw new RitzkidsException("Faild to checkout",RitzConstants.ERROR_CODE);}
 			}
 			else
 			{
-				cf.setCheckinStatus(cdto.getStatus());
-				cf.setCheckinCheckoutId(cdto.getCheckinID());
-				cf.setCheckinStatus(false);
-				cf.setUpdated(new Date());
-				cf.setUpdatedBy(cdto.getUpdatedBy());
-				cf.setExitTime(new Date());
-				cr.save(cf);
+				try {
+						cf.setCheckinStatus(cdto.getStatus());
+						cf.setCheckinCheckoutId(cdto.getCheckinID());
+						cf.setCheckinStatus(false);
+						cf.setUpdated(new Date());
+						cf.setUpdatedBy(cdto.getUpdatedBy());
+						cf.setExitTime(new Date());
+						cr.save(cf);
+				}catch(Exception e)
+				{throw new RitzkidsException("Faild to update checkout form",RitzConstants.ERROR_CODE);}
 	
-				  if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
-				  { 
-					  throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE); 
-				  } 
-				  else 
-				  {
-				  
-				  Optional<AuthorizedRelation> aro=ar.findById(cdto.getAuthorizedID()); AuthorizedRelation
-				  arelation=aro.get(); arelation.setCheckedout(cdto.getStatus());
-				  arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
-				  arelation.setUpdated(new Date());
-				  arelation.setUpdatedBy(cdto.getUpdatedBy());
-				  ar.save(arelation);
-				  
-				  }
+				if(!ar.findById(cdto.getAuthorizedID()).isPresent()) 
+				{ 
+					throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE); 
+				} 
+				else 
+				{
+					try {
+							Optional<AuthorizedRelation> aro=ar.findById(cdto.getAuthorizedID()); 
+							AuthorizedRelation arelation=aro.get(); 
+							arelation.setIsCheckedout(true);
+							arelation.setAuthorizedRelationId(cdto.getAuthorizedID()); 
+							arelation.setUpdated(new Date());
+							arelation.setUpdatedBy(cdto.getUpdatedBy());
+							ar.save(arelation);
+					}catch(Exception e)
+					{throw new RitzkidsException("Faild to update authorized relation ", RitzConstants.ERROR_CODE);}
+				}
 			}
 		}
 			 
 		return 0;
 	}
-	
-	
-	
-	
 
-	@Deprecated
-	@Override
-	public int updateCheckinCheckoutStatus(boolean status, int cid, int arid) throws RitzkidsException 
-	{
-		
-		if(!cr.findById(cid).isPresent())
-		{
-			throw new RitzkidsException("Invalid CheckinCheckout ID",RitzConstants.ERROR_CODE);
-		}
-		else
-		{
-			Optional<CheckInCheckOut> cfo=cr.findById(cid);
-			CheckInCheckOut cf=cfo.get();
-			cf.setCheckinStatus(status);
-			cf.setCheckinCheckoutId(cid);
-			cf.setCheckinStatus(false);
-			cf.setUpdated(new Date());
-			cr.save(cf);
-			
-			if(!ar.findById(arid).isPresent())
-			{
-				throw new RitzkidsException("Invalid Authorised ID",RitzConstants.ERROR_CODE);
-			}
-			else
-			{
-			
-				Optional<AuthorizedRelation> aro=ar.findById(arid);
-				AuthorizedRelation arelation=aro.get();
-				arelation.setCheckedout(status);
-				arelation.setAuthorizedRelationId(arid);
-				arelation.setUpdated(new Date());
-				ar.save(arelation);
-				
-			}
-			
-		}
-		return 0;
-	}
-	
-	
-	
-	
-	
-	
 
 	@Override
 	public int updateCheckinCheckout(CheckInCheckOutDto cdto,int cid) throws RitzkidsException 
@@ -316,17 +289,18 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			//Updating Authorized details
 			Set<AuthorizedRelation> ars=ck.getAutorizedRelation();
 			Iterator<AuthorizedRelation> itr=ars.iterator(); 
-			
-			AuthorizedRelation aro;
-			while(itr.hasNext()) 
-			{ 
-				aro=itr.next();
-				aro.setCheckinCheckout(ck);
-				aro.setUpdated(new Date());
-				ar.save(aro);
-				
-			}
-			
+			try {
+				AuthorizedRelation aro;
+				while(itr.hasNext()) 
+				{ 
+					aro=itr.next();
+					aro.setCheckinCheckout(ck);
+					aro.setUpdated(new Date());
+					ar.save(aro);
+					
+				}
+			}catch (Exception e) {throw new RitzkidsException("faild to update authorized relation data", RitzConstants.ERROR_CODE);}
+		
 			Optional<YoungGust> ygo=ygr.findById(cdto.getYoungGust().getYoungGustId());
 			if(!ygo.isPresent())
 			{
@@ -334,10 +308,14 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			}
 			else
 			{
-				YoungGust yg=ygo.get();
-				yg.setNickName(cdto.getNickName());
-				yg.setAgeGroup(cdto.getAgeGroup());
-				ygr.save(yg);
+				try {
+			
+					YoungGust yg=ygo.get();
+					yg.setNickName(cdto.getNickName());
+					yg.setAgeGroup(cdto.getAgeGroup());
+					ygr.save(yg);
+					
+				}catch (Exception e) {throw new RitzkidsException("Faild to update young guest", RitzConstants.ERROR_CODE);};
 			
 			}
 			
@@ -351,14 +329,17 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 				}
 				else
 				{
-					int md_id=mr.getMedicalDetailsBycheckinCheckoutCheckinCheckoutId(cid).get().getMedicalDetailsId();
-					MedicalDetails md=ck.getMedicalDetails();
-					md.setMedicalDetailsId(md_id);
-					md.setCheckinCheckout(ck);
-					md.setUpdated(new Date());
-					md.setCreatedBy(cdto.getCreatedBy());
-					md.setUpdatedBy(cdto.getCreatedBy());
-					mr.save(md);
+					try {
+					
+						int md_id=mr.getMedicalDetailsBycheckinCheckoutCheckinCheckoutId(cid).get().getMedicalDetailsId();
+						MedicalDetails md=ck.getMedicalDetails();
+						md.setMedicalDetailsId(md_id);
+						md.setCheckinCheckout(ck);
+						md.setUpdated(new Date());
+						md.setCreatedBy(cdto.getCreatedBy());
+						md.setUpdatedBy(cdto.getCreatedBy());
+						mr.save(md);
+					}catch (Exception e) {throw new RitzkidsException("Faild to update medical details", RitzConstants.ERROR_CODE);}
 				}
 			}
 			else
@@ -367,10 +348,15 @@ public class CheckInCheckOut_ServiceImpl implements CheckInCheckOut_Service
 			}
 			
 		}
-		ck.setCheckinStatus(true);
-		ck.setUpdated(new Date());
-		ck.setUpdatedBy(cdto.getUpdatedBy());
-		cr.save(ck);
+		
+		try {
+			ck.setCheckinStatus(true);
+			ck.setUpdated(new Date());
+			ck.setUpdatedBy(cdto.getUpdatedBy());
+			cr.save(ck);
+		}catch(Exception e) {throw new RitzkidsException("Faild to update checkin data",RitzConstants.ERROR_CODE);}
+		
+		
 		return 0;
 	}
 

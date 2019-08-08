@@ -42,7 +42,4 @@ public class CORSFilter implements Filter {
 	public void init(FilterConfig filterConfig) {
     }
 
-    public void destroy() {
-    }
-
 }

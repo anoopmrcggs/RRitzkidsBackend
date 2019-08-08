@@ -2,7 +2,8 @@
    <head></head>
    <body>
        <div class="container">
-           <div class="row">
+            <div align="center"><img height="80" width="600" th:src="*{logo}" alt="Sign"/></div>
+            <div class="row">
             <div align="center">   <h2 th:utext="${head1}"></h2></div>
                <p><mark th:utext="${body1}"></mark></p>
                 <span class="col-md-3" style="float:right">
@@ -30,10 +31,10 @@
                <div align="center">
                   <span> <img th:src="*{s4}" alt="Sign"/></span>
                </div>
-               <div align="center">
-                  <span>Authorized pickup:</span><span th:text="${name} " ></span>
-               </div>
            </div>
+           <div class="row" align="center">
+                  <span>Guardian Name: </span><span style="margin-top: 10px; font-weight='bold'" th:text="${name} " ></span>
+          </div>
        </div>
    </body>
 </html>
